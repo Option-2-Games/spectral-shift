@@ -1,6 +1,6 @@
 # Spectral Shift
 
-A 2D adventure into color and shattered realities.
+A 2D puzzle adventure into color and a reality ripped apart.
 
 This game is under active development.
 It is intended to be the full-fledged version of
