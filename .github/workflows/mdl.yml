@@ -1,0 +1,33 @@
+name: Markdown Lint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  repo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1.111.0
+      with:
+        bundler-cache: true
+    - name: Install dependencies
+      run: gem install mdl
+    - name: Lint
+      run: mdl .
+  wiki:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: ${{github.repository}}.wiki
+    - uses: ruby/setup-ruby@v1.111.0
+      with:
+        bundler-cache: true
+    - name: Install dependencies
+      run: gem install mdl
+    - name: Lint
+      run: mdl .
