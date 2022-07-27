@@ -117,3 +117,6 @@ $RECYCLE.BIN/
 
 # Assets
 Assets/
+
+# Python environment
+venv/
