@@ -11,7 +11,22 @@ config_version=4
 [application]
 
 config/name="Spectral Shift"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/example_scene.tscn"
+
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+gdscript/warnings/unused_class_variable=true
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/dpi/allow_hidpi=true
 
 [physics]
 
