@@ -1,0 +1,35 @@
+name: Autoformat and Linting
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  autoformat-and-linting:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+
+    - uses: actions/setup-python@v4
+      with:
+        ruby-version: '3.10'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: pip install gdtoolkit
+
+    - name: Format code
+      run: gdformat Source/
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        message: "Autoformat scripts"
+
+    - name: Lint code
+      run: gdlint Scripts/
