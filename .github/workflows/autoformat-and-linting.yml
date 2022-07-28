@@ -25,7 +25,7 @@ jobs:
       run: pip install gdtoolkit
 
     - name: Format code
-      run: gdformat Source/
+      run: gdformat Scripts/
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
