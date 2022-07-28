@@ -6,12 +6,26 @@
         {
             "label": "lint",
             "type": "shell",
-            "command": "gdlint Scripts/"
+            "command": "gdlint Scripts/",
+            "problemMatcher": {
+                "owner": "gdlint",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                }
+            }
         },
         {
             "label": "format",
             "type": "shell",
-            "command": "gdformat Scripts/"
+            "command": "gdformat Scripts/",
+            "problemMatcher": []
         }
     ]
 }
