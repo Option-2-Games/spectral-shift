@@ -22,7 +22,7 @@ jobs:
         cache: 'pip'
 
     - name: Install dependencies
-      run: pip install gdtoolkit
+      run: pip install -r .github/requirements.txt
 
     - name: Format code
       run: gdformat Scripts/
