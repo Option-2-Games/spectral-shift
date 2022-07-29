@@ -29,7 +29,7 @@ jobs:
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        message: "Autoformat scripts"
+        commit_message: "Autoformat scripts"
 
     - name: Lint code
       run: gdlint Scripts/

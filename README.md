@@ -35,6 +35,7 @@ Other things to install are:
     generation happen automatically when you make a pull request on GitHub.
 - Clone this repo with `git clone https://github.com/Option-2-Games/Spectral-Shift.git`
 - Launch Godot, and import the cloned repo
-- (Optional) [Configure Visual Studio Code](https://docs.godotengine.org/en/stable/tutorials/editor/external_editor.html?highlight=external%20editor) to be the default code editor for Godot.
+- (Optional) [Configure Visual Studio Code](shorturl.at/pq159) to be the
+  default code editor for Godot.
 
 Start creating!
