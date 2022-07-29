@@ -25,6 +25,5 @@ jobs:
     - name: Make export location
       run: md docs
 
-    # - name: Build
-    #   shell: powershell
-    #   run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
+    - name: Build
+      run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
