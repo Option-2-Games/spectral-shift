@@ -27,7 +27,7 @@ jobs:
     
     - name: LS
       shell: cmd
-      run: ls
+      run: ls "Natural Docs"
     
     - name: Generate Docs
       shell: cmd
