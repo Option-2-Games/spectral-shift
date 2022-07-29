@@ -18,11 +18,11 @@ jobs:
 
     - name: Download Natural Docs
       shell: powershell
-      run: wget https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip
+      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"
 
     - name: Extract
       shell: powershell
-      run: tar -xf Natural_Docs_2.2.zip
+      run: tar -xf nd.zip
 
     - name: Make export location
       shell: powershell
