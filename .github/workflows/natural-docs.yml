@@ -24,9 +24,10 @@ jobs:
       shell: powershell
       run: tar -xf Natural_Docs_2.2.zip
 
-    # - name: Create docs folder
-    #   shell: powershell
-    #   run: md docs
+    - name: Create docs folder
+      shell: powershell
+      run: md docs
+
     - name: Generate docs
       shell: powershell
       run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
