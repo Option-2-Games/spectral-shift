@@ -24,3 +24,6 @@ jobs:
     
     - name: Create docs folder
       run: mkdir docs
+
+    - name: Generate docs
+      run: & '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
