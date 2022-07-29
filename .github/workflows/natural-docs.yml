@@ -17,17 +17,14 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Download Natural Docs
-      shell: powershell
       run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"
 
     - name: Extract
-      shell: powershell
       run: tar -xf nd.zip
 
     - name: Make export location
-      shell: powershell
       run: md docs
 
-    # - name: Generate docs
+    # - name: Build
     #   shell: powershell
     #   run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
