@@ -9,25 +9,18 @@ on:
 jobs:
 
   generate-docs:
-
     runs-on: windows-latest
-
     steps:
-
     - uses: actions/checkout@v3
-
     - name: Download Natural Docs
       shell: powershell
       run: wget https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip
-
     - name: Extract
       shell: powershell
       run: tar -xf Natural_Docs_2.2.zip
-    
     - name: Create docs folder
       shell: powershell
       run: mkdir docs
-
     - name: Generate docs
       shell: powershell
       run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
