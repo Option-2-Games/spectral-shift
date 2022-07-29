@@ -27,4 +27,4 @@ jobs:
     
     - name: Generate Docs
       shell: cmd
-      run: call "Natural Docs\NaturalDocs.exe"
+      run: call "Natural Docs\NaturalDocs.exe" .\.github\nd_config
