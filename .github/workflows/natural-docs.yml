@@ -1,0 +1,26 @@
+name: Generate Documentation
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  generate-docs:
+
+    runs-on: windows-latest
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: Download Natural Docs
+      run: wget https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip
+
+    - name: Extract
+      run: tar -xf Natural_Docs_2.2.zip
+    
+    - name: Create docs folder
+      run: mkdir docs
