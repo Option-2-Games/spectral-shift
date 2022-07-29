@@ -27,7 +27,6 @@ jobs:
     # - name: Create docs folder
     #   shell: powershell
     #   run: md docs
-
     - name: Generate docs
       shell: powershell
       run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
