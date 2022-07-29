@@ -23,7 +23,7 @@ jobs:
     - name: Extract
       shell: powershell
       run: tar -xf Natural_Docs_2.2.zip
-    
+
     # - name: Create docs folder
     #   shell: powershell
     #   run: md docs
