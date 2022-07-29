@@ -25,8 +25,6 @@ jobs:
     - name: Make export location
       run: md docs
     
-    - name: Build
-      run: ls '.\Natural Docs\'
-
-    # - name: Build
-    #   run: '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
+    - name: Generate Docs
+      shell: cmd
+      run: call '.\Natural Docs\NaturalDocs.exe' .\.github\nd_config\
