@@ -18,10 +18,13 @@ jobs:
       run: wget https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_x11.64.zip
     
     - name: Extract Godot
-      run: tar -xf Godot_v3.4.4-stable_x11.64.zip
+      run: unzip -xf Godot_v3.4.4-stable_x11.64.zip
     
     - name: Download Gut
       run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip
 
     - name: Extract Gut
-      run: tar -xf Gut-7.2.0.zip
+      run: unzip -xf Gut-7.3.0.zip -C addons/gut
+    
+    - name: Try Godot
+      run: ./Godot_v3.4.4-stable_x11.64 --version
