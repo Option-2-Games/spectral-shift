@@ -48,6 +48,8 @@ jobs:
     needs: [generate-docs]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Download Artifacts
         uses: actions/download-artifact@v1
         with:
