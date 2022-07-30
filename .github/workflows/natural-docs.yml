@@ -23,11 +23,19 @@ jobs:
 
     - uses: actions/checkout@v3
 
-    - name: Download Natural Docs
-      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"
-
-    - name: Extract
-      run: tar -xf nd.zip
+    - name: Cache Natural Docs
+      id: cache-natural-docs
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-natural-docs-2.2
+      with:
+        path: "Natural Docs"
+        key: ${{ runner.os }}-${{ env.cache-name }}
+    
+    - if: ${{ steps.cache-natural-docs.outputs.cache-hit == 'false' }}
+      name: Install Natural docs if miss
+      continue-on-error: false
+      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"; tar -xf nd.zip
 
     - name: Make export location
       run: md docs
