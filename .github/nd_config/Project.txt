@@ -6,8 +6,8 @@
 # Project Information
 # ------------------------------------------------------------------------
 
-Title: Spectral Shift
-Subtitle: A 2D puzzle adventure into color and a reality ripped apart
+Title: Spectral Shift Code Documentation
+Subtitle: Code reference for the 2D puzzle game
 
 Timestamp: Last generated month day, year
 #    m     - Single digit month, when possible.  January is "1".
