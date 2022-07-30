@@ -115,8 +115,9 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,godot,macos,linux,windows
 
-# Assets
-Assets/
+# Assets and addons
+assets/
+addons/
 
 # Python environment
 venv/
