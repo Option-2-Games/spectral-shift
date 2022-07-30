@@ -20,13 +20,15 @@ Other things to install are:
 
 - Code editor: [Visual Studio Code](https://code.visualstudio.com)
   - Language support: [godot-tools](https://marketplace.visualstudio.com/items?itemName=geequlim.godot-tools)
+  - Unit testing support: [gut-extension](https://marketplace.visualstudio.com/items?itemName=bitwes.gut-extension)
+- Unit testing addon: [Gut](https://github.com/bitwes/Gut/wiki/Install)
 - Asset creation and management: [Plastic SCM Cloud Edition](https://www.plasticscm.com/download)
-- Godot Toolkit: `pip install gdtoolkit`
+- Godot Toolkit: install Python ≥ 3.7 then `pip install gdtoolkit`
 - Code documentation generator: [Natural Docs](https://www.naturaldocs.org/download/)
 
 ### Setup instructions
 
-- Install the required applications above.
+- Install the Godot Engine (required)
 - (Optional) Install the optional applications.
   - Asset creation and management are currently limited to the maintainers of
     this game due to the limited number of free seats in the asset management
