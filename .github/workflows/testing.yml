@@ -29,5 +29,8 @@ jobs:
     - name: Extract Gut
       run: unzip v7.3.0.zip -d addons/
     
+    - name: Run Godot once
+      run: ./Godot_v3.4.4-stable_linux_server.64 -d -q
+
     - name: Run tests
-      run: ./Godot_v3.4.4-stable_linux_server.64 -d -s --path $PWD addons/gut/gut_cmdln.gd
+      run: ./Godot_v3.4.4-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd
