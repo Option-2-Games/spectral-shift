@@ -118,7 +118,6 @@ $RECYCLE.BIN/
 # Assets and addons
 assets/
 addons/
-.gut_*
 
 # Python environment
 venv/
