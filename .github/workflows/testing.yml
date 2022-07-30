@@ -24,7 +24,7 @@ jobs:
       run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip
 
     - name: make addons extract location
-      run: mkddir addons
+      run: mkdir addons
 
     - name: Extract Gut
       run: unzip v7.3.0.zip -C addons
