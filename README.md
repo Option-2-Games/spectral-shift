@@ -33,8 +33,9 @@ Other things to install are:
   - Asset creation and management are currently limited to the maintainers of
     this game due to the limited number of free seats in the asset management
     system.
-  - Autoformatting, linting, static analysis, and code documentation
-    generation happen automatically when you make a pull request on GitHub.
+  - Autoformatting, linting, static analysis, testing, builds, and code
+    documentation generation happen automatically when you make a pull request
+    on GitHub.
 - Clone this repo with `git clone https://github.com/Option-2-Games/Spectral-Shift.git`
 - Launch Godot, and import the cloned repo
 - (Optional) [Configure Visual Studio Code](shorturl.at/pq159) to be the
