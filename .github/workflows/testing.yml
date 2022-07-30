@@ -23,8 +23,11 @@ jobs:
     - name: Download Gut
       run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip
 
+    - name: make addons extract location
+      run: mkddir addons
+
     - name: Extract Gut
-      run: unzip v7.3.0.zip -C addons/gut
+      run: unzip v7.3.0.zip -C addons
     
     - name: Try Godot
       run: ls && ./Godot_v3.4.4-stable_x11.64 --version
