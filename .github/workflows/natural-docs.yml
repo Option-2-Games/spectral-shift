@@ -21,7 +21,8 @@ jobs:
 
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     runs-on: windows-latest
 
     steps:
@@ -43,12 +44,12 @@ jobs:
     
     - name: Setup Pages
       uses: actions/configure-pages@v1
-    
+
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: 'docs'
+        path: '.\docs'
 
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@main
