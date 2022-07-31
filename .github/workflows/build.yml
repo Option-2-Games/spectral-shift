@@ -1,8 +1,10 @@
 name: Build
 
 on:
-  workflow_call:
   workflow_dispatch:
+  workflow_run:
+    workflows: [Test]
+    types: [completed]
 
 # Change version values here
 env:
@@ -13,6 +15,8 @@ jobs:
 
   windows:
     name: Windows
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     runs-on: ubuntu-latest
     container:
@@ -42,6 +46,8 @@ jobs:
   linux:
     name: Linux
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:latest
@@ -69,6 +75,8 @@ jobs:
 
   mac:
     name: Mac
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     runs-on: ubuntu-latest
     container:

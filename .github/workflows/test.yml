@@ -49,8 +49,3 @@ jobs:
 
     - name: 🧪 Run tests
       run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd
-
-  run-builds:
-    name: Run Builds
-    needs: gut-tests
-    uses: ./.github/workflows/build.yml
