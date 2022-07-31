@@ -22,7 +22,6 @@ jobs:
         bundler-cache: true
 
     - name: 📦 Install dependencies
-      name: Install dependencies
       run: gem install mdl
 
     - name: 🧹 Lint
