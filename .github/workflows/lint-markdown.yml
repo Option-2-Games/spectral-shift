@@ -9,7 +9,7 @@ jobs:
   lint:
     strategy:
       matrix:
-        repo: [ repo, wiki ]
+        repo: [ Repo, Wiki ]
   
     name: Lint ${{ matrix.repo }}
 
@@ -18,18 +18,18 @@ jobs:
     steps:
 
     # Checkout repo
-    - if: matrix.repo == 'repo'
+    - if: matrix.repo == 'Repo'
       name: 🛎 Checkout Repo
       uses: actions/checkout@v3
 
     # Checkout wiki
-    - if: matrix.repo == 'wiki'
+    - if: matrix.repo == 'Wiki'
       name: 🛎 Checkout Wiki
       uses: actions/checkout@v3
       with:
         repository: ${{github.repository}}.wiki
 
-    - name: ♦️ Setup Ruby
+    - name: 🔺 Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1.2
