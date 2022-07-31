@@ -1,9 +1,8 @@
 name: Build
 
 on:
-  pull_request:
-    branches: [ "main" ]
   workflow_call:
+  workflow_dispatch:
 
 # Change version values here
 env:
