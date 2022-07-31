@@ -2,9 +2,8 @@ name: Build
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [Gut Tests]
-    types: [completed]
+  pull_request:
+    branches: [ "main" ]
 
 # Change version values here
 env:
