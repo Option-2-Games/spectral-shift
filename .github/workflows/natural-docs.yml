@@ -19,9 +19,10 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
 
-    - name: Cache Natural Docs
+    - name: 💾 Cache Natural Docs
       id: cache-nd
       uses: actions/cache@v3
       with:
@@ -29,19 +30,19 @@ jobs:
         # Change key on Natural docs update
         key: ${{ runner.os }}-2.2
     
-    - name: Install Natural docs if miss
+    - name: 📦 Install Natural docs if miss
       if: steps.cache-nd.outputs.cache-hit != 'true'
       # Change URL on Natural docs update
       run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"; tar -xf nd.zip
 
-    - name: Make export location
+    - name: ☑️ Make export location
       run: md docs
     
-    - name: Generate Docs
+    - name: 🧾 Generate Docs
       shell: cmd
       run: call "Natural Docs\NaturalDocs.exe" .\.github\nd_config
     
-    - name: Upload Artifacts
+    - name: ⬆️ Upload Artifacts
       uses: actions/upload-artifact@v1
       with:
         name: docs
@@ -53,14 +54,16 @@ jobs:
     needs: [generate-docs]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
 
-      - name: Download Artifacts
+      - name: 🛎 Checkout
+        uses: actions/checkout@v3
+
+      - name: ⬇️ Download Artifacts
         uses: actions/download-artifact@v1
         with:
           name: docs
 
-      - name: Deploy 🚀
+      - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: 'docs'

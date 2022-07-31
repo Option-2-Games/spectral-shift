@@ -12,17 +12,20 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
 
-    - uses: ruby/setup-ruby@v1.111.0
+    - name: ♦️ Setup Ruby
+      uses: ruby/setup-ruby@v1.111.0
       with:
         ruby-version: 3.1.2
         bundler-cache: true
 
-    - name: Install dependencies
+    - name: 📦 Install dependencies
+      name: Install dependencies
       run: gem install mdl
 
-    - name: Lint
+    - name: 🧹 Lint
       run: mdl .
 
 
@@ -31,18 +34,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-    - uses: actions/checkout@v3
+    
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
       with:
         repository: ${{github.repository}}.wiki
 
-    - uses: ruby/setup-ruby@v1.111.0
+    - name: ♦️ Setup Ruby
+      uses: ruby/setup-ruby@v1.111.0
       with:
         ruby-version: 3.1.2
         bundler-cache: true
 
-    - name: Install dependencies
+    - name: 📦 Install dependencies
       run: gem install mdl
 
-    - name: Lint
+    - name: 🧹 Lint
       run: mdl .

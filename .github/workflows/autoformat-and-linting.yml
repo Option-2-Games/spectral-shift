@@ -12,24 +12,26 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
       with:
         ref: ${{ github.head_ref }}
 
-    - uses: actions/setup-python@v4
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
         cache: 'pip'
 
-    - name: Install dependencies
+    - name: 📦 Install dependencies
       run: pip install -r .github/requirements.txt
 
-    - name: Format code
-      run: gdformat Scripts/
+    - name: 🧼 Format code
+      run: gdformat scripts/
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Autoformat scripts"
 
-    - name: Lint code
-      run: gdlint Scripts/
+    - name: 🧹 Lint code
+      run: gdlint scripts/
