@@ -24,11 +24,11 @@ jobs:
     - name: Download Gut
       run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip
 
-    - name: make addons extract location
-      run: mkdir addons
-
     - name: Extract Gut
-      run: unzip v7.3.0.zip -d addons/
+      run: unzip v7.3.0.zip
+    
+    - name: Rename into addons
+      run: mv Gut-7.3.0 addons
     
     - name: show addons
       run: ls addons
