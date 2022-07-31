@@ -27,8 +27,8 @@ jobs:
     - name: Extract Gut
       run: unzip v7.3.0.zip
     
-    - name: Rename into addons
-      run: mv Gut-7.3.0 addons
+    - name: Extract addons folder
+      run: mv Gut-7.3.0/addons addons
     
     - name: show addons
       run: ls addons
