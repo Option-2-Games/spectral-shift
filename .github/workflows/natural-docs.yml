@@ -11,6 +11,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+# Change version values here
+env:
+  ND_VERSION: 2.2
+
 jobs:
 
   generate-docs:
@@ -27,13 +31,11 @@ jobs:
       uses: actions/cache@v3
       with:
         path: "Natural Docs"
-        # Change key on Natural docs update
-        key: ${{ runner.os }}-nd-2.2
+        key: ${{ runner.os }}-nd-$ND_VERSION
     
     - name: 📦 Install Natural docs if cache miss
       if: steps.cache-nd.outputs.cache-hit != 'true'
-      # Change URL on Natural docs update
-      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"; tar -xf nd.zip
+      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/$ND_VERSION/Natural_Docs_$ND_VERSION.zip" -OutFile "nd.zip"; tar -xf nd.zip
 
     - name: ☑️ Make export location
       run: md docs

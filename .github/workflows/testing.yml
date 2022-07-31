@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Change version values here
+env:
+  GODOT_VERSION: 3.4.4
+  GUT_VERSION: 7.3.0
+
 jobs:
 
   test:
@@ -19,28 +24,28 @@ jobs:
       id: cache-gd
       uses: actions/cache@v3
       with:
-        # Change key on Godot update
-        path: Godot_v3.4.4-stable_linux_server.64
-        key: ${{ runner.os }}-gd-3.4.4
+        path: Godot_v$GODOT_VERSION-stable_linux_server.64
+        key: ${{ runner.os }}-gd-$GODOT_VERSION
     
     - name: 📦 Download Godot if cache miss
       if: steps.cache-gd.outputs.cache-hit != 'true'
-      # Change URL on Godot update
-      run: wget https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_linux_server.64.zip && unzip Godot_v3.4.4-stable_linux_server.64.zip
+      run: |
+        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_server.64.zip
+        unzip Godot_v$GODOT_VERSION-stable_linux_server.64.zip
 
     - name: 💾 Cache Gut
       id: cache-gut
       uses: actions/cache@v3
       with:
         path: addons
-        # Change key on Gut update
-        key: ${{ runner.os }}-gut-7.3.0
+        key: ${{ runner.os }}-gut-$GUT_VERSION
 
     - name: 📦 Download Gut if cache miss
       if: steps.cache-gut.outputs.cache-hit != 'true'
-      # Change URL on Gut update
-      run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip && unzip v7.3.0.zip && mv Gut-7.3.0/addons addons
+      run: |
+        wget https://github.com/bitwes/Gut/archive/refs/tags/v$GUT_VERSION.zip
+        unzip v$GUT_VERSION.zip
+        mv Gut-$GUT_VERSION/addons addons
 
     - name: 🧪 Run tests
-      # Change command on Godot update
-      run: ./Godot_v3.4.4-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd
+      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd
