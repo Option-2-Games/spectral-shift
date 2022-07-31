@@ -52,5 +52,5 @@ jobs:
 
   run-builds:
     name: Run Builds
-    needs: gut-test
+    needs: gut-tests
     uses: ./.github/workflows/build.yml
