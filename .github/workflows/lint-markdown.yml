@@ -1,4 +1,4 @@
-name: Markdown Lint
+name: Lint Markdown
 
 on:
   pull_request:
@@ -6,35 +6,25 @@ on:
 
 jobs:
 
-  repo:
+  lint:
+    strategy:
+      matrix:
+        repo: [ repo, wiki ]
+  
+    name: Lint ${{ matrix.repo }}
 
     runs-on: ubuntu-latest
 
     steps:
 
-    - name: 🛎 Checkout
+    # Checkout repo
+    - if: matrix.repo == repo
+      name: 🛎 Checkout Repo
       uses: actions/checkout@v3
 
-    - name: ♦️ Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.1.2
-        bundler-cache: true
-
-    - name: 📦 Install dependencies
-      run: gem install mdl
-
-    - name: 🧹 Lint
-      run: mdl .
-
-
-  wiki:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    
-    - name: 🛎 Checkout
+    # Checkout wiki
+    - if: matrix.repo == wiki
+      name: 🛎 Checkout Wiki
       uses: actions/checkout@v3
       with:
         repository: ${{github.repository}}.wiki

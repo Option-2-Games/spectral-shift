@@ -1,4 +1,4 @@
-name: Builds
+name: Build
 
 on:
   pull_request:
@@ -12,15 +12,15 @@ env:
 
 jobs:
 
-  export-windows:
-    name: Windows Export
+  windows:
+    name: Windows
 
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:latest
 
     steps:
-    
+
     - name: 🛎 Checkout
       uses: actions/checkout@v3
 
@@ -39,9 +39,9 @@ jobs:
       with:
         name: windows
         path: ../build/windows
-  
-  export-linux:
-    name: Linux Export
+
+  linux:
+    name: Linux
 
     runs-on: ubuntu-latest
     container:
@@ -67,9 +67,9 @@ jobs:
       with:
         name: linux
         path: ../build/linux
-  
-  export-macos:
-    name: Mac Export
+
+  mac:
+    name: Mac
 
     runs-on: ubuntu-latest
     container:
@@ -94,6 +94,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: mac
-        path: ../build/macos
-  
-  
+        path: ../build/mac

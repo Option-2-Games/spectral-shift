@@ -1,4 +1,4 @@
-name: Generate Documentation
+name: Generate Code Documentation
 
 on:
   push:
@@ -18,7 +18,7 @@ env:
 jobs:
 
   generate-docs:
-    
+    name: Generate Docs
     runs-on: windows-latest
 
     steps:
@@ -52,7 +52,7 @@ jobs:
     
     
   deploy-docs:
-
+    name: Deploy Docs
     needs: [generate-docs]
     runs-on: ubuntu-latest
     steps:

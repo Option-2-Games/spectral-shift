@@ -1,4 +1,4 @@
-name: Tests
+name: Test
 
 on:
   pull_request:
@@ -11,8 +11,8 @@ env:
 
 jobs:
 
-  test:
-
+  gut-tests:
+    name: Gut Tests
     runs-on: ubuntu-latest
 
     steps:
