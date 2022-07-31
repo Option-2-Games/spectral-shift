@@ -12,86 +12,30 @@ env:
 
 jobs:
 
-  windows:
-    name: Windows
+  build:
+    strategy:
+      matrix:
+        platform: [ windows, linux, mac ]
+
+    name: Build ${{ matrix.platform }}
 
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:latest
+      image: microbob/godot-exporter:latest
 
     steps:
 
     - name: 🛎 Checkout
       uses: actions/checkout@v3
-
-    - name: Copy in build template
-      run: |
-        mkdir -v -p ~/.local/share/godot/templates
-        mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
-
-    - name: Build
-      run: |
-        mkdir -v -p ../build/windows
-        godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: windows
-        path: ../build/windows
-
-  linux:
-    name: Linux
-
-    runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:latest
-
-    steps:
     
-    - name: 🛎 Checkout
-      uses: actions/checkout@v3
+    - name: 📝 Set export name
+      run: EXPORT_NAME=${{ env.EXPORT_NAME }}
 
-    - name: Copy in build template
-      run: |
-        mkdir -v -p ~/.local/share/godot/templates
-        mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
+    - name: 📦 Build
+      run: source ../build/${{ matrix.platform }}-export.sh
 
-    - name: Build
-      run: |
-        mkdir -v -p ../build/linux
-        godot -v --export "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
-
-    - name: Upload Artifact
+    - name: ⬆️ Upload Artifact
       uses: actions/upload-artifact@v1
       with:
-        name: linux
-        path: ../build/linux
-
-  mac:
-    name: Mac
-
-    runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:latest
-
-    steps:
-    
-    - name: 🛎 Checkout
-      uses: actions/checkout@v3
-
-    - name: Copy in build template
-      run: |
-        mkdir -v -p ~/.local/share/godot/templates
-        mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
-
-    - name: Build
-      run: |
-        mkdir -v -p ../build/mac
-        godot -v --export "Mac OSX" ../build/mac/$EXPORT_NAME.exe
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: mac
-        path: ../build/mac
+        name: ${{ matrix.platform }}
+        path: ../build/${{ matrix.platform }}
