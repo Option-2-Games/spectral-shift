@@ -16,7 +16,7 @@ jobs:
 
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:${{ env.GODOT_VERSION }}
+      image: barichello/godot-ci:$GODOT_VERSION
 
     steps:
     
