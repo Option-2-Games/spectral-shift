@@ -1,0 +1,43 @@
+name: Builds
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+
+# Change version values here
+env:
+  GODOT_VERSION: 3.4.4
+  EXPORT_NAME: spectral-shift
+
+jobs:
+
+  export-windows:
+
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:${{ env.GODOT_VERSION }}
+
+    steps:
+    
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
+
+    - name: Copy in build template
+      run: |
+        mkdir -v -p ~/.local/share/godot/templates
+        mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
+
+    - name: Windows Build
+      run: |
+        mkdir -v -p build/windows
+        cd $EXPORT_NAME
+        godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: windows
+        path: build/windows
+  
+  
