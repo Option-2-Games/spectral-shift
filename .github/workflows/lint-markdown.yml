@@ -18,12 +18,12 @@ jobs:
     steps:
 
     # Checkout repo
-    - if: matrix.repo == repo
+    - if: matrix.repo == 'repo'
       name: 🛎 Checkout Repo
       uses: actions/checkout@v3
 
     # Checkout wiki
-    - if: matrix.repo == wiki
+    - if: matrix.repo == 'wiki'
       name: 🛎 Checkout Wiki
       uses: actions/checkout@v3
       with:
