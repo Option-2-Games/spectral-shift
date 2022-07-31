@@ -30,6 +30,12 @@ jobs:
     - name: Extract Gut
       run: unzip v7.3.0.zip -d addons/
     
+    - name: show addons
+      run: ls addons
+
+    - name: show gut
+      run: ls addons/gut
+    
     - name: Run Godot Once
       run: ./Godot_v3.4.4-stable_linux_headless.64 -e -d -q
 
