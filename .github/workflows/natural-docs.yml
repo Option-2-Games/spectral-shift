@@ -31,11 +31,11 @@ jobs:
       uses: actions/cache@v3
       with:
         path: "Natural Docs"
-        key: ${{ runner.os }}-nd-$ND_VERSION
+        key: ${{ runner.os }}-nd-${{ env.ND_VERSION }}
     
     - name: 📦 Install Natural docs if cache miss
       if: steps.cache-nd.outputs.cache-hit != 'true'
-      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/$ND_VERSION/Natural_Docs_$ND_VERSION.zip" -OutFile "nd.zip"; tar -xf nd.zip
+      run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/$env:ND_VERSION/Natural_Docs_$env:ND_VERSION.zip" -OutFile "nd.zip"; tar -xf nd.zip
 
     - name: ☑️ Make export location
       run: md docs
