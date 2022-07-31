@@ -15,7 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ windows, linux, mac ]
+        platform: [ Windows, Linux, Mac ]
 
     name: Build ${{ matrix.platform }}
 
@@ -30,12 +30,9 @@ jobs:
     
     - name: 📝 Set export name
       run: EXPORT_NAME=${{ env.EXPORT_NAME }}
-    
-    - name: Show location
-      run: pwd && ls
 
     - name: 📦 Build
-      run: source ../build/${{ matrix.platform }}-export.sh
+      run: source /root/build/${{ matrix.platform }}-export.sh
 
     - name: ⬆️ Upload Artifact
       uses: actions/upload-artifact@v1
