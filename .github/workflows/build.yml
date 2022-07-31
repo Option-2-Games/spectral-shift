@@ -30,6 +30,9 @@ jobs:
     
     - name: 📝 Set export name
       run: EXPORT_NAME=${{ env.EXPORT_NAME }}
+    
+    - name: Show location
+      run: pwd && ls
 
     - name: 📦 Build
       run: source ../build/${{ matrix.platform }}-export.sh
