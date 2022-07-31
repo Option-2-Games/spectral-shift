@@ -15,20 +15,27 @@ jobs:
     - name: 🛎 Checkout
       uses: actions/checkout@v3
 
-    - name: Download Godot
-      run: wget https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_linux_server.64.zip
+    - name: Cache Godot
+      id: cache-gd
+      uses: actions/cache@v3
+      with:
+        path: Godot_v3.4.4-stable_linux_server.64
+        key: ${{ runner.os }}-gd-3.4.4
     
-    - name: Extract Godot
-      run: unzip Godot_v3.4.4-stable_linux_server.64.zip
-    
-    - name: Download Gut
-      run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip
+    - name: Download Godot if cache miss
+      if: steps.cache-gd.outputs.cache-hit != 'true'
+      run: wget https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_linux_server.64.zip && unzip Godot_v3.4.4-stable_linux_server.64.zip
 
-    - name: Extract Gut
-      run: unzip v7.3.0.zip
-    
-    - name: Extract addons folder
-      run: mv Gut-7.3.0/addons addons
+    - name: Cache Gut
+      id: cache-gut
+      uses: actions/cache@v3
+      with:
+        path: addons
+        key: ${{ runner.os }}-gut-7.3.0
+
+    - name: Download Gut if cache miss
+      if: steps.cache-gut.outputs.cache-hit != 'true'
+      run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip && unzip v7.3.0.zip && mv Gut-7.3.0/addons addons
 
     - name: Run tests
       run: ./Godot_v3.4.4-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd

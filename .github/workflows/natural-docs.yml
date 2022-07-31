@@ -28,9 +28,9 @@ jobs:
       with:
         path: "Natural Docs"
         # Change key on Natural docs update
-        key: ${{ runner.os }}-2.2
+        key: ${{ runner.os }}-nd-2.2
     
-    - name: 📦 Install Natural docs if miss
+    - name: 📦 Install Natural docs if cache miss
       if: steps.cache-nd.outputs.cache-hit != 'true'
       # Change URL on Natural docs update
       run: Invoke-WebRequest -Uri "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip" -OutFile "nd.zip"; tar -xf nd.zip
