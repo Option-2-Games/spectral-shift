@@ -30,14 +30,11 @@ jobs:
     - name: Extract addons folder
       run: mv Gut-7.3.0/addons addons
     
-    - name: show addons
-      run: ls addons
-
-    - name: show gut
-      run: ls addons/gut
+    - name: show dir
+      run: ls
     
-    - name: Run Godot Once
-      run: ./Godot_v3.4.4-stable_linux_headless.64 -e -d -q
+    # - name: Run Godot Once
+    #   run: ./Godot_v3.4.4-stable_linux_headless.64 -e -d -q
 
     - name: Run tests
       run: ./Godot_v3.4.4-stable_linux_headless.64 -d -q -s addons/gut/gut_cmdln.gd
