@@ -15,27 +15,32 @@ jobs:
     - name: 🛎 Checkout
       uses: actions/checkout@v3
 
-    - name: Cache Godot
+    - name: 💾 Cache Godot
       id: cache-gd
       uses: actions/cache@v3
       with:
+        # Change key on Godot update
         path: Godot_v3.4.4-stable_linux_server.64
         key: ${{ runner.os }}-gd-3.4.4
     
-    - name: Download Godot if cache miss
+    - name: 📦 Download Godot if cache miss
       if: steps.cache-gd.outputs.cache-hit != 'true'
+      # Change URL on Godot update
       run: wget https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_linux_server.64.zip && unzip Godot_v3.4.4-stable_linux_server.64.zip
 
-    - name: Cache Gut
+    - name: 💾 Cache Gut
       id: cache-gut
       uses: actions/cache@v3
       with:
         path: addons
+        # Change key on Gut update
         key: ${{ runner.os }}-gut-7.3.0
 
-    - name: Download Gut if cache miss
+    - name: 📦 Download Gut if cache miss
       if: steps.cache-gut.outputs.cache-hit != 'true'
+      # Change URL on Gut update
       run: wget https://github.com/bitwes/Gut/archive/refs/tags/v7.3.0.zip && unzip v7.3.0.zip && mv Gut-7.3.0/addons addons
 
-    - name: Run tests
+    - name: 🧪 Run tests
+      # Change command on Godot update
       run: ./Godot_v3.4.4-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd
