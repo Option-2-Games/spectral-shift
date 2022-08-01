@@ -47,7 +47,7 @@ jobs:
         key: ${{ runner.os }}-gd-templates-${{ env.GODOT_VERSION }}
     
     - name: 📦 Download Godot Templates if cache miss
-      if: steps.cache-gd.outputs.cache-hit != 'true'
+      if: steps.cache-gd-templates.outputs.cache-hit != 'true'
       run: |
         wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
         unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
