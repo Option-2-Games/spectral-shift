@@ -20,19 +20,42 @@ jobs:
     name: Build ${{ matrix.platform }}
 
     runs-on: ubuntu-latest
-    container:
-      image: microbob/godot-exporter:latest
 
     steps:
 
     - name: 🛎 Checkout
       uses: actions/checkout@v3
     
-    - name: 📝 Set export name
-      run: EXPORT_NAME=${{ env.EXPORT_NAME }}
+    - name: 💾 Cache Godot
+      id: cache-gd
+      uses: actions/cache@v3
+      with:
+        path: Godot_v${{ env.GODOT_VERSION }}-stable_linux_server.64
+        key: ${{ runner.os }}-gd-${{ env.GODOT_VERSION }}
+    
+    - name: 📦 Download Godot if cache miss
+      if: steps.cache-gd.outputs.cache-hit != 'true'
+      run: |
+        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_server.64.zip
+        unzip Godot_v$GODOT_VERSION-stable_linux_server.64.zip
+
+    - name: 💾 Cache Godot Export Templates
+      id: cache-gd-templates
+      uses: actions/cache@v3
+      with:
+        path: ~/.local/share/godot/templates/${{ env.GODOT_VERSION }}-stable
+        key: ${{ runner.os }}-gd-templates-${{ env.GODOT_VERSION }}
+    
+    - name: 📦 Download Godot Templates if cache miss
+      if: steps.cache-gd.outputs.cache-hit != 'true'
+      run: |
+        wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+        unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+        mkdir ~/.local/share/godot/templates
+        mv templates ~/.local/share/godot/templates/${ env.GODOT_VERSION }-stable
 
     - name: 📦 Build
-      run: godot -v -q --export "Windows Desktop" /root/build/windows/$EXPORT_NAME.exe
+      run: godot -v --no-window --export "Windows Desktop" /root/build/windows/$EXPORT_NAME.exe
 
     - name: ⬆️ Upload Artifact
       uses: actions/upload-artifact@v1
