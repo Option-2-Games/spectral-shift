@@ -27,13 +27,6 @@ jobs:
 
     - name: 🛎 Checkout
       uses: actions/checkout@v3
-    
-    - name: 💾 Cache Godot
-      id: cache-gd
-      uses: actions/cache@v3
-      with:
-        path: /usr/local/bin/godot
-        key: ${{ runner.os }}-gd-${{ env.GODOT_VERSION }}
 
     - name: Move build templates
       run: |
