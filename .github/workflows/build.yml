@@ -51,7 +51,7 @@ jobs:
       run: |
         wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
         unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
-        mkdir ~/.local/share/godot/templates
+        mkdir -p ~/.local/share/godot/templates
         mv templates ~/.local/share/godot/templates/${ env.GODOT_VERSION }-stable
 
     - name: 📦 Build
