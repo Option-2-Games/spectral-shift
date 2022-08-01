@@ -32,24 +32,21 @@ jobs:
       run: |
         mkdir -v -p ~/.local/share/godot/templates
         mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
+    
+    - name: Make output folder
+      run: mkdir -v -p build/${{ matrix.platform }}
 
     - if: matrix.platform == 'Windows'
       name: Build Windows
-      run: |
-        mkdir -v -p build/Windows
-        godot -v --export "Windows Desktop" ../build/Windows/$EXPORT_NAME.exe
+      run: godot -v --export "Windows Desktop" build/Windows/$EXPORT_NAME.exe
     
     - if: matrix.platform == 'Linux'
       name: Build Linux
-      run: |
-        mkdir -v -p build/Linux
-        godot -v --export "Linux/X11" ../build/Linux/$EXPORT_NAME.x86_64
+      run: godot -v --export "Linux/X11" build/Linux/$EXPORT_NAME.x86_64
     
     - if: matrix.platform == 'Mac'
       name: Build Mac
-      run: |
-        mkdir -v -p build/Mac
-        godot -v --export "Mac OSX" ../build/Mac/$EXPORT_NAME.dmg
+      run: godot -v --export "Mac OSX" build/Mac/$EXPORT_NAME.dmg
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v1
