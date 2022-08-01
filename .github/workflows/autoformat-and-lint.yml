@@ -1,0 +1,38 @@
+name: Autoformat and Lint
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  autoformat-and-lint:
+    name: Autoformat and Lint
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: 🛎 Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        cache: 'pip'
+
+    - name: 📦 Install dependencies
+      run: pip install -r .github/requirements.txt
+
+    - name: 🧼 Format code
+      run: gdformat scripts/
+
+    - name: ✅ Commit code format changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Autoformat scripts"
+
+    - name: 🧹 Lint code
+      run: gdlint scripts/
