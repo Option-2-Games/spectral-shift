@@ -20,6 +20,8 @@ jobs:
     name: Build ${{ matrix.platform }}
 
     runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4.4
 
     steps:
 
@@ -32,34 +34,32 @@ jobs:
       with:
         path: /usr/local/bin/godot
         key: ${{ runner.os }}-gd-${{ env.GODOT_VERSION }}
-    
-    - name: 📦 Download Godot if cache miss
-      if: steps.cache-gd.outputs.cache-hit != 'true'
-      run: |
-        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_server.64.zip
-        unzip Godot_v$GODOT_VERSION-stable_linux_server.64.zip
-        mv Godot_v$GODOT_VERSION-stable_linux_server.64 /usr/local/bin/godot
 
-    - name: 💾 Cache Godot Export Templates
-      id: cache-gd-templates
-      uses: actions/cache@v3
-      with:
-        path: ~/.local/share/godot/templates/${{ env.GODOT_VERSION }}-stable
-        key: ${{ runner.os }}-gd-templates-${{ env.GODOT_VERSION }}
-    
-    - name: 📦 Download Godot Templates if cache miss
-      if: steps.cache-gd-templates.outputs.cache-hit != 'true'
-      run: |
-        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_export_templates.tpz
-        unzip Godot_v$GODOT_VERSION-stable_export_templates.tpz
-        mkdir -p ~/.local/share/godot/templates
-        mv templates ~/.local/share/godot/templates/${{ env.GODOT_VERSION }}-stable
+    - name: Move build templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
 
-    - name: 📦 Build
-      run: godot -v --no-window --export "Windows Desktop" /root/build/windows/$EXPORT_NAME.exe
+      - if: matrix.platform == "Windows"
+        name: Build Windows
+        run: |
+          mkdir -v -p build/Windows
+          godot -v --export "Windows Desktop" ../build/Windows/$EXPORT_NAME.exe
+      
+      - if: matrix.platform == "Linux"
+        name: Build Linux
+        run: |
+          mkdir -v -p build/Linux
+          godot -v --export "Linux/X11" ../build/Linux/$EXPORT_NAME.x86_64
+      
+      - if: matrix.platform == "Mac"
+        name: Build Mac
+        run: |
+          mkdir -v -p build/Mac
+          godot -v --export "Mac OSX" ../build/Mac/$EXPORT_NAME.dmg
 
-    - name: ⬆️ Upload Artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: ${{ matrix.platform }}
-        path: ../build/${{ matrix.platform }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ matrix.platform }}
+          path: build/${{ matrix.platform }}
