@@ -49,10 +49,10 @@ jobs:
     - name: 📦 Download Godot Templates if cache miss
       if: steps.cache-gd-templates.outputs.cache-hit != 'true'
       run: |
-        wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
-        unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_export_templates.tpz
+        unzip Godot_v$GODOT_VERSION-stable_export_templates.tpz
         mkdir -p ~/.local/share/godot/templates
-        mv templates ~/.local/share/godot/templates/${ env.GODOT_VERSION }-stable
+        mv templates ~/.local/share/godot/templates/${{ env.GODOT_VERSION }}-stable
 
     - name: 📦 Build
       run: godot -v --no-window --export "Windows Desktop" /root/build/windows/$EXPORT_NAME.exe
