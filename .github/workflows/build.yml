@@ -40,19 +40,19 @@ jobs:
         mkdir -v -p ~/.local/share/godot/templates
         mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
 
-    - if: matrix.platform == "Windows"
+    - if: matrix.platform == 'Windows'
       name: Build Windows
       run: |
         mkdir -v -p build/Windows
         godot -v --export "Windows Desktop" ../build/Windows/$EXPORT_NAME.exe
     
-    - if: matrix.platform == "Linux"
+    - if: matrix.platform == 'Linux'
       name: Build Linux
       run: |
         mkdir -v -p build/Linux
         godot -v --export "Linux/X11" ../build/Linux/$EXPORT_NAME.x86_64
     
-    - if: matrix.platform == "Mac"
+    - if: matrix.platform == 'Mac'
       name: Build Mac
       run: |
         mkdir -v -p build/Mac
