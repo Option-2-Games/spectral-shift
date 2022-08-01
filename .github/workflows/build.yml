@@ -31,9 +31,6 @@ jobs:
     - name: 📝 Set export name
       run: EXPORT_NAME=${{ env.EXPORT_NAME }}
 
-    - name: Test Godot
-      run: godot --version -q
-
     - name: 📦 Build
       run: source /root/build/${{ matrix.platform }}-export.sh
 
