@@ -5,7 +5,9 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -19,6 +21,10 @@ jobs:
 
   generate-docs:
     name: Generate Docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: windows-latest
 
     steps:
@@ -44,28 +50,14 @@ jobs:
       shell: cmd
       run: call "Natural Docs\NaturalDocs.exe" .\.github\nd_config
     
-    - name: ⬆️ Upload Artifacts
-      uses: actions/upload-artifact@v1
+    - name: 🛠 Setup Pages
+      uses: actions/configure-pages@v1
+
+    - name: ⬆️ Upload artifact
+      uses: actions/upload-pages-artifact@v1
       with:
-        name: docs
-        path: docs
-    
-    
-  deploy-docs:
-    name: Deploy Docs
-    needs: [generate-docs]
-    runs-on: ubuntu-latest
-    steps:
+        path: 'docs'
 
-      - name: 🛎 Checkout
-        uses: actions/checkout@v3
-
-      - name: ⬇️ Download Artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: docs
-
-      - name: 🚀 Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: 'docs'
+    - name: 🚀 Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@main
