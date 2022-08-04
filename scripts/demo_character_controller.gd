@@ -2,7 +2,7 @@ extends Sprite
 
 # Constant: SPEED
 # Player movement speed
-const SPEED = 200
+const SPEED = 500
 
 
 # Func: _ready
