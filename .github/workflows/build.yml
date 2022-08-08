@@ -15,7 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ Windows, Linux, Mac ]
+        platform: [ Windows, Linux ]
 
     name: Build ${{ matrix.platform }}
 
