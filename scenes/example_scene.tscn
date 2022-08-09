@@ -21,3 +21,4 @@ offset = Vector2( 960, 540 )
 
 [node name="DemoKinematicBody" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1617, 640 )
+collision_layer = 4
