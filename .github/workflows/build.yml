@@ -7,7 +7,7 @@ on:
 
 # Change version values here
 env:
-  GODOT_VERSION: 3.4.4
+  GODOT_VERSION: 3.5
   EXPORT_NAME: spectral-shift
 
 jobs:
@@ -15,40 +15,40 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ Windows, Linux, Mac ]
+        platform: [ Windows, Linux ]
 
     name: Build ${{ matrix.platform }}
 
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:3.4.4
+      image: barichello/godot-ci:3.5
 
     steps:
 
     - name: 🛎 Checkout
       uses: actions/checkout@v3
 
-    - name: Move build templates
+    - name: 🚛 Move build templates
       run: |
         mkdir -v -p ~/.local/share/godot/templates
         mv /root/.local/share/godot/templates/$GODOT_VERSION.stable ~/.local/share/godot/templates/$GODOT_VERSION.stable
     
-    - name: Make output folder
+    - name: 📥 Make output folder
       run: mkdir -v -p build/${{ matrix.platform }}
 
     - if: matrix.platform == 'Windows'
-      name: Build Windows
+      name: 🪟 Build Windows
       run: godot -v --export "Windows Desktop" build/Windows/$EXPORT_NAME.exe
     
     - if: matrix.platform == 'Linux'
-      name: Build Linux
+      name: 🐧 Build Linux
       run: godot -v --export "Linux/X11" build/Linux/$EXPORT_NAME.x86_64
     
     - if: matrix.platform == 'Mac'
-      name: Build Mac
+      name: 🍎 Build Mac
       run: godot -v --export "Mac OSX" build/Mac/$EXPORT_NAME.dmg
 
-    - name: Upload Artifact
+    - name: ⬆️ Upload Artifact
       uses: actions/upload-artifact@v1
       with:
         name: ${{ matrix.platform }}
