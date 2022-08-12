@@ -1,6 +1,40 @@
 extends Area2D
 
 
+# Func: use_spectrum
+# Set lamp to a specific spectrum (+ base).
+# Use <Constants.Spectrum> to define the spectrums to use.
+# Does <reset_to_base> if a value outside of the 3 spectrums (that are not BASE) is passed.
+#
+# Parameters:
+#   spectrum - <Constants.Spectrum> to use
+func use_spectrum(spectrum: int):
+	if spectrum > 0 and spectrum <= 3:
+		set_collision_mask((1 << spectrum) + 1)
+	else:
+		reset_to_base()
+
+
+# Func: exclude_spectrum
+# Set lamp to enable base + two spectrums and exclude one.
+# Use <Constants.Spectrum> to define the spectrums to exclude.
+# Does <reset_to_base> if a value outside of the 3 spectrums (that are not BASE) is passed.
+#
+# Parameters:
+#   spectrum - <Constants.Spectrum> to exclude
+func exclude_spectrum(spectrum: int):
+	if spectrum > 0 and spectrum <= 3:
+		set_collision_mask(15 - (1 << spectrum))
+	else:
+		reset_to_base()
+
+
+# Func: reset_to_base
+# Turn off spectrums in lamp (only show base).
+func reset_to_base():
+	set_collision_mask(1)
+
+
 # Func: _handle_item_entrance
 # Called by signal handlers for when an item enters the lamp region.
 #
@@ -53,5 +87,5 @@ func _on_SpectrumLamp_body_entered(body: Node):
 #
 # Parameters:
 #	node - Node that exited the region
-func _on_SpectrumLamp_body_exited(body:Node):
+func _on_SpectrumLamp_body_exited(body: Node):
 	_handle_item_exit(body)

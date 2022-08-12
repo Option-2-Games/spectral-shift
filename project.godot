@@ -29,6 +29,10 @@ _global_script_class_icons={
 config/name="Spectral Shift"
 run/main_scene="res://scenes/example_scene.tscn"
 
+[autoload]
+
+Constants="*res://scripts/constants.gd"
+
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true

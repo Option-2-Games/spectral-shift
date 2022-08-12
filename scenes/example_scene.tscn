@@ -4,7 +4,7 @@
 [ext_resource path="res://objects/demo_block.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/demo_kinematic_body.tscn" type="PackedScene" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="ExampleScene" type="Node2D"]
 
 [node name="DemoCharacter" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1023, 636 )
