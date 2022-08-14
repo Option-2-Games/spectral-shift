@@ -1,3 +1,5 @@
+extends Node
+
 # Enum: Spectrum
 #
 # BASE - Base reality. No spectrums merged.
