@@ -42,7 +42,7 @@ func reset_to_base():
 #	item - item that entered the region (can be Area2D or Node)
 func _handle_item_entrance(item):
 	if item.has_method("on_lamp_entered"):
-		item.on_lamp_entered("1-2")
+		item.on_lamp_entered(get_collision_mask())
 
 
 # Func: _handle_item_exit
@@ -52,7 +52,7 @@ func _handle_item_entrance(item):
 #	item - item that entered the region (can be Area2D or Node)
 func _handle_item_exit(item):
 	if item.has_method("on_lamp_exited"):
-		item.on_lamp_exited("1-2")
+		item.on_lamp_exited(get_collision_mask())
 
 
 # Func: _on_SpectrumLamp_area_entered
