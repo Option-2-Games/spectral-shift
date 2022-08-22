@@ -7,19 +7,36 @@
 [node name="PlayerLampTestScene" type="Node2D"]
 
 [node name="DemoCharacter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1023, 636 )
+position = Vector2( 768, 469 )
 
 [node name="DemoBlock" parent="." instance=ExtResource( 1 )]
+modulate = Color( 1, 0, 0, 1 )
 light_mask = 2
 position = Vector2( 1250, 388 )
 collision_layer = 2
 
+[node name="Shape" parent="DemoBlock" index="0"]
+light_mask = 2
+
 [node name="DemoBlock2" parent="." instance=ExtResource( 1 )]
+modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 1201, 619 )
-collision_layer = 4
+collision_layer = 8
+
+[node name="Shape" parent="DemoBlock2" index="0"]
+light_mask = 8
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 960, 540 )
 
 [node name="DemoKinematicBody" parent="." instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1617, 640 )
+collision_layer = 4
+
+[node name="Shape" parent="DemoKinematicBody" index="0"]
+light_mask = 4
+
+[editable path="DemoBlock"]
+[editable path="DemoBlock2"]
+[editable path="DemoKinematicBody"]
