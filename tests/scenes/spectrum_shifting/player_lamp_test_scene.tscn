@@ -7,7 +7,7 @@
 [node name="PlayerLampTestScene" type="Node2D"]
 
 [node name="DemoCharacter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 768, 469 )
+position = Vector2( 762, 456 )
 
 [node name="DemoBlock" parent="." instance=ExtResource( 1 )]
 modulate = Color( 1, 0, 0, 1 )

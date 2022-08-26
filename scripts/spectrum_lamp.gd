@@ -2,7 +2,9 @@ extends Area2D
 
 # Component Paths
 
-export var lamp_path: NodePath
+export var red_lamp_path: NodePath
+export var green_lamp_path: NodePath
+export var blue_lamp_path: NodePath
 
 export var red_border_path: NodePath
 export var green_border_path: NodePath
@@ -11,7 +13,9 @@ export var blue_border_path: NodePath
 
 # Components Nodes
 
-onready var _lamp: Light2D = get_node(lamp_path)
+onready var _red_lamp: Light2D = get_node(red_lamp_path)
+onready var _green_lamp: Light2D = get_node(green_lamp_path)
+onready var _blue_lamp: Light2D = get_node(blue_lamp_path)
 
 onready var _red_border: Sprite = get_node(red_border_path)
 onready var _green_border: Sprite = get_node(green_border_path)
@@ -24,17 +28,18 @@ const BORDER_ROTATION_PATH_RADIUS: int = 7
 
 var _rotation_progress: float = 0
 
+func _ready():
+	_blue_lamp.energy = 0
+	_blue_border.visible = false
+
 func _process(delta: float):
 	_rotation_progress += delta * BORDER_ROTATION_SPEED
 
-	_red_border.position.x = cos(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
-	_red_border.position.y = sin(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
+	_red_lamp.position.x = cos(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
+	_red_lamp.position.y = sin(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
 
-	_green_border.position.x = cos(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
-	_green_border.position.y = sin(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
-
-	# _blue_lamp.position.x = cos(rotation_progress + PI * 2) * BORDER_ROTATION_PATH_RADIUS
-	# border_blue.position.y = sin(_rotation_progress + PI * 2) * BORDER_ROTATION_PATH_RADIUS
+	_green_lamp.position.x = cos(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
+	_green_lamp.position.y = sin(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
 
 	if _rotation_progress > 2 * PI:
 		_rotation_progress = 0

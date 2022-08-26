@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/spectrum_shifting/spectrum_lamp_mask.webp" type="Texture" id=1]
 [ext_resource path="res://scripts/spectrum_lamp.gd" type="Script" id=2]
@@ -7,45 +7,48 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 540.0
 
-[sub_resource type="ImageTexture" id=2]
-size = Vector2( 3840, 2160 )
-
 [node name="SpectrumLamp" type="Area2D"]
 collision_mask = 6
 script = ExtResource( 2 )
-lamp_path = NodePath("MergeLamp")
-red_border_path = NodePath("MergeLamp/RedBorder")
-green_border_path = NodePath("MergeLamp/GreenBorder")
-blue_border_path = NodePath("MergeLamp/BlueBorder")
+red_lamp_path = NodePath("RedLamp")
+green_lamp_path = NodePath("GreenLamp")
+blue_lamp_path = NodePath("BlueLamp")
+red_border_path = NodePath("RedLamp/RedBorder")
+green_border_path = NodePath("GreenLamp/GreenBorder")
+blue_border_path = NodePath("BlueLamp/BlueBorder")
 
 [node name="CollisionBounds" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="MergeLamp" type="Light2D" parent="."]
+[node name="RedLamp" type="Light2D" parent="."]
 texture = ExtResource( 1 )
 mode = 3
-range_item_cull_mask = 6
+range_item_cull_mask = 2
 
-[node name="RedBorder" type="Sprite" parent="MergeLamp"]
+[node name="RedBorder" type="Sprite" parent="RedLamp"]
 modulate = Color( 1, 0, 0, 0.333333 )
-light_mask = 2
+light_mask = 0
 texture = ExtResource( 3 )
 
-[node name="GreenBorder" type="Sprite" parent="MergeLamp"]
-modulate = Color( 0, 1, 0, 0.333333 )
-light_mask = 4
-texture = ExtResource( 3 )
-
-[node name="BlueBorder" type="Sprite" parent="MergeLamp"]
-modulate = Color( 0, 0, 1, 0.333333 )
-light_mask = 8
-texture = ExtResource( 3 )
-
-[node name="HideLamp" type="Light2D" parent="."]
-texture = SubResource( 2 )
-energy = 0.0
+[node name="GreenLamp" type="Light2D" parent="."]
+texture = ExtResource( 1 )
 mode = 3
-range_item_cull_mask = 14
+range_item_cull_mask = 4
+
+[node name="GreenBorder" type="Sprite" parent="GreenLamp"]
+modulate = Color( 0, 1, 0, 0.333333 )
+light_mask = 0
+texture = ExtResource( 3 )
+
+[node name="BlueLamp" type="Light2D" parent="."]
+texture = ExtResource( 1 )
+mode = 3
+range_item_cull_mask = 8
+
+[node name="BlueBorder" type="Sprite" parent="BlueLamp"]
+modulate = Color( 0, 0, 1, 0.333333 )
+light_mask = 0
+texture = ExtResource( 3 )
 
 [connection signal="area_entered" from="." to="." method="_on_SpectrumLamp_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_SpectrumLamp_area_exited"]
