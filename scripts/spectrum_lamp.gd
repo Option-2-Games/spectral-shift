@@ -16,10 +16,12 @@ export var blue_border_path: NodePath
 onready var _red_lamp: Light2D = get_node(red_lamp_path)
 onready var _green_lamp: Light2D = get_node(green_lamp_path)
 onready var _blue_lamp: Light2D = get_node(blue_lamp_path)
+onready var _lamps: Array = [_red_lamp, _green_lamp, _blue_lamp]
 
 onready var _red_border: Sprite = get_node(red_border_path)
 onready var _green_border: Sprite = get_node(green_border_path)
 onready var _blue_border: Sprite = get_node(blue_border_path)
+onready var _borders: Array = [_red_border, _green_border, _blue_border]
 
 # Variables
 
@@ -28,24 +30,48 @@ const BORDER_ROTATION_PATH_RADIUS: int = 7
 
 var _rotation_progress: float = 0
 
-func _ready():
-	_blue_lamp.energy = 0
-	_blue_border.visible = false
 
+# Func: _ready
+# Setup the lamp
+func _ready():
+	disable_spectrum(Constants.Spectrum.BLUE)
+
+
+# Func: _process
+# Called every frame. Updates the rotation of the borders.
+#
+# Parameters:
+#   delta - The time since the last frame.
 func _process(delta: float):
+	# Increment rotation progress
 	_rotation_progress += delta * BORDER_ROTATION_SPEED
 
+	# Rotate red border
 	_red_lamp.position.x = cos(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
 	_red_lamp.position.y = sin(_rotation_progress) * BORDER_ROTATION_PATH_RADIUS
 
+	# Rotate green border
 	_green_lamp.position.x = cos(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
 	_green_lamp.position.y = sin(-_rotation_progress + PI) * BORDER_ROTATION_PATH_RADIUS
 
+	# Reset rotation progress if it's greater than 2PI
 	if _rotation_progress > 2 * PI:
 		_rotation_progress = 0
 
+
+func _unhandled_input(event: InputEvent):
+	if event is InputEventKey:
+		if Input.is_action_pressed("exclude_all_spectrums"):
+			reset_to_base()
+		elif Input.is_action_pressed("exclude_red_spectrum"):
+			exclude_spectrum(Constants.Spectrum.RED)
+		elif Input.is_action_pressed("exclude_green_spectrum"):
+			exclude_spectrum(Constants.Spectrum.GREEN)
+		elif Input.is_action_pressed("exclude_blue_spectrum"):
+			exclude_spectrum(Constants.Spectrum.BLUE)
+
 # Func: use_spectrum
-# Set lamp to a specific spectrum (+ base).
+# Set lamp to a specific spectrum.
 # Use <Constants.Spectrum> to define the spectrums to use.
 # Does <reset_to_base> if a value outside of the 3 spectrums (that are not BASE) is passed.
 #
@@ -53,7 +79,8 @@ func _process(delta: float):
 #   spectrum - <Constants.Spectrum> to use
 func use_spectrum(spectrum: int):
 	if spectrum > 0 and spectrum <= 3:
-		set_collision_mask((1 << spectrum) + 1)
+		reset_to_base()
+		enable_spectrum(spectrum)
 	else:
 		reset_to_base()
 
@@ -67,7 +94,11 @@ func use_spectrum(spectrum: int):
 #   spectrum - <Constants.Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
 	if spectrum > 0 and spectrum <= 3:
-		set_collision_mask(15 - (1 << spectrum))
+		enable_spectrum(Constants.Spectrum.RED)
+		enable_spectrum(Constants.Spectrum.GREEN)
+		enable_spectrum(Constants.Spectrum.BLUE)
+
+		disable_spectrum(spectrum)
 	else:
 		reset_to_base()
 
@@ -75,7 +106,22 @@ func exclude_spectrum(spectrum: int):
 # Func: reset_to_base
 # Turn off spectrums in lamp (only show base).
 func reset_to_base():
-	set_collision_mask(1)
+	disable_spectrum(Constants.Spectrum.RED)
+	disable_spectrum(Constants.Spectrum.GREEN)
+	disable_spectrum(Constants.Spectrum.BLUE)
+
+
+# Func: disable_spectrum
+# Turn off visualization of a spectrum.
+func disable_spectrum(spectrum: int):
+	_lamps[spectrum - 1].energy = 0
+	_borders[spectrum - 1].visible = false
+
+# Func: enable_spectrum
+# Turn on visualization of a spectrum.
+func enable_spectrum(spectrum: int):
+	_lamps[spectrum - 1].energy = 1
+	_borders[spectrum - 1].visible = true
 
 
 # Func: _handle_item_entrance
