@@ -33,15 +33,15 @@ var _rotation_progress: float
 # Current state on/off state of the spectrums
 # Use a binary number to represent the state of each lamp
 #
-# 1st bit: base reality, not considered in the binary number
+# 1st bit: base reality, not considered in usage
 # 2nd bit: red spectrum
 # 3rd bit: green spectrum
 # 4th bit: blue spectrum
 #
 # Example:
-# 	- 0b1110 = 14 = all lamps are on (this situation will never happen)
+# 	- 0b1111 = 15 = all lamps are on (this situation will never happen through gameplay)
 # 	- 0b0100 = 4 = only green lamp is on
-var _lamp_state: int
+var _lamp_state: int = 14
 
 # === Components Nodes ===
 
@@ -133,9 +133,16 @@ func _unhandled_input(event: InputEvent):
 #   spectrum - <Constants.Spectrum> to use
 func use_spectrum(spectrum: int):
 	if spectrum > 0 and spectrum <= 3:
-		reset_to_base()
+		var desired_state = 1 << spectrum
+
+		if !(desired_state >> Constants.Spectrum.RED & 1):
+			_disable_spectrum_visualization(Constants.Spectrum.RED)
+		if !(desired_state >> Constants.Spectrum.GREEN & 1):
+			_disable_spectrum_visualization(Constants.Spectrum.GREEN)
+		if !(desired_state >> Constants.Spectrum.BLUE & 1):
+			_disable_spectrum_visualization(Constants.Spectrum.BLUE)
+
 		_enable_spectrum_visualization(spectrum)
-		_lamp_state = 1 << spectrum
 	else:
 		reset_to_base()
 
@@ -149,12 +156,16 @@ func use_spectrum(spectrum: int):
 #   spectrum - <Constants.Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
 	if spectrum > 0 and spectrum <= 3:
-		_enable_spectrum_visualization(Constants.Spectrum.RED)
-		_enable_spectrum_visualization(Constants.Spectrum.GREEN)
-		_enable_spectrum_visualization(Constants.Spectrum.BLUE)
+		var desired_state = 14 - (1 << spectrum)
+
+		if desired_state >> Constants.Spectrum.RED & 1:
+			_enable_spectrum_visualization(Constants.Spectrum.RED)
+		if desired_state >> Constants.Spectrum.GREEN & 1:
+			_enable_spectrum_visualization(Constants.Spectrum.GREEN)
+		if desired_state >> Constants.Spectrum.BLUE & 1:
+			_enable_spectrum_visualization(Constants.Spectrum.BLUE)
 
 		_disable_spectrum_visualization(spectrum)
-		_lamp_state = 14 - (1 << spectrum)
 	else:
 		reset_to_base()
 
@@ -165,7 +176,8 @@ func reset_to_base():
 	_disable_spectrum_visualization(Constants.Spectrum.RED)
 	_disable_spectrum_visualization(Constants.Spectrum.GREEN)
 	_disable_spectrum_visualization(Constants.Spectrum.BLUE)
-	_lamp_state = Constants.Spectrum.BASE
+
+	_lamp_state = 1
 
 
 # === Helper Functions ===
@@ -174,15 +186,19 @@ func reset_to_base():
 # Func: _disable_spectrum_visualization
 # Turn off visualization of a spectrum.
 func _disable_spectrum_visualization(spectrum: int):
-	_lamps[spectrum - 1].energy = 0
-	_borders[spectrum - 1].visible = false
+	if _is_spectrum_on(spectrum):
+		_lamps[spectrum - 1].energy = 0
+		_borders[spectrum - 1].visible = false
+		_lamp_state &= ~(1 << spectrum)
 
 
 # Func: _enable_spectrum_visualization
 # Turn on visualization of a spectrum.
 func _enable_spectrum_visualization(spectrum: int):
-	_lamps[spectrum - 1].energy = 1
-	_borders[spectrum - 1].visible = true
+	if !_is_spectrum_on(spectrum):
+		_lamps[spectrum - 1].energy = 1
+		_borders[spectrum - 1].visible = true
+		_lamp_state |= 1 << spectrum
 
 
 # Func: _is_spectrum_on
