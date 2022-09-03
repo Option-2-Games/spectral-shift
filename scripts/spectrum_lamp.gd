@@ -14,24 +14,20 @@ const BORDER_ROTATION_SPEED: int = 2
 # How far out from the center the lamp borders will rotate
 const BORDER_ROTATION_PATH_RADIUS: int = 7
 
-# Const: CLOSE_RED_SPECTRUM_ANIMATION_KEY
-# Animation key to close the red spectrum
-const CLOSE_RED_SPECTRUM_ANIMATION_KEY: String = "close_red_spectrum"
-
-# Const: CLOSE_GREEN_SPECTRUM_ANIMATION_KEY
-# Animation key to close the green spectrum
-const CLOSE_GREEN_SPECTRUM_ANIMATION_KEY: String = "close_green_spectrum"
-
-# Const: CLOSE_BLUE_SPECTRUM_ANIMATION_KEY
-# Animation key to close the blue spectrum
-const CLOSE_BLUE_SPECTRUM_ANIMATION_KEY: String = "close_blue_spectrum"
+# Const: OPEN_SPECTRUM_ANIMATION_KEYS
+# Animation keys to close each spectrum
+const OPEN_SPECTRUM_ANIMATION_KEYS: Array = [
+	"open_red_spectrum", "open_green_spectrum", "open_blue_spectrum"
+]
 
 # === Component Paths ===
 
+# Lamp nodes
 export var red_lamp_path: NodePath
 export var green_lamp_path: NodePath
 export var blue_lamp_path: NodePath
 
+# Spectrum animation players
 export var red_animation_player_path: NodePath
 export var green_animation_player_path: NodePath
 export var blue_animation_player_path: NodePath
@@ -68,13 +64,18 @@ var _lamp_display_state: int = 1
 
 # === Components Nodes ===
 
+# Lamp nodes
 onready var _red_lamp: Light2D = get_node(red_lamp_path)
 onready var _green_lamp: Light2D = get_node(green_lamp_path)
 onready var _blue_lamp: Light2D = get_node(blue_lamp_path)
 
-onready var _red_animation_player: AnimationPlayer = get_node(red_animation_player_path)
-onready var _green_animation_player: AnimationPlayer = get_node(green_animation_player_path)
-onready var _blue_animation_player: AnimationPlayer = get_node(blue_animation_player_path)
+# Var: _animation_players
+# Array of animation players for each spectrum
+onready var _animation_players: Array = [
+	get_node(red_animation_player_path),
+	get_node(green_animation_player_path),
+	get_node(blue_animation_player_path)
+]
 
 # === Built-in Functions ===
 
@@ -171,23 +172,14 @@ func exclude_spectrum(spectrum: int):
 # Func: _run_open_close_animation
 # Run the open/close animation for each lamp based on <_lamp_state> and <_lamp_display_state>
 func _run_open_close_animation():
-	for spectrum in range(1, 4):
-		var should_be_on = _is_spectrum_on(spectrum)
-		if should_be_on != _is_spectrum_visually_on(spectrum):
-			var direction = -1 if should_be_on else 1
-			match spectrum:
-				Constants.Spectrum.RED:
-					_red_animation_player.play(
-						CLOSE_RED_SPECTRUM_ANIMATION_KEY, -1, direction, should_be_on
-					)
-				Constants.Spectrum.GREEN:
-					_green_animation_player.play(
-						CLOSE_GREEN_SPECTRUM_ANIMATION_KEY, -1, direction, should_be_on
-					)
-				Constants.Spectrum.BLUE:
-					_blue_animation_player.play(
-						CLOSE_BLUE_SPECTRUM_ANIMATION_KEY, -1, direction, should_be_on
-					)
+	# Loop through each spectrum
+	for spectrum in range(3):
+		var should_be_on = _is_spectrum_on(spectrum + 1)
+		var is_visually_on = _is_spectrum_visually_on(spectrum + 1)
+		if should_be_on and !is_visually_on:
+			_animation_players[spectrum].play(OPEN_SPECTRUM_ANIMATION_KEYS[spectrum])
+		elif !should_be_on and is_visually_on:
+			_animation_players[spectrum].play_backwards(OPEN_SPECTRUM_ANIMATION_KEYS[spectrum])
 	_lamp_display_state = _lamp_state
 
 

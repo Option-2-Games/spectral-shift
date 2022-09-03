@@ -3,7 +3,9 @@
 [ext_resource path="res://assets/spectrum_shifting/spectrum_lamp_mask.webp" type="Texture" id=1]
 [ext_resource path="res://scripts/spectrum_lamp.gd" type="Script" id=2]
 [ext_resource path="res://assets/spectrum_shifting/spectrum_lamp_border.webp" type="Texture" id=3]
-[ext_resource path="res://animations/close_red_spectrum.tres" type="Animation" id=4]
+[ext_resource path="res://animations/open_red_spectrum.tres" type="Animation" id=4]
+[ext_resource path="res://animations/open_green_spectrum.tres" type="Animation" id=5]
+[ext_resource path="res://animations/open_blue_spectrum.tres" type="Animation" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 487.0
@@ -86,47 +88,6 @@ tracks/2/keys = {
 "values": [ Color( 0, 1, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "close_green_spectrum"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/path = NodePath("GreenLamp:energy")
-tracks/0/interp = 2
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("GreenLamp:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = false
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.667, 0.667 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("GreenLamp/GreenBorder:modulate")
-tracks/2/interp = 2
-tracks/2/loop_wrap = false
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 1, 0, 0.333333 ), Color( 0, 1, 0, 0 ) ]
-}
-
 [sub_resource type="Animation" id=8]
 length = 0.001
 tracks/0/type = "value"
@@ -166,47 +127,6 @@ tracks/2/keys = {
 "values": [ Color( 0, 0, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "close_blue_spectrum"
-length = 0.25
-step = 0.125
-tracks/0/type = "value"
-tracks/0/path = NodePath("BlueLamp:energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("BlueLamp:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.667, 0.667 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("BlueLamp/BlueBorder:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 1, 0.333333 ), Color( 0, 0, 1, 0 ) ]
-}
-
 [node name="SpectrumLamp" type="Area2D"]
 collision_mask = 14
 script = ExtResource( 2 )
@@ -221,6 +141,7 @@ blue_animation_player_path = NodePath("BlueLamp/BlueAnimationPlayer")
 shape = SubResource( 1 )
 
 [node name="RedLamp" type="Light2D" parent="."]
+position = Vector2( 0, 7 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 1 )
 energy = 0.0
@@ -235,7 +156,7 @@ texture = ExtResource( 3 )
 [node name="RedAnimationPlayer" type="AnimationPlayer" parent="RedLamp"]
 root_node = NodePath("../..")
 anims/RESET = SubResource( 3 )
-anims/close_red_spectrum = ExtResource( 4 )
+anims/open_red_spectrum = ExtResource( 4 )
 
 [node name="GreenLamp" type="Light2D" parent="."]
 scale = Vector2( 0.667, 0.667 )
@@ -252,7 +173,7 @@ texture = ExtResource( 3 )
 [node name="GreenAnimationPlayer" type="AnimationPlayer" parent="GreenLamp"]
 root_node = NodePath("../..")
 anims/RESET = SubResource( 4 )
-anims/close_green_spectrum = SubResource( 6 )
+anims/open_green_spectrum = ExtResource( 5 )
 
 [node name="BlueLamp" type="Light2D" parent="."]
 scale = Vector2( 0.667, 0.667 )
@@ -269,7 +190,7 @@ texture = ExtResource( 3 )
 [node name="BlueAnimationPlayer" type="AnimationPlayer" parent="BlueLamp"]
 root_node = NodePath("../..")
 anims/RESET = SubResource( 8 )
-anims/close_blue_spectrum = SubResource( 9 )
+anims/open_blue_spectrum = ExtResource( 6 )
 
 [connection signal="area_entered" from="." to="." method="_on_SpectrumLamp_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_SpectrumLamp_area_exited"]
