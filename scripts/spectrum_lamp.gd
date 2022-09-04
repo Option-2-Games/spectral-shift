@@ -20,12 +20,13 @@ const OPEN_SPECTRUM_ANIMATION_KEYS: Array = [
 	"open_red_spectrum", "open_green_spectrum", "open_blue_spectrum"
 ]
 
-# === Component Paths ===
+# Const: ROTATE_LAMP_ANIMATION_KEYS
+# Animation keys to rotate each lamp
+const ROTATE_LAMP_ANIMATION_KEYS: Array = [
+	"rotate_red_lamp", "rotate_green_lamp", "rotate_blue_lamp"
+]
 
-# Lamp nodes
-export var red_lamp_path: NodePath
-export var green_lamp_path: NodePath
-export var blue_lamp_path: NodePath
+# === Component Paths ===
 
 # Spectrum animation players
 export var red_animation_player_path: NodePath
@@ -33,10 +34,6 @@ export var green_animation_player_path: NodePath
 export var blue_animation_player_path: NodePath
 
 # === Variables ===
-
-# Var: _rotation_progress
-# Where in the rotation circle the borders are (in radians)
-var _rotation_progress: float
 
 # Var: _lamp_state
 # Current state on/off state of the spectrums
@@ -64,11 +61,6 @@ var _lamp_display_state: int = 1
 
 # === Components Nodes ===
 
-# Lamp nodes
-onready var _red_lamp: Light2D = get_node(red_lamp_path)
-onready var _green_lamp: Light2D = get_node(green_lamp_path)
-onready var _blue_lamp: Light2D = get_node(blue_lamp_path)
-
 # Var: _animation_players
 # Array of animation players for each spectrum
 onready var _animation_players: Array = [
@@ -80,44 +72,10 @@ onready var _animation_players: Array = [
 # === Built-in Functions ===
 
 
-# Func: _process
-# Called every frame. Updates the rotation of the borders.
-#
-# Parameters:
-#   delta - The time since the last frame.
-func _process(delta: float):
-	if _lamp_state > Constants.Spectrum.BASE:
-		# Increment rotation progress
-		_rotation_progress += delta * BORDER_ROTATION_SPEED
-
-		# Rotation position
-		var forward_rotation = (
-			Vector2(cos(_rotation_progress), sin(_rotation_progress))
-			* BORDER_ROTATION_PATH_RADIUS
-		)
-		var backward_rotation = (
-			Vector2(cos(-_rotation_progress + PI), sin(-_rotation_progress + PI))
-			* BORDER_ROTATION_PATH_RADIUS
-		)
-
-		# Rotate red border
-		if _is_spectrum_on(Constants.Spectrum.RED):
-			_red_lamp.position = forward_rotation
-
-		# Rotate green border (pick direction based on other borders state)
-		if _is_spectrum_on(Constants.Spectrum.GREEN):
-			if _is_spectrum_on(Constants.Spectrum.RED):
-				_green_lamp.position = backward_rotation
-			else:
-				_green_lamp.position = forward_rotation
-
-		# Rotate blue border
-		if _is_spectrum_on(Constants.Spectrum.BLUE):
-			_blue_lamp.position = backward_rotation
-
-		# Reset rotation progress if it's greater than 2PI
-		if _rotation_progress >= 2 * PI:
-			_rotation_progress -= 2 * PI
+# Func: _ready
+# Called once on startup. Used to initialize random number generator
+func _ready():
+	randomize()
 
 
 # Func: _unhandled_input
@@ -135,6 +93,12 @@ func _unhandled_input(event: InputEvent):
 			exclude_spectrum(Constants.Spectrum.GREEN)
 		elif Input.is_action_pressed("exclude_blue_spectrum"):
 			exclude_spectrum(Constants.Spectrum.BLUE)
+		elif Input.is_action_pressed("use_red_spectrum"):
+			use_spectrum(Constants.Spectrum.RED)
+		elif Input.is_action_pressed("use_green_spectrum"):
+			use_spectrum(Constants.Spectrum.GREEN)
+		elif Input.is_action_pressed("use_blue_spectrum"):
+			use_spectrum(Constants.Spectrum.BLUE)
 
 
 # === Access and Lamp-changing Functions ===
@@ -149,7 +113,7 @@ func _unhandled_input(event: InputEvent):
 # Parameters:
 #   spectrum - <Constants.Spectrum> to use
 func use_spectrum(spectrum: int):
-	_lamp_state = 1 << spectrum + 1 if spectrum > 0 and spectrum <= 3 else 1
+	_lamp_state = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
 	_run_open_close_animation()
 
 
@@ -176,10 +140,17 @@ func _run_open_close_animation():
 	for spectrum in range(3):
 		var should_be_on = _is_spectrum_on(spectrum + 1)
 		var is_visually_on = _is_spectrum_visually_on(spectrum + 1)
+		var animation_player = _animation_players[spectrum]
+		var open_spectrum_animation_key = OPEN_SPECTRUM_ANIMATION_KEYS[spectrum]
+
 		if should_be_on and !is_visually_on:
-			_animation_players[spectrum].play(OPEN_SPECTRUM_ANIMATION_KEYS[spectrum])
+			# Open and start rotating
+			animation_player.play(open_spectrum_animation_key)
+			animation_player.play(ROTATE_LAMP_ANIMATION_KEYS[spectrum], 1, rand_range(-1, 1))
 		elif !should_be_on and is_visually_on:
-			_animation_players[spectrum].play_backwards(OPEN_SPECTRUM_ANIMATION_KEYS[spectrum])
+			# Close
+			animation_player.stop()
+			animation_player.play_backwards(open_spectrum_animation_key, 1)
 	_lamp_display_state = _lamp_state
 
 
