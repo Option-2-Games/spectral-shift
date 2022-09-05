@@ -29,9 +29,9 @@ const ROTATE_LAMP_ANIMATION_KEYS: Array = [
 # === Component Paths ===
 
 # Spectrum animation players
-export var red_animation_player_path: NodePath
-export var green_animation_player_path: NodePath
-export var blue_animation_player_path: NodePath
+export(NodePath) var red_animation_player_path
+export(NodePath) var green_animation_player_path
+export(NodePath) var blue_animation_player_path
 
 # === Variables ===
 
@@ -82,7 +82,7 @@ func _ready():
 # Called when an input event is received. Used to manage input events
 #
 # Parameters:
-#   event - The input event.
+#	event - The input event.
 func _unhandled_input(event: InputEvent):
 	if event is InputEventKey:
 		if Input.is_action_pressed("exclude_all_spectrums"):
@@ -111,7 +111,7 @@ func _unhandled_input(event: InputEvent):
 # Closes all 3 spectrums if one of the 3 color spectrums is not passed.
 #
 # Parameters:
-#   spectrum - <Spectrum> to use
+#	spectrum - <Spectrum> to use
 func use_spectrum(spectrum: int):
 	var proposed_change = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
 	if proposed_change != _lamp_state:
@@ -127,7 +127,7 @@ func use_spectrum(spectrum: int):
 # Closes all spectrums if a value outside of the 3 spectrums is passed.
 #
 # Parameters:
-#   spectrum - <Spectrum> to exclude
+#	spectrum - <Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
 	var proposed_change = 15 - (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
 	if proposed_change != _lamp_state:
@@ -164,7 +164,10 @@ func _run_open_close_animation():
 # Check if a spectrum is set to be on
 #
 # Parameters:
-#   spectrum - <Spectrum> to check
+#	spectrum - <Spectrum> to check
+#
+# Returns:
+#	bool - True if the spectrum is set to be on, false otherwise
 func _is_spectrum_on(spectrum: int) -> bool:
 	return (_lamp_state & 1 << spectrum) >> spectrum == 1
 
@@ -173,7 +176,10 @@ func _is_spectrum_on(spectrum: int) -> bool:
 # Same as <_is_spectrum_on> but for the display state
 #
 # Parameters:
-#   spectrum - <Spectrum> to check
+#	spectrum - <Spectrum> to check
+#
+# Returns:
+#	bool - True if the spectrum is visually on, false otherwise
 func _is_spectrum_visually_on(spectrum: int) -> bool:
 	return (_lamp_display_state & 1 << spectrum) >> spectrum == 1
 
@@ -202,7 +208,7 @@ func _handle_item_exit(item):
 # Update all items within the influence of the lamp that the state has changed
 func _report_lamp_state_change():
 	for item in get_overlapping_areas() + get_overlapping_bodies():
-		if item.has_method("on_lap_state_changed"):
+		if item.has_method("on_lamp_state_changed"):
 			item.on_lamp_state_changed(_lamp_state)
 
 

@@ -81,7 +81,11 @@ Timestamp: Last generated month day, year
 # Source Code
 # ------------------------------------------------------------------------
 
-Source Folder: ../../Scripts
+Source Folder: ../../scripts
+   Name: Scripts
+
+Source Folder 2: ../../tests
+   Name: Tests
 
 
 # This is where you tell Natural Docs which folders it should scan for source

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://tests/scenes/spectrum_shifting/demo_block_controller.gd" type="Script" id=1]
-[ext_resource path="res://tests/scenes/spectrum_shifting/demo_character_controller.gd" type="Script" id=2]
-[ext_resource path="res://tests/scenes/spectrum_shifting/demo_kinematic_body_controller.gd" type="Script" id=3]
+[ext_resource path="res://tests/scenes/spectrum_shifting/demo_block.gd" type="Script" id=1]
+[ext_resource path="res://tests/scenes/spectrum_shifting/demo_character.gd" type="Script" id=2]
 [ext_resource path="res://objects/spectrum_lamp.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -27,6 +26,7 @@ position = Vector2( 760, 400 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
+spectrum = 1
 
 [node name="Shape" type="Polygon2D" parent="DemoBlock"]
 light_mask = 2
@@ -42,6 +42,7 @@ position = Vector2( 960, 400 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
+spectrum = 3
 
 [node name="Shape" type="Polygon2D" parent="DemoBlock2"]
 light_mask = 8
@@ -59,7 +60,8 @@ modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1160, 400 )
 collision_layer = 4
 collision_mask = 0
-script = ExtResource( 3 )
+script = ExtResource( 1 )
+spectrum = 2
 
 [node name="Shape" type="Polygon2D" parent="DemoKinematicBody"]
 light_mask = 4
