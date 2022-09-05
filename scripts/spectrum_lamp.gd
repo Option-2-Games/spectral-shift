@@ -107,11 +107,11 @@ func _unhandled_input(event: InputEvent):
 # Func: use_spectrum
 # Set lamp to a specific spectrum.
 #
-# Use <Constants.Spectrum> to define the spectrums to use.
-# Does <reset_to_base> if a value outside of the 3 spectrums (that are not BASE) is passed.
+# Use <Spectrum> to define the spectrums to use.
+# Closes all 3 spectrums if one of the 3 color spectrums is not passed.
 #
 # Parameters:
-#   spectrum - <Constants.Spectrum> to use
+#   spectrum - <Spectrum> to use
 func use_spectrum(spectrum: int):
 	_lamp_state = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
 	_run_open_close_animation()
@@ -120,11 +120,11 @@ func use_spectrum(spectrum: int):
 # Func: exclude_spectrum
 # Set lamp to enable base + two spectrums and exclude one.
 #
-# Use <Constants.Spectrum> to define the spectrums to exclude.
+# Use <Spectrum> to define the spectrums to exclude.
 # Closes all spectrums if a value outside of the 3 spectrums is passed.
 #
 # Parameters:
-#   spectrum - <Constants.Spectrum> to exclude
+#   spectrum - <Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
 	_lamp_state = 15 - (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
 	_run_open_close_animation()
@@ -158,7 +158,7 @@ func _run_open_close_animation():
 # Check if a spectrum is set to be on
 #
 # Parameters:
-#   spectrum - <Constants.Spectrum> to check
+#   spectrum - <Spectrum> to check
 func _is_spectrum_on(spectrum: int) -> bool:
 	return (_lamp_state & 1 << spectrum) >> spectrum == 1
 
@@ -167,7 +167,7 @@ func _is_spectrum_on(spectrum: int) -> bool:
 # Same as <_is_spectrum_on> but for the display state
 #
 # Parameters:
-#   spectrum - <Constants.Spectrum> to check
+#   spectrum - <Spectrum> to check
 func _is_spectrum_visually_on(spectrum: int) -> bool:
 	return (_lamp_display_state & 1 << spectrum) >> spectrum == 1
 
