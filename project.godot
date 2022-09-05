@@ -96,10 +96,14 @@ use_blue_spectrum={
 2d_render/layer_2="Red Reality"
 2d_render/layer_3="Green Reality"
 2d_render/layer_4="Blue Reality"
-2d_physics/layer_1="Base Reality"
-2d_physics/layer_2="Red Reality"
-2d_physics/layer_3="Green Reality"
-2d_physics/layer_4="Blue Reality"
+2d_physics/layer_1="Base Floor"
+2d_physics/layer_2="Red Floor"
+2d_physics/layer_3="Green Floor"
+2d_physics/layer_4="Blue Floor"
+2d_physics/layer_5="Base Interactables"
+2d_physics/layer_6="Red Interactables"
+2d_physics/layer_7="Green Interactables"
+2d_physics/layer_8="Blue Interactables"
 
 [physics]
 
