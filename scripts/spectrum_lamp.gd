@@ -113,8 +113,11 @@ func _unhandled_input(event: InputEvent):
 # Parameters:
 #   spectrum - <Spectrum> to use
 func use_spectrum(spectrum: int):
-	_lamp_state = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
-	_run_open_close_animation()
+	var proposed_change = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
+	if proposed_change != _lamp_state:
+		_lamp_state = proposed_change
+		_run_open_close_animation()
+		_report_lamp_state_change()
 
 
 # Func: exclude_spectrum
@@ -126,8 +129,11 @@ func use_spectrum(spectrum: int):
 # Parameters:
 #   spectrum - <Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
-	_lamp_state = 15 - (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
-	_run_open_close_animation()
+	var proposed_change = 15 - (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
+	if proposed_change != _lamp_state:
+		_lamp_state = proposed_change
+		_run_open_close_animation()
+		_report_lamp_state_change()
 
 
 # === Helper Functions ===
@@ -190,6 +196,14 @@ func _handle_item_entrance(item):
 func _handle_item_exit(item):
 	if item.has_method("on_lamp_exited"):
 		item.on_lamp_exited(_lamp_state)
+
+
+# Func: _report_lamp_state_change
+# Update all items within the influence of the lamp that the state has changed
+func _report_lamp_state_change():
+	for item in get_overlapping_areas() + get_overlapping_bodies():
+		if item.has_method("on_lap_state_changed"):
+			item.on_lamp_state_changed(_lamp_state)
 
 
 # === Signal Handlers ===
