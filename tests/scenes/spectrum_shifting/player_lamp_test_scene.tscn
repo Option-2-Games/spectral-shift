@@ -23,7 +23,7 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 modulate = Color( 1, 0, 0, 1 )
 light_mask = 2
 position = Vector2( 760, 400 )
-collision_layer = 2
+collision_layer = 32
 collision_mask = 0
 script = ExtResource( 1 )
 spectrum = 1
@@ -39,7 +39,7 @@ shape = SubResource( 1 )
 [node name="DemoBlock2" type="Area2D" parent="."]
 modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 960, 400 )
-collision_layer = 8
+collision_layer = 128
 collision_mask = 0
 script = ExtResource( 1 )
 spectrum = 3
@@ -52,13 +52,10 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DemoBlock2"]
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 960, 540 )
-
 [node name="DemoKinematicBody" type="KinematicBody2D" parent="."]
 modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1160, 400 )
-collision_layer = 4
+collision_layer = 64
 collision_mask = 0
 script = ExtResource( 1 )
 spectrum = 2

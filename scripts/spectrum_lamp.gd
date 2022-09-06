@@ -138,7 +138,6 @@ func exclude_spectrum(spectrum: int):
 
 # === Helper Functions ===
 
-
 # Func: _run_open_close_animation
 # Run the open/close animation for each lamp based on <_lamp_state> and <_lamp_display_state>
 func _run_open_close_animation():

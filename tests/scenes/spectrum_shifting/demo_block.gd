@@ -36,6 +36,7 @@ func on_lamp_exited():
 #	spectrums - The spectrums that the lamp has merged
 func on_lamp_state_changed(spectrums: int):
 	if _is_this_spectrum_on(spectrums):
+		_merged = true
 		set_collision_mask(spectrums)
 	else:
 		on_lamp_exited()

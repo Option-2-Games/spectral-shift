@@ -20,7 +20,7 @@
  "post_run_script": "",
  "pre_run_script": "",
  "prefix": "test_",
- "selected": null,
+ "selected": "test_player_lamp.gd",
  "should_exit": true,
  "should_exit_on_success": true,
  "should_maximize": true,
@@ -35,9 +35,9 @@
  "panel_options": {
   "font_name": "CourierPrime",
   "font_size": 30,
-  "hide_result_tree": false,
+  "hide_result_tree": true,
   "hide_output_text": false,
-  "hide_settings": false,
+  "hide_settings": true,
   "use_colors": false
  }
 }
