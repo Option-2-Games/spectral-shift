@@ -4,16 +4,6 @@ extends Area2D
 
 # === Constants ===
 
-# Const: BORDER_ROTATION_SPEED
-# How fast the lamp borders rotate
-#
-# Multiply by delta to get the rotation increment amount
-const BORDER_ROTATION_SPEED: int = 2
-
-# Const: BORDER_ROTATION_PATH_RADIUS
-# How far out from the center the lamp borders will rotate
-const BORDER_ROTATION_PATH_RADIUS: int = 7
-
 # Const: OPEN_SPECTRUM_ANIMATION_KEYS
 # Animation keys to close each spectrum
 const OPEN_SPECTRUM_ANIMATION_KEYS: Array = [
