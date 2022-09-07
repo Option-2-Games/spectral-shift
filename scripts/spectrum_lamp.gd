@@ -113,7 +113,7 @@ func _unhandled_input(event: InputEvent):
 # Parameters:
 #	spectrum - <Spectrum> to use
 func use_spectrum(spectrum: int):
-	var proposed_change = 1 << spectrum if spectrum > 0 and spectrum <= 3 else 1
+	var proposed_change = 1 + (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
 	if proposed_change != _lamp_state:
 		_lamp_state = proposed_change
 		_run_open_close_animation()
@@ -137,6 +137,7 @@ func exclude_spectrum(spectrum: int):
 
 
 # === Helper Functions ===
+
 
 # Func: _run_open_close_animation
 # Run the open/close animation for each lamp based on <_lamp_state> and <_lamp_display_state>
@@ -200,7 +201,7 @@ func _handle_item_entrance(item):
 #	item - item that entered the region (can be Area2D or Node)
 func _handle_item_exit(item):
 	if item.has_method("on_lamp_exited"):
-		item.on_lamp_exited(_lamp_state)
+		item.on_lamp_exited()
 
 
 # Func: _report_lamp_state_change

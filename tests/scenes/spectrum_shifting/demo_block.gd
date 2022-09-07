@@ -6,6 +6,12 @@ export(Constants.Spectrum) var spectrum
 # === Variables ===
 var _merged: bool = false
 
+
+# === Built-in Functions ===
+func _ready():
+	set_collision_mask(1 << spectrum)
+
+
 # === Spectrum Handling Function ===
 
 
