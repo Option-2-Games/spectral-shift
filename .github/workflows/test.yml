@@ -7,7 +7,7 @@ on:
 # Change version values here
 env:
   GODOT_VERSION: 3.5
-  GUT_VERSION: 7.3.0
+  GUT_VERSION: 7.4.1
 
 jobs:
 
