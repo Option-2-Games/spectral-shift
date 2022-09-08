@@ -32,7 +32,6 @@ func before_all():
 	assert_not_null(demo_kinematic_body)
 
 	yield(yield_for(0.01, "Wait for physics to happen"), YIELD)
-	assert_true(false)
 
 
 # Func: after_all
