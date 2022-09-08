@@ -12,10 +12,10 @@ Thanks for your interest in contributing to this game! Here are a few guidelines
 
 1. Create an issue detailing what you want to accomplish
    1. Follow the templates provided!
-   2. Be sure to also highlight if you intend to also write code to implement your request or if you are simply raising awareness for an issue or feature.
-2. Fork this repo and make your changes
-3. Make a pull request, referencing the issue you made in step #1 (use the "fixes" or "closes" keywords to link your issue to the PR)
-4. We'll review and merge the PR if it looks good to us!
+   1. Be sure to also highlight if you intend to also write code to implement your request or if you are simply raising awareness for an issue or feature.
+1. Fork this repo and make your changes
+1. Make a pull request, referencing the issue you made in step #1 (use the "fixes" or "closes" keywords to link your issue to the PR)
+1. We'll review and merge the PR if it looks good to us!
 
 ## Where can I find documentation for how to contribute?
 

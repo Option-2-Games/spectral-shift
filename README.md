@@ -11,10 +11,10 @@ A 2D puzzle adventure into color and a reality ripped apart.
 This game is under active development.
 It is intended to be the full-fledged version of
 [*Spectral Shift*](https://option2games.itch.io/spectral-shift)
- which was built during a 72-hour game jam.
+which was built during a 72-hour game jam.
 
- Check out the [Wiki](https://github.com/Option-2-Games/Spectral-Shift/wiki)
- for more information about the game and developer documentation.
+Check out the [Wiki](https://github.com/Option-2-Games/Spectral-Shift/wiki)
+for more information about the game and developer documentation.
 
 ## Setting up for development
 

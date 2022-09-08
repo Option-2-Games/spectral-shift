@@ -1,0 +1,3 @@
+mdformat-gfm==0.3.5
+mdformat_footnote==0.1.1
+mdformat_frontmatter==0.4.1
