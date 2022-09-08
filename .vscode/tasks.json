@@ -6,7 +6,7 @@
         {
             "label": "lint",
             "type": "shell",
-            "command": "gdlint Scripts/",
+            "command": "gdlint scripts/",
             "problemMatcher": {
                 "owner": "gdlint",
                 "fileLocation": [
@@ -24,7 +24,7 @@
         {
             "label": "format",
             "type": "shell",
-            "command": "gdformat Scripts/",
+            "command": "gdformat scripts/",
             "problemMatcher": []
         }
     ]

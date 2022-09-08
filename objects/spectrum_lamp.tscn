@@ -1,0 +1,243 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/spectrum_shifting/spectrum_lamp_mask.webp" type="Texture" id=1]
+[ext_resource path="res://scripts/spectrum_lamp.gd" type="Script" id=2]
+[ext_resource path="res://assets/spectrum_shifting/spectrum_lamp_border.webp" type="Texture" id=3]
+[ext_resource path="res://animations/spectrum_shifting/open_red_spectrum.tres" type="Animation" id=4]
+[ext_resource path="res://animations/spectrum_shifting/open_green_spectrum.tres" type="Animation" id=5]
+[ext_resource path="res://animations/spectrum_shifting/open_blue_spectrum.tres" type="Animation" id=6]
+[ext_resource path="res://animations/spectrum_shifting/rotate_red_lamp.tres" type="Animation" id=7]
+[ext_resource path="res://animations/spectrum_shifting/rotate_green_lamp.tres" type="Animation" id=8]
+[ext_resource path="res://animations/spectrum_shifting/rotate_blue_lamp.tres" type="Animation" id=9]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 487.0
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("RedLamp/Lamp:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RedLamp/Border:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RedLamp:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.667, 0.667 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RedLamp:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("GreenLamp/Lamp:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GreenLamp/Border:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 1, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GreenLamp:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GreenLamp:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.667, 0.667 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BluePivot/Lamp:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BluePivot/Border:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BluePivot:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BluePivot:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.667, 0.667 ) ]
+}
+
+[node name="SpectrumLamp" type="Area2D"]
+collision_layer = 0
+collision_mask = 224
+script = ExtResource( 2 )
+red_animation_player_path = NodePath("RedAnimationPlayer")
+green_animation_player_path = NodePath("GreenAnimationPlayer")
+blue_animation_player_path = NodePath("BlueAnimationPlayer")
+
+[node name="CollisionBounds" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RedAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/open_red_spectrum = ExtResource( 4 )
+anims/rotate_red_lamp = ExtResource( 7 )
+
+[node name="GreenAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/open_green_spectrum = ExtResource( 5 )
+anims/rotate_green_lamp = ExtResource( 8 )
+
+[node name="BlueAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 8 )
+anims/open_blue_spectrum = ExtResource( 6 )
+anims/rotate_blue_lamp = ExtResource( 9 )
+
+[node name="RedLamp" type="Node2D" parent="."]
+scale = Vector2( 0.667, 0.667 )
+
+[node name="Lamp" type="Light2D" parent="RedLamp"]
+position = Vector2( 7, 0 )
+texture = ExtResource( 1 )
+energy = 0.0
+mode = 3
+range_item_cull_mask = 2
+
+[node name="Border" type="Sprite" parent="RedLamp"]
+modulate = Color( 1, 0, 0, 0 )
+position = Vector2( 7, 0 )
+texture = ExtResource( 3 )
+
+[node name="GreenLamp" type="Node2D" parent="."]
+scale = Vector2( 0.667, 0.667 )
+
+[node name="Lamp" type="Light2D" parent="GreenLamp"]
+position = Vector2( -5.699, 4.064 )
+texture = ExtResource( 1 )
+energy = 0.0
+mode = 3
+range_item_cull_mask = 4
+
+[node name="Border" type="Sprite" parent="GreenLamp"]
+modulate = Color( 0, 1, 0, 0 )
+position = Vector2( -5.699, 4.064 )
+texture = ExtResource( 3 )
+
+[node name="BluePivot" type="Node2D" parent="."]
+scale = Vector2( 0.667, 0.667 )
+
+[node name="Lamp" type="Light2D" parent="BluePivot"]
+position = Vector2( -5.699, -4.064 )
+texture = ExtResource( 1 )
+energy = 0.0
+mode = 3
+range_item_cull_mask = 8
+
+[node name="Border" type="Sprite" parent="BluePivot"]
+modulate = Color( 0, 0, 1, 0 )
+position = Vector2( -5.699, -4.064 )
+texture = ExtResource( 3 )
+
+[connection signal="area_entered" from="." to="." method="_on_SpectrumLamp_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_SpectrumLamp_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_SpectrumLamp_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_SpectrumLamp_body_exited"]

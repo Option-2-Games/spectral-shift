@@ -7,7 +7,11 @@ on:
 # Change version values here
 env:
   GODOT_VERSION: 3.5
-  GUT_VERSION: 7.3.0
+  GUT_VERSION: 7.4.1
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
 
@@ -48,4 +52,4 @@ jobs:
         mv Gut-$GUT_VERSION/addons addons
 
     - name: 🧪 Run tests
-      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -q -s addons/gut/gut_cmdln.gd
+      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd -gexit

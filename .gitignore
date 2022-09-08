@@ -121,3 +121,7 @@ addons/
 # Python environment
 venv/
 .python-version
+
+# Manually generated documentation
+docs/
+.github/nd_config/Working Data/

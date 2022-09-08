@@ -2,7 +2,7 @@ extends Sprite
 
 # Constant: SPEED
 # Player movement speed
-const SPEED = 200
+const SPEED = 500
 
 
 # Func: _ready
@@ -16,7 +16,7 @@ func _ready():
 #
 # Parameters:
 #  event - triggered event
-func _input(event):
+func _input(event: InputEvent):
 	if event.is_action_pressed("ui_accept"):
 		scale *= 1.1
 
@@ -26,7 +26,7 @@ func _input(event):
 #
 # Parameters:
 #	delta - Different in time between frames
-func _process(delta):
+func _process(delta: float):
 	if Input.is_action_pressed("ui_left"):
 		position.x -= SPEED * delta
 	if Input.is_action_pressed("ui_right"):

@@ -10,6 +10,10 @@ env:
   GODOT_VERSION: 3.5
   EXPORT_NAME: spectral-shift
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   build:
