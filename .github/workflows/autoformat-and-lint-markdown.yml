@@ -43,7 +43,7 @@ jobs:
       run: pip install -r .github/md-requirements.txt
     
     - name: 🧼 Format markdown
-      run: mdformat .
+      run: mdformat --number .
 
     - name: ✅ Commit code format changes
       uses: stefanzweifel/git-auto-commit-action@v4
