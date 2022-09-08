@@ -9,6 +9,10 @@ env:
   GODOT_VERSION: 3.5
   GUT_VERSION: 7.4.1
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   gut-tests:
