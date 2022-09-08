@@ -9,18 +9,15 @@
 			"command": "source ${config:python.envActivate}; gdlint scripts/ tests/",
 			"problemMatcher": {
 				"owner": "gdlint",
-				"fileLocation": [
-					"relative",
-					"${workspaceFolder}"
-					],
+				"fileLocation": ["relative", "${workspaceFolder}"],
 				"pattern": {
 					"regexp": "^(.*):(\\d+):\\s+(.*)$",
 					"file": 1,
 					"line": 2,
 					"message": 3
-					}
 				}
-			},
+			}
+		},
 		{
 			"label": "format",
 			"type": "shell",
@@ -31,19 +28,7 @@
 			"label": "check",
 			"dependsOrder": "sequence",
 			"dependsOn": ["format", "lint"],
-			"problemMatcher": {
-				"owner": "gdlint",
-				"fileLocation": [
-					"relative",
-					"${workspaceFolder}"
-					],
-				"pattern": {
-					"regexp": "^(.*):(\\d+):\\s+(.*)$",
-					"file": 1,
-					"line": 2,
-					"message": 3
-					}
-				}
+			"problemMatcher": []
 		}
-		]
+	]
 }
