@@ -48,4 +48,4 @@ jobs:
         mv Gut-$GUT_VERSION/addons addons
 
     - name: 🧪 Run tests
-      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d --no-window -s addons/gut/gut_cmdln.gd -gexit
+      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd -gexit
