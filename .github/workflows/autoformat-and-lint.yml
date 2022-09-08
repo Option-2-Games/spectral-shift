@@ -28,10 +28,10 @@ jobs:
         cache: 'pip'
 
     - name: 📦 Install dependencies
-      run: pip install -r .github/requirements.txt
+      run: pip install -r .github/gd-requirements.txt
 
     - name: 🧼 Format code
-      run: gdformat scripts/
+      run: gdformat scripts/ tests/
 
     - name: ✅ Commit code format changes
       uses: stefanzweifel/git-auto-commit-action@v4
@@ -39,4 +39,4 @@ jobs:
         commit_message: "Autoformat scripts"
 
     - name: 🧹 Lint code
-      run: gdlint scripts/
+      run: gdlint scripts/ tests/
