@@ -3,6 +3,7 @@ name: Autoformat and Lint
 on:
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

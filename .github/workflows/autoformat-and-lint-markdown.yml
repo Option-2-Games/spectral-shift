@@ -1,8 +1,9 @@
-name: Lint Markdown
+name: Autoformat and Lint Markdown
 
 on:
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
