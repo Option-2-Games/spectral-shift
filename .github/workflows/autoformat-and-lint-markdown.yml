@@ -5,10 +5,6 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
 
   autoformat:
@@ -44,7 +40,7 @@ jobs:
       run: pip install -r .github/requirements.txt
     
     - name: 🧼 Format markdown
-      run: mdformat --number .
+      run: mdformat .
 
     - name: ✅ Commit code format changes
       uses: stefanzweifel/git-auto-commit-action@v4
@@ -86,4 +82,4 @@ jobs:
       run: gem install mdl
 
     - name: 🧹 Lint
-      run: mdl .
+      run: mdl -g .
