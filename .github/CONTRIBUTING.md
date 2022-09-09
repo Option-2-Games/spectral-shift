@@ -25,7 +25,7 @@ guidelines that will help accelerate your process.
 
 - There will be plenty of comments in the codebase!
 - The [Wiki](https://github.com/Option-2-Games/Spectral-Shift/wiki) for this
-  repo contains pertinent info for developers to understand how components of 
+  repo contains pertinent info for developers to understand how components of
   the game work.
 
 ## Code of Conduct
