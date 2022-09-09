@@ -1,4 +1,4 @@
-name: Autoformat and Lint Markdown
+name: Autoformat and Lint Wiki
 
 on:
   pull_request:
@@ -7,25 +7,15 @@ on:
 
 jobs:
 
-  autoformat:
-    strategy:
-      matrix:
-        repo: [ Repo, Wiki ]
+  autoformat-and-lint-wiki:
   
-    name: Autoformat ${{ matrix.repo }}
+    name: Autoformat and Lint Wiki
 
     runs-on: ubuntu-latest
 
     steps:
 
-    # Checkout repo
-    - if: matrix.repo == 'Repo'
-      name: 🛎 Checkout Repo
-      uses: actions/checkout@v3
-
-    # Checkout wiki
-    - if: matrix.repo == 'Wiki'
-      name: 🛎 Checkout Wiki
+    - name: 🛎 Checkout Wiki
       uses: actions/checkout@v3
       with:
         repository: ${{github.repository}}.wiki
@@ -46,31 +36,6 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Autoformat markdown"
-
-  lint:
-    strategy:
-      matrix:
-        repo: [ Repo, Wiki ]
-  
-    name: Lint ${{ matrix.repo }}
-
-    needs: autoformat
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-    # Checkout repo
-    - if: matrix.repo == 'Repo'
-      name: 🛎 Checkout Repo
-      uses: actions/checkout@v3
-
-    # Checkout wiki
-    - if: matrix.repo == 'Wiki'
-      name: 🛎 Checkout Wiki
-      uses: actions/checkout@v3
-      with:
-        repository: ${{github.repository}}.wiki
 
     - name: 🔺 Setup Ruby
       uses: ruby/setup-ruby@v1
