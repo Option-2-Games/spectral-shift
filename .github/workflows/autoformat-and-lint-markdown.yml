@@ -41,7 +41,7 @@ jobs:
         cache: 'pip'
 
     - name: 📦 Install dependencies
-      run: pip install -r .github/md-requirements.txt
+      run: pip install -r .github/requirements.txt
     
     - name: 🧼 Format markdown
       run: mdformat --number .
