@@ -1,31 +1,34 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "lint",
-            "type": "shell",
-            "command": "gdlint scripts/",
-            "problemMatcher": {
-                "owner": "gdlint",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "message": 3
-                }
-            }
-        },
-        {
-            "label": "format",
-            "type": "shell",
-            "command": "gdformat scripts/",
-            "problemMatcher": []
-        }
-    ]
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "lint",
+			"type": "shell",
+			"command": "source ${config:python.envActivate}; gdlint scripts/ tests/",
+			"problemMatcher": {
+				"owner": "gdlint",
+				"fileLocation": ["relative", "${workspaceFolder}"],
+				"pattern": {
+					"regexp": "^(.*):(\\d+):\\s+(.*)$",
+					"file": 1,
+					"line": 2,
+					"message": 3
+				}
+			}
+		},
+		{
+			"label": "format",
+			"type": "shell",
+			"command": "source ${config:python.envActivate}; gdformat scripts/ tests/",
+			"problemMatcher": []
+		},
+		{
+			"label": "check",
+			"dependsOrder": "sequence",
+			"dependsOn": ["format", "lint"],
+			"problemMatcher": []
+		}
+	]
 }
