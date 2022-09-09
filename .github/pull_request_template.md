@@ -1,11 +1,11 @@
-**Addressed Issues (Fixes/Closes)**
+### Addressed Issues (Fixes/Closes)
 
 -
 
-**Brief summary of changes**
+### Brief summary of changes
 
 -
 
-**Notes**
+### Notes
 
 -
