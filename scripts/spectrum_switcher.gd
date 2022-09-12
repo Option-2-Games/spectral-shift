@@ -50,6 +50,7 @@ func _unhandled_input(event):
 				tween_state = _tween_runner.interpolate_property(_tween_runner.get_parent(), "modulate:a", 0, 1, 0.1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 			else:
 				tween_state = _tween_runner.interpolate_property(_tween_runner.get_parent(), "modulate:a", 1, 0, 0.2, Tween.TRANS_CUBIC, Tween.EASE_IN)
+				selected_color = selecting_color
 			
 			if tween_state:
 				tween_state = _tween_runner.start()
