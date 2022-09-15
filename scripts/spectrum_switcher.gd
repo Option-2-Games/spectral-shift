@@ -25,25 +25,26 @@ func _unhandled_input(event):
 		if mouse_pos.length_squared() >= 16900:
 			# Get mouse angle to RED spectrum
 			mouse_pos.y *= -1
-			var mouse_angle_adjusted = mouse_pos.angle_to(Vector2(-1, -1))
-			var mouse_angle_degrees = rad2deg(mouse_angle_adjusted)
+			var mouse_angle_degrees = rad2deg(mouse_pos.angle_to(Vector2(-1, -1)))
 
 			_state_label.set_text("ON")
-			var cover_current_rotation = deg2rad(_cover.rotation_degrees)
+			var cover_current_rotation = _cover.rotation_degrees
 			if mouse_angle_degrees >= 0 and mouse_angle_degrees < 90:
 				# Selecting RED = 180º
+
 				_tweener = _create_tween_for_rotation().tween_property(
-					_cover, "rotation", deg2rad(180), 0.25
+					_cover, "rotation_degrees", 180.0, 0.25
 				)
+
 				selecting_color = Constants.Spectrum.RED
 			elif mouse_angle_degrees >= 90 and mouse_angle_degrees < 180:
 				# Selecting GREEN = 270º
 
-				_tweener = _create_tween_for_rotation().tween_property(_cover, "rotation", deg2rad(270), 0.25).from(
+				_tweener = _create_tween_for_rotation().tween_property(_cover, "rotation_degrees", 270.0, 0.25).from(
 					(
 						cover_current_rotation
 						if selecting_color != Constants.Spectrum.BLUE
-						else cover_current_rotation + TAU
+						else cover_current_rotation + 360
 					)
 				)
 
@@ -51,22 +52,25 @@ func _unhandled_input(event):
 			elif mouse_angle_degrees >= -180 and mouse_angle_degrees < -90:
 				# Selecting BLUE = 0º
 
-				_tweener = _create_tween_for_rotation().tween_property(_cover, "rotation", deg2rad(0), 0.25).from(
+				_tweener = _create_tween_for_rotation().tween_property(_cover, "rotation_degrees", 0.0, 0.25).from(
 					(
 						cover_current_rotation
 						if selecting_color != Constants.Spectrum.GREEN
-						else cover_current_rotation - TAU
+						else cover_current_rotation - 360
 					)
 				)
 
 				selecting_color = Constants.Spectrum.BLUE
 			elif mouse_angle_degrees >= -90 and mouse_angle_degrees < 0:
 				# Selecting BASE = 90º
+
 				_tweener = _create_tween_for_rotation().tween_property(
-					_cover, "rotation", deg2rad(90), 0.25
+					_cover, "rotation_degrees", 90.0, 0.25
 				)
+
 				selecting_color = Constants.Spectrum.BASE
 				_state_label.set_text("OFF")
+
 	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			open_state = event.is_pressed()
