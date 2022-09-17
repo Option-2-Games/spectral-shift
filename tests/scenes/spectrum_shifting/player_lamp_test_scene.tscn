@@ -22,6 +22,7 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="SpectrumSwitcher" parent="DemoCharacter" instance=ExtResource( 3 )]
 position = Vector2( 495, -24 )
+spectrum_lamp_path = NodePath("../SpectrumLamp")
 
 [node name="DemoBlock" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )

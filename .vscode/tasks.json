@@ -6,7 +6,7 @@
 		{
 			"label": "lint",
 			"type": "shell",
-			"command": "source ${config:python.envActivate}; gdlint scripts/ tests/",
+			"command": "gdlint scripts/ tests/",
 			"problemMatcher": {
 				"owner": "gdlint",
 				"fileLocation": ["relative", "${workspaceFolder}"],
@@ -21,7 +21,7 @@
 		{
 			"label": "format",
 			"type": "shell",
-			"command": "source ${config:python.envActivate}; gdformat scripts/ tests/",
+			"command": "gdformat --line-length 80 scripts/ tests/",
 			"problemMatcher": []
 		},
 		{

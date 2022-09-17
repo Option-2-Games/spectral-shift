@@ -15,7 +15,9 @@ var demo_kinematic_body = null
 # Load scene and get items in scene
 func before_all():
 	# Load scene
-	var scene_file = load("res://tests/scenes/spectrum_shifting/player_lamp_test_scene.tscn")
+	var scene_file = load(
+		"res://tests/scenes/spectrum_shifting/player_lamp_test_scene.tscn"
+	)
 	scene = scene_file.instance()
 	add_child(scene)
 
@@ -80,7 +82,9 @@ func test_exclude_green():
 
 	# Checks
 
-	assert_false(demo_kinematic_body.is_merged(), "Green block should NOT be merged")
+	assert_false(
+		demo_kinematic_body.is_merged(), "Green block should NOT be merged"
+	)
 	assert_true(demo_block.is_merged(), "Red block SHOULD be merged")
 	assert_true(demo_block2.is_merged(), "Blue block SHOULD be merged")
 
@@ -139,7 +143,9 @@ func test_use_red():
 	# Checks
 	assert_true(demo_block.is_merged(), "Red block SHOULD be merged")
 	assert_false(demo_block2.is_merged(), "Blue block should NOT be merged")
-	assert_false(demo_kinematic_body.is_merged(), "Green block should NOT be merged")
+	assert_false(
+		demo_kinematic_body.is_merged(), "Green block should NOT be merged"
+	)
 
 	assert_eq(
 		demo_block.get_collision_mask(),
@@ -195,7 +201,9 @@ func test_use_blue():
 	# Checks
 	assert_true(demo_block2.is_merged(), "Blue block SHOULD be merged")
 	assert_false(demo_block.is_merged(), "Red block should NOT be merged")
-	assert_false(demo_kinematic_body.is_merged(), "Green block should NOT be merged")
+	assert_false(
+		demo_kinematic_body.is_merged(), "Green block should NOT be merged"
+	)
 
 	assert_eq(
 		demo_block2.get_collision_mask(),
