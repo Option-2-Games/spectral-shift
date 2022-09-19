@@ -45,7 +45,7 @@ var _lamp_state: int = 1
 # Var: _lamp_display_state
 # Current visual state of the lamps
 #
-# May be different from _lamp_state if the state was just changed and the
+# May be different from <_lamp_state> if the state was just changed and the
 # animation has not been applied yet
 var _lamp_display_state: int = 1
 
@@ -69,7 +69,7 @@ func _ready():
 
 
 # Func: _unhandled_input
-# Called when an input event is received. Used to manage input events
+# Called when an input event is received. Used to manage input events.
 #
 # Parameters:
 #	event - The input event.
