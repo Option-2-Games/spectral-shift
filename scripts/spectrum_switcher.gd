@@ -51,7 +51,8 @@ onready var _state_label: Label = get_node(state_label_path)
 
 
 # Func: _ready
-# Called once on startup. Used to hide the switcher interface by default and check that a Spectrum Lamp is attached
+# Called once on startup.
+# Used to hide the switcher interface by default and check that a Spectrum Lamp is attached.
 func _ready():
 	# Hide by default
 	scale = Vector2.ZERO
@@ -69,7 +70,8 @@ func _ready():
 # Func: _unhandled_input
 # Called when an input event is received.
 #
-# Handles opening and close the switcher, selecting a spectrum to exclude, and triggering the appropriate animations.
+# Handles opening and close the switcher, selecting a spectrum to exclude,
+# and triggering the appropriate animations.
 #
 # Parameters:
 #	event - The input event. Triggered by the mouse.

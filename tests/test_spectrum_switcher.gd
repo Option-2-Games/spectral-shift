@@ -13,6 +13,7 @@ var _pre_open_selection: int
 
 # === Structural Functions ===
 
+
 # Func: before_all
 # Load scene and get items in scene
 func before_all():
@@ -33,16 +34,24 @@ func before_all():
 	assert_not_null(_spectrum_switcher)
 	assert_not_null(_sender)
 
+
+# Func: after_each
+# Clear InputSender between tests
 func after_each():
 	_sender.clear()
+
 
 # Func: after_all
 # Tear down tests (free scene)
 func after_all():
 	_scene.free()
 
+
 # === Test Functions ===
 
+
+# Func: test_open_switcher_on_mouse_down
+# Test that the switcher opens when the mouse is pressed
 func test_open_switcher_on_mouse_down():
 	# Capture pre-open selection
 	_pre_open_selection = _spectrum_switcher._selected_spectrum
@@ -50,28 +59,46 @@ func test_open_switcher_on_mouse_down():
 	_sender.mouse_left_button_down(Vector2.ZERO)
 
 	# Check switcher is open
-	assert_true(_spectrum_switcher._open_state, "Switcher should be in an open state")
+	assert_true(
+		_spectrum_switcher._open_state, "Switcher should be in an open state"
+	)
 
 	# Check if switcher is visible
-	yield(yield_frames(1, "Wait for open animation to start"), YIELD)
-	assert_ne(_spectrum_switcher.scale.x, 0.00001, "Spectrum switcher should open")
-	assert_ne(_spectrum_switcher.scale.y, 0.00001, "Spectrum switcher should open")
+	yield(yield_to(_spectrum_switcher._tweener, "finished", 1), YIELD)
+	assert_eq(
+		_spectrum_switcher.scale, Vector2.ONE, "Spectrum switcher should open"
+	)
 
+
+# Func: test_close_switcher_on_mouse_up
+# Test that the switcher closes when the mouse is released
 func test_close_switcher_on_mouse_up():
 	# Raise button
 	_sender.mouse_left_button_up(Vector2.ZERO)
 
 	# Check switcher is closed
-	assert_false(_spectrum_switcher._open_state, "Switcher should be in an closed state")
+	assert_false(
+		_spectrum_switcher._open_state, "Switcher should be in an closed state"
+	)
 
 	# Check switcher is not visible (or is closing)
-	yield(yield_frames(1, "Wait for close animation to start"), YIELD)
-	assert_ne(_spectrum_switcher.scale.x, 1.0, "Spectrum switcher should close")
-	assert_ne(_spectrum_switcher.scale.y, 1.0, "Spectrum switcher should close")
+	yield(yield_to(_spectrum_switcher._tweener, "finished", 1), YIELD)
+	assert_eq(
+		_spectrum_switcher.scale,
+		Vector2(0.00001, 0.00001),
+		"Spectrum switcher should close"
+	)
 
 	# Check that the selection did not change (no spectrum was selected)
-	assert_eq(_spectrum_switcher._selected_spectrum, _pre_open_selection, "Spectrum switcher should not change selection")
+	assert_eq(
+		_spectrum_switcher._selected_spectrum,
+		_pre_open_selection,
+		"Spectrum switcher should not change selection"
+	)
 
+
+# Func: test_switch_to_red_spectrum
+# Test that the switcher switches to the red spectrum when opened and mouse moves to the left
 func test_switch_to_red_spectrum():
 	# Open switcher and select red spectrum
 	var position_offset: Vector2 = Vector2(-200, 0)
@@ -83,9 +110,28 @@ func test_switch_to_red_spectrum():
 	_sender.mouse_left_button_up(position_offset)
 
 	# Check that selecting and selected state are correct
-	assert_eq(_spectrum_switcher._selecting_spectrum, Constants.Spectrum.RED, "Spectrum switcher should have been selecting red spectrum")
-	assert_eq(_spectrum_switcher._selected_spectrum, Constants.Spectrum.RED, "Spectrum switcher should have selected red spectrum")
+	assert_eq(
+		_spectrum_switcher._selecting_spectrum,
+		Constants.Spectrum.RED,
+		"Spectrum switcher should have been selecting red spectrum"
+	)
+	assert_eq(
+		_spectrum_switcher._selected_spectrum,
+		Constants.Spectrum.RED,
+		"Spectrum switcher should have selected red spectrum"
+	)
 
+	# Check that cover rotated
+	yield(yield_to(_spectrum_switcher._tweener, "finished", 1), YIELD)
+	assert_eq(
+		_spectrum_switcher._cover.rotation_degrees,
+		180.0,
+		"Spectrum switcher cover should be rotated to red"
+	)
+
+
+# Func: test_switch_to_green_spectrum
+# Test that the switcher switches to the green spectrum when opened and mouse moves up
 func test_switch_to_green_spectrum():
 	# Open switcher and select green spectrum
 	var position_offset: Vector2 = Vector2(0, -200)
@@ -97,9 +143,28 @@ func test_switch_to_green_spectrum():
 	_sender.mouse_left_button_up(position_offset)
 
 	# Check that selecting and selected state are correct
-	assert_eq(_spectrum_switcher._selecting_spectrum, Constants.Spectrum.GREEN, "Spectrum switcher should have been selecting green spectrum")
-	assert_eq(_spectrum_switcher._selected_spectrum, Constants.Spectrum.GREEN, "Spectrum switcher should have selected green spectrum")
+	assert_eq(
+		_spectrum_switcher._selecting_spectrum,
+		Constants.Spectrum.GREEN,
+		"Spectrum switcher should have been selecting green spectrum"
+	)
+	assert_eq(
+		_spectrum_switcher._selected_spectrum,
+		Constants.Spectrum.GREEN,
+		"Spectrum switcher should have selected green spectrum"
+	)
 
+	# Check that cover rotated
+	yield(yield_to(_spectrum_switcher._tweener, "finished", 1), YIELD)
+	assert_eq(
+		_spectrum_switcher._cover.rotation_degrees,
+		270.0,
+		"Spectrum switcher cover should be rotated to green"
+	)
+
+
+# Func: test_switch_to_blue_spectrum
+# Test that the switcher switches to the blue spectrum when opened and mouse moves to the right
 func test_switch_to_blue_spectrum():
 	# Open switcher and select blue spectrum
 	var position_offset: Vector2 = Vector2(200, 0)
@@ -111,5 +176,21 @@ func test_switch_to_blue_spectrum():
 	_sender.mouse_left_button_up(position_offset)
 
 	# Check that selecting and selected state are correct
-	assert_eq(_spectrum_switcher._selecting_spectrum, Constants.Spectrum.BLUE, "Spectrum switcher should have been selecting blue spectrum")
-	assert_eq(_spectrum_switcher._selected_spectrum, Constants.Spectrum.BLUE, "Spectrum switcher should have selected blue spectrum")
+	assert_eq(
+		_spectrum_switcher._selecting_spectrum,
+		Constants.Spectrum.BLUE,
+		"Spectrum switcher should have been selecting blue spectrum"
+	)
+	assert_eq(
+		_spectrum_switcher._selected_spectrum,
+		Constants.Spectrum.BLUE,
+		"Spectrum switcher should have selected blue spectrum"
+	)
+
+	# Check that cover rotated
+	yield(yield_to(_spectrum_switcher._tweener, "finished", 1), YIELD)
+	assert_eq(
+		_spectrum_switcher._cover.rotation_degrees,
+		0.0,
+		"Spectrum switcher cover should be rotated to blue"
+	)

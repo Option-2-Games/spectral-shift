@@ -55,7 +55,9 @@ func test_exclude_red():
 
 	assert_false(_demo_block.is_merged(), "Red block should NOT be merged")
 	assert_true(_demo_block2.is_merged(), "Blue block SHOULD be merged")
-	assert_true(_demo_kinematic_body.is_merged(), "Green block SHOULD be merged")
+	assert_true(
+		_demo_kinematic_body.is_merged(), "Green block SHOULD be merged"
+	)
 
 	assert_eq(
 		_demo_block.get_collision_mask(),
@@ -115,7 +117,9 @@ func test_exclude_blue():
 
 	assert_false(_demo_block2.is_merged(), "Blue block should NOT be merged")
 	assert_true(_demo_block.is_merged(), "Red block SHOULD be merged")
-	assert_true(_demo_kinematic_body.is_merged(), "Green block SHOULD be merged")
+	assert_true(
+		_demo_kinematic_body.is_merged(), "Green block SHOULD be merged"
+	)
 
 	assert_eq(
 		_demo_block2.get_collision_mask(),
@@ -171,7 +175,9 @@ func test_use_green():
 	var expected_mask = 1 + (1 << Constants.Spectrum.GREEN)
 
 	# Checks
-	assert_true(_demo_kinematic_body.is_merged(), "Green block SHOULD be merged")
+	assert_true(
+		_demo_kinematic_body.is_merged(), "Green block SHOULD be merged"
+	)
 	assert_false(_demo_block.is_merged(), "Red block should NOT be merged")
 	assert_false(_demo_block2.is_merged(), "Blue block should NOT be merged")
 
