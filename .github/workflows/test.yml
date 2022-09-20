@@ -52,5 +52,8 @@ jobs:
         unzip v$GUT_VERSION.zip
         mv Gut-$GUT_VERSION/addons addons
 
+    - name: 🛠 Load project
+      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -e -q .
+
     - name: 🧪 Run tests
       run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd -gexit
