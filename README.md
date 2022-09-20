@@ -41,15 +41,9 @@ Other things to install are:
     system.
   - Autoformatting, linting, static analysis, testing, builds, and code
     documentation generation happen automatically when you make a pull request
-    on GitHub.
+    on GitHub. However, these tools can be installed locally by running
+    `pip install -r .github/requirements.txt` in the root of the repository.
   - Configure VSCode to be Godot's [default code editor](https://docs.godotengine.org/en/stable/tutorials/editor/external_editor.html?highlight=editor)
-  - In VSCode's `settings.json`, set `python.envActivate` to the location of
-    your python environment's activate script. This is to enable the VSCode
-    tasks which are configured to run GDScript linting and autoformatting.
-    - For example, on Windows, this is
-      `C:\Users\username\path\to\python\Scripts\activate.bat`
-    - For example, on Linux, this is
-      `/home/username/path/to/python/bin/activate`
 - Clone this repo with `git clone https://github.com/Option-2-Games/Spectral-Shift.git`
 - Launch Godot, and import the cloned repo
 

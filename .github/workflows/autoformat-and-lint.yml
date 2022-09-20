@@ -32,10 +32,10 @@ jobs:
       run: pip install -r .github/requirements.txt
 
     - name: 🧼 Format code
-      run: gdformat scripts/ tests/
+      run: gdformat --line-length 80 scripts/ tests/
 
     - name: 🧼 Format Markdown
-      run: mdformat .
+      run: mdformat README.md
 
     - name: ✅ Commit code format changes
       uses: stefanzweifel/git-auto-commit-action@v4

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://tests/scenes/spectrum_shifting/demo_block.gd" type="Script" id=1]
 [ext_resource path="res://tests/scenes/spectrum_shifting/demo_character.gd" type="Script" id=2]
+[ext_resource path="res://objects/spectrum_switcher.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/spectrum_lamp.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -18,6 +19,10 @@ antialiased = true
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="SpectrumLamp" parent="DemoCharacter" instance=ExtResource( 4 )]
+
+[node name="SpectrumSwitcher" parent="DemoCharacter" instance=ExtResource( 3 )]
+position = Vector2( 495, -24 )
+spectrum_lamp_path = NodePath("../SpectrumLamp")
 
 [node name="DemoBlock" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
