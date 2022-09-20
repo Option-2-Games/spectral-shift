@@ -9,6 +9,8 @@ on:
 env:
   GODOT_VERSION: 3.5
   GUT_VERSION: 7.4.1
+  ASSETS_URL: https://res.cloudinary.com/dxgycuhlr/raw/upload/v1663640722/assets.tar_jdc4la.xz
+  ASSETS_FILE_NAME: assets.tar_jdc4la.xz
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -51,9 +53,19 @@ jobs:
         wget https://github.com/bitwes/Gut/archive/refs/tags/v$GUT_VERSION.zip
         unzip v$GUT_VERSION.zip
         mv Gut-$GUT_VERSION/addons addons
-
-    - name: 🛠 Load project
-      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -e -q .
+    
+    - name: 💾 Cache Assets
+      id: cache-assets
+      uses: actions/cache@v3
+      with:
+        path: assets
+        key: ${{ runner.os }}-assets-${{ env.ASSETS_URL }}
+    
+    - name: 📦 Download Assets if cache miss
+      if: steps.cache-assets.outputs.cache-hit != 'true'
+      run: |
+        wget $ASSETS_URL
+        tar -xvf $ASSETS_FILE_NAME
 
     - name: 🧪 Run tests
       run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd -gexit
