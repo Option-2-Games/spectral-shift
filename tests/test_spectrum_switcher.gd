@@ -8,9 +8,6 @@ var _spectrum_switcher = null
 
 var _sender = null
 
-# === Properties ===
-var _pre_open_selection: int
-
 # === Structural Functions ===
 
 
@@ -50,11 +47,13 @@ func after_all():
 # === Test Functions ===
 
 
-# Func: test_open_switcher_on_mouse_down
-# Test that the switcher opens when the mouse is pressed
-func test_open_switcher_on_mouse_down():
-	# Capture pre-open selection
-	_pre_open_selection = _spectrum_switcher._selected_spectrum
+# Func: test_switch_open_close
+# Test that the switcher opens when the mouse is pressed and closes when released.
+#
+# Also checks that the selected value does not change
+func test_switch_open_close():
+	var prev_selected = _spectrum_switcher._selected_spectrum
+
 	# Open switcher
 	_sender.mouse_left_button_down(Vector2.ZERO)
 
@@ -69,11 +68,7 @@ func test_open_switcher_on_mouse_down():
 		_spectrum_switcher.scale, Vector2.ONE, "Spectrum switcher should open"
 	)
 
-
-# Func: test_close_switcher_on_mouse_up
-# Test that the switcher closes when the mouse is released
-func test_close_switcher_on_mouse_up():
-	# Raise button
+	# Close switcher
 	_sender.mouse_left_button_up(Vector2.ZERO)
 
 	# Check switcher is closed
@@ -89,11 +84,11 @@ func test_close_switcher_on_mouse_up():
 		"Spectrum switcher should close"
 	)
 
-	# Check that the selection did not change (no spectrum was selected)
+	# Check selected value has not changed
 	assert_eq(
 		_spectrum_switcher._selected_spectrum,
-		_pre_open_selection,
-		"Spectrum switcher should not change selection"
+		prev_selected,
+		"Selected spectrum should not change"
 	)
 
 
