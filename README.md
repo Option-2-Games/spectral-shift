@@ -31,7 +31,7 @@ Other things to install are:
 - Asset creation and management: [Plastic SCM Cloud Edition](https://www.plasticscm.com/download)
 - Godot Toolkit and Mdformat (Markdown formatter): install Python ≥ 3.7 then
   `pip install -r .github/requirements.txt`
-    - Installing with `pipx` may be of interst as well
+  - Installing with `pipx` may be of interst as well
 - Code documentation generator: [Natural Docs](https://www.naturaldocs.org/download/)
 
 ### Setup instructions
