@@ -35,7 +35,7 @@ jobs:
       run: gdformat --line-length 80 scripts/ tests/
 
     - name: 🧼 Format Markdown
-      run: mdformat README.md
+      run: mdformat .
 
     - name: ✅ Commit code format changes
       uses: stefanzweifel/git-auto-commit-action@v4

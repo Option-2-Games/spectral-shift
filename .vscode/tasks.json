@@ -4,7 +4,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "lint",
+			"label": "Lint GDScript",
 			"type": "shell",
 			"command": "gdlint scripts/ tests/",
 			"problemMatcher": {
@@ -19,15 +19,22 @@
 			}
 		},
 		{
-			"label": "format",
+			"label": "Format GDScript",
 			"type": "shell",
 			"command": "gdformat --line-length 80 scripts/ tests/",
 			"problemMatcher": []
 		},
 		{
-			"label": "check",
+			"label": "Check GDScript",
 			"dependsOrder": "sequence",
-			"dependsOn": ["format", "lint"],
+			"dependsOn": ["Format GDScript", "Lint GDScript"],
+			"problemMatcher": []
+		},
+
+		{
+			"label": "Format Markdown",
+			"type": "shell",
+			"command": "mdformat .",
 			"problemMatcher": []
 		}
 	]
