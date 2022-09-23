@@ -34,7 +34,7 @@ var _open_state: bool
 # ---
 var _selecting_spectrum: int
 
-# Var: _spectrum_spectrum
+# Var: _selected_spectrum
 # The color which is being selected by the user but has not been confirmed
 #
 # --- Prototype
