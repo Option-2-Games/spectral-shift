@@ -29,7 +29,9 @@ Other things to install are:
   - Unit testing support: [gut-extension](https://marketplace.visualstudio.com/items?itemName=bitwes.gut-extension)
 - Unit testing addon: [Gut](https://github.com/bitwes/Gut/wiki/Install)
 - Asset creation and management: [Plastic SCM Cloud Edition](https://www.plasticscm.com/download)
-- Godot Toolkit: install Python ≥ 3.7 then `pip install gdtoolkit`
+- Godot Toolkit and Mdformat (Markdown formatter): install Python ≥ 3.7 then
+  `pip install -r .github/requirements.txt`
+  - Installing with `pipx` may be of interst as well
 - Code documentation generator: [Natural Docs](https://www.naturaldocs.org/download/)
 
 ### Setup instructions

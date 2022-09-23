@@ -1,6 +1,6 @@
 extends Area2D
 # Spectrum display and communication handler
-# Control specturm lamp viewports and communicating with objects affected by lamps
+# Control spectrum lamp viewports and communicating with objects affected by lamps
 
 # === Constants ===
 
