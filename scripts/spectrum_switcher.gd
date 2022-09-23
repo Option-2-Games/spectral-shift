@@ -35,10 +35,10 @@ var _open_state: bool
 var _selecting_spectrum: int
 
 # Var: _selected_spectrum
-# The color which is being selected by the user but has not been confirmed
+# The color which has been confirmed by the player and is sent to the SpectrumLamp
 #
 # --- Prototype
-# var _spectrum_spectrum: int
+# var _selected_spectrum: int
 # ---
 var _selected_spectrum: int
 
