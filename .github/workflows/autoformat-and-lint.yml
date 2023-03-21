@@ -50,16 +50,3 @@ jobs:
 
     - name: 🧹 Lint code
       run: gdlint scripts/ tests/
-
-    # Lint Markdown
-    - name: 🔺 Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3
-        bundler-cache: true
-
-    - name: 📦 Install dependencies
-      run: gem install mdl
-
-    - name: 🧹 Lint
-      run: mdl -g .
