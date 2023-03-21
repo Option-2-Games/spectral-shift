@@ -15,6 +15,14 @@ jobs:
     steps:
 
     - name: 🛎 Checkout
+      if: github.event.pull_request.user.login != 'dependabot[bot]'
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        token: ${{ secrets.WORKFLOW_COMMIT }}
+
+    - name: 🛎🤖 Bot Checkout Wiki
+      if: github.event.pull_request.user.login == 'dependabot[bot]'
       uses: actions/checkout@v3
       with:
         ref: ${{ github.head_ref }}
@@ -35,6 +43,7 @@ jobs:
       run: mdformat .
 
     - name: ✅ Commit code format changes
+      if: github.event.pull_request.user.login != 'dependabot[bot]'
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Autoformat scripts"
