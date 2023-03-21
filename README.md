@@ -1,11 +1,5 @@
 # Spectral Shift
 
-[![Test](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml)
-
-[![Build](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/build.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/build.yml)
-
-[![Generate Code Documentation](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/generate-code-docs.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/generate-code-docs.yml)
-
 A 2D puzzle adventure into color and a reality ripped apart.
 
 This game is under active development.
