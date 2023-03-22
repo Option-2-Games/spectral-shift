@@ -65,4 +65,4 @@ jobs:
         tar -xvf $ASSETS_FILE_NAME
 
     - name: 🧪 Run tests
-      run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d -s addons/gut/gut_cmdln.gd -gexit
+      run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless -s addons/gut/gut_cmdln.gd -gexit
