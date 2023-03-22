@@ -92,10 +92,10 @@ use_blue_spectrum={
 
 [layer_names]
 
-2d_render/layer_1="Base Reality"
-2d_render/layer_2="Red Reality"
-2d_render/layer_3="Green Reality"
-2d_render/layer_4="Blue Reality"
+2d_render/layer_1="Base"
+2d_render/layer_2="Red"
+2d_render/layer_3="Green"
+2d_render/layer_4="Blue"
 2d_physics/layer_1="Base Floor"
 2d_physics/layer_2="Red Floor"
 2d_physics/layer_3="Green Floor"

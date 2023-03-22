@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tests/scenes/spectrum_shifting/demo_block.gd" type="Script" id=1]
 [ext_resource path="res://tests/scenes/spectrum_shifting/demo_character.gd" type="Script" id=2]
 [ext_resource path="res://objects/spectrum_switcher.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/spectrum_lamp.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -13,7 +12,6 @@ extents = Vector2( 32, 32 )
 [node name="PlayerLampTestScene" type="Node2D"]
 
 [node name="DemoCharacter" type="Sprite" parent="."]
-visible = false
 position = Vector2( 960, 540 )
 script = ExtResource( 2 )
 
@@ -78,12 +76,3 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DemoKinematicBody"]
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
-
-[node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1213, 524 )
-
-[node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
-texture_scale = 0.99
-range_item_cull_mask = 2
-
-[editable path="SpectrumMergeRegion"]
