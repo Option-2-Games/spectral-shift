@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Spectral Shift"
+run/main_scene="res://levels/prologue.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
-config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [rendering]
 
