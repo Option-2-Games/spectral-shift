@@ -8,6 +8,7 @@
 radius = 480.0
 
 [node name="SpectrumMergeRegion" type="Area2D"]
+top_level = true
 script = ExtResource("1_0ckq5")
 metadata/_edit_group_ = true
 
