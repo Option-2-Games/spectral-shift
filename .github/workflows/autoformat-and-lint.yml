@@ -37,7 +37,7 @@ jobs:
       run: pip install -r .github/requirements.txt
 
     - name: 🧼 Format code
-      run: gdformat --line-length 80 scripts/ tests/
+      run: gdformat --line-length 80 .
 
     - name: 🧼 Format Markdown
       run: mdformat .
@@ -49,4 +49,4 @@ jobs:
         commit_message: "Autoformat scripts"
 
     - name: 🧹 Lint code
-      run: gdlint scripts/ tests/
+      run: gdlint .

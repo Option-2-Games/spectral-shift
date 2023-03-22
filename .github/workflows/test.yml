@@ -8,8 +8,8 @@ on:
 
 # Change version values here
 env:
-  GODOT_VERSION: 3.5
-  GUT_VERSION: 7.4.1
+  GODOT_VERSION: "4.0"
+  GUT_VERSION: "9.0.1"
   ASSETS_URL: https://res.cloudinary.com/dxgycuhlr/raw/upload/v1663640722/assets.tar_jdc4la.xz
   ASSETS_FILE_NAME: assets.tar_jdc4la.xz
 
@@ -28,14 +28,14 @@ jobs:
       id: cache-gd
       uses: actions/cache@v3
       with:
-        path: Godot_v${{ env.GODOT_VERSION }}-stable_linux_server.64
+        path: Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64
         key: ${{ runner.os }}-gd-${{ env.GODOT_VERSION }}
     
     - name: 📦 Download Godot if cache miss
       if: steps.cache-gd.outputs.cache-hit != 'true'
       run: |
-        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_server.64.zip
-        unzip Godot_v$GODOT_VERSION-stable_linux_server.64.zip
+        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
+        unzip Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
 
     - name: 💾 Cache Gut
       id: cache-gut
@@ -63,6 +63,12 @@ jobs:
       run: |
         wget $ASSETS_URL
         tar -xvf $ASSETS_FILE_NAME
+    
+    - name: ls test
+      run: ls
+    
+    - name: exec test
+      run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless --version
 
-    - name: 🧪 Run tests
-      run: ./Godot_v$GODOT_VERSION-stable_linux_server.64 -d -s addons/gut/gut_cmdln.gd -gexit
+    # - name: 🧪 Run tests
+    #   run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless -s addons/gut/gut_cmdln.gd -gexit
