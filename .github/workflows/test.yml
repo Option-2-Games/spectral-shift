@@ -64,8 +64,8 @@ jobs:
         wget $ASSETS_URL
         tar -xvf $ASSETS_FILE_NAME
     
-    - name: LS env
-      run: ls -a
+    - name: exec test
+      run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless --version
 
     - name: 🧪 Run tests
       run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless -s addons/gut/gut_cmdln.gd -gexit
