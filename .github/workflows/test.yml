@@ -65,7 +65,7 @@ jobs:
         tar -xvf $ASSETS_FILE_NAME
     
     - name: ls test
-      name: ls
+      run: ls
     
     - name: exec test
       run: ./Godot_v$GODOT_VERSION-stable_linux.x86_64 -d --headless --version
