@@ -1,8 +1,5 @@
 extends Area2D
 
-## Merge region spectrum
-@onready var _region_spectrum = $BorderSprite/LitRegion.range_item_cull_mask
-
 
 ## Start spin animation
 func _ready() -> void:
@@ -44,7 +41,7 @@ func close() -> void:
 ## @param object: object that entered
 func _handle_entered(object) -> void:
 	if object.has_method("entered_merge_region"):
-		object.entered_merge_region(_region_spectrum)
+		object.entered_merge_region()
 
 
 ## Handle objects exiting region
@@ -53,7 +50,7 @@ func _handle_entered(object) -> void:
 ## @param object: object that exited
 func _handle_exited(object) -> void:
 	if object.has_method("exited_merge_region"):
-		object.exited_merge_region(_region_spectrum)
+		object.exited_merge_region()
 
 
 func _on_area_entered(area: Area2D) -> void:

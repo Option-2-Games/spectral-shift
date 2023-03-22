@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg2um405w2tx1"]
+
+[ext_resource type="Script" path="res://tests/scenes/merge_region/merge_region_tester.gd" id="1_7tbr0"]
+[ext_resource type="Script" path="res://tests/scenes/merge_region/dummy_block.gd" id="2_iaecb"]
+[ext_resource type="Shader" path="res://tests/scenes/merge_region/merge_region_tester.gdshader" id="3_is7kh"]
+[ext_resource type="PackedScene" uid="uid://bnbuhyp883j0w" path="res://objects/spectrum_merge_region.tscn" id="3_q3bsc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xkd50"]
+shader = ExtResource("3_is7kh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wp06"]
+size = Vector2(100, 100)
+
+[node name="MergeRegionTester" type="Node2D"]
+script = ExtResource("1_7tbr0")
+
+[node name="RedBg" type="ColorRect" parent="."]
+light_mask = 2
+offset_right = 893.0
+offset_bottom = 653.0
+color = Color(0.760784, 0.286275, 0.298039, 0.333333)
+
+[node name="GreenBg" type="ColorRect" parent="."]
+light_mask = 4
+offset_left = 822.0
+offset_right = 1918.0
+offset_bottom = 688.0
+color = Color(0.298039, 0.760784, 0.286275, 0.333333)
+
+[node name="BlueBg" type="ColorRect" parent="."]
+light_mask = 14
+material = SubResource("ShaderMaterial_xkd50")
+offset_top = 558.0
+offset_right = 1918.0
+offset_bottom = 1079.0
+color = Color(0.286275, 0.298039, 0.760784, 0.333333)
+
+[node name="GreenBlock" type="Area2D" parent="."]
+position = Vector2(1273, 444)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_iaecb")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="GreenBlock"]
+light_mask = 4
+color = Color(0.223529, 0.635294, 0.211765, 1)
+polygon = PackedVector2Array(0, 0, 100, 2.08165e-12, 100, 100, 2.08165e-12, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenBlock"]
+light_mask = 0
+position = Vector2(50, 50)
+shape = SubResource("RectangleShape2D_0wp06")
+
+[node name="RedBlock" type="Area2D" parent="."]
+position = Vector2(520, 164)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_iaecb")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="RedBlock"]
+light_mask = 2
+color = Color(0.635294, 0.211765, 0.223529, 1)
+polygon = PackedVector2Array(0, 0, 100, 2.08165e-12, 100, 100, 2.08165e-12, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedBlock"]
+light_mask = 0
+position = Vector2(50, 50)
+shape = SubResource("RectangleShape2D_0wp06")
+
+[node name="BaseGround" type="Polygon2D" parent="."]
+top_level = true
+position = Vector2(0, 716)
+polygon = PackedVector2Array(1920, 2.08165e-12, 1920, 100, 2.08165e-12, 100, 0, 0)
+
+[node name="SpectrumMergeRegion" parent="." instance=ExtResource("3_q3bsc")]
+position = Vector2(868, 490)
+collision_layer = 0
+collision_mask = 2
+
+[node name="MergeRegion" parent="SpectrumMergeRegion" index="0"]
+light_mask = 0
+
+[node name="BorderSprite" parent="SpectrumMergeRegion" index="1"]
+modulate = Color(0.760784, 0.286275, 0.298039, 1)
+light_mask = 2
+
+[node name="LitRegion" parent="SpectrumMergeRegion/BorderSprite" index="0"]
+range_item_cull_mask = 14
+
+[editable path="SpectrumMergeRegion"]

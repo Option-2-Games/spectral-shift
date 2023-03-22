@@ -29,6 +29,10 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 2d_render/layer_2="Red"
 2d_render/layer_3="Green"
 2d_render/layer_4="Blue"
+2d_physics/layer_1="Base"
+2d_physics/layer_2="Red"
+2d_physics/layer_3="Green"
+2d_physics/layer_4="Blue"
 
 [rendering]
 

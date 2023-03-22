@@ -32,7 +32,7 @@
  "post_run_script": "",
  "pre_run_script": "",
  "prefix": "test_",
- "selected": "test_example.gd",
+ "selected": "test_merge_region.gd",
  "should_exit": false,
  "should_exit_on_success": false,
  "should_maximize": false,
