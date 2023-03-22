@@ -28,13 +28,13 @@ jobs:
       id: cache-gd
       uses: actions/cache@v3
       with:
-        path: Godot_v${{ env.GODOT_VERSION }}-stable_linux_server.64
+        path: Godot_v${{ env.GODOT_VERSION }}-stable_linux_headless.64
         key: ${{ runner.os }}-gd-${{ env.GODOT_VERSION }}
     
     - name: 📦 Download Godot if cache miss
       if: steps.cache-gd.outputs.cache-hit != 'true'
       run: |
-        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_server.64.zip
+        wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux_headless.64.zip
         unzip Godot_v$GODOT_VERSION-stable_linux_server.64.zip
 
     - name: 💾 Cache Gut
