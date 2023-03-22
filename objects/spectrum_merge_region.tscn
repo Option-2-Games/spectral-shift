@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/spectrum_merge_region.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 480.0
+
+[sub_resource type="Gradient" id=4]
+interpolation_mode = 1
+offsets = PoolRealArray( 0, 0.97, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture2D" id=5]
+gradient = SubResource( 4 )
+width = 960
+height = 960
+fill = 1
+fill_from = Vector2( 0.5, 0.5 )
+fill_to = Vector2( 0.5, 0 )
+
+[sub_resource type="Gradient" id=2]
+interpolation_mode = 1
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture2D" id=3]
+gradient = SubResource( 2 )
+width = 960
+height = 960
+fill = 1
+fill_from = Vector2( 0.5, 0.5 )
+fill_to = Vector2( 0.5, 0 )
+
+[node name="SpectrumMergeRegion" type="Area2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MergeRegion" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Border" type="Sprite" parent="."]
+texture = SubResource( 5 )
+offset = Vector2( 5, 0 )
+
+[node name="Region" type="Light2D" parent="Border"]
+texture = SubResource( 3 )
+offset = Vector2( 5, 0 )
+mode = 2
