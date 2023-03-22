@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnbuhyp883j0w"]
+
+[ext_resource type="Script" path="res://scripts/spectrum_merge_region.gd" id="1_0ckq5"]
+[ext_resource type="Texture2D" uid="uid://c2c51wa12bihb" path="res://assets/spectrum_merge_region/border.webp" id="2_2vpso"]
+[ext_resource type="Texture2D" uid="uid://d3x6sfpq880r3" path="res://assets/spectrum_merge_region/lit_texture.webp" id="3_qmtx8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7jq7h"]
+radius = 480.0
+
+[node name="SpectrumMergeRegion" type="Area2D"]
+script = ExtResource("1_0ckq5")
+metadata/_edit_group_ = true
+
+[node name="MergeRegion" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7jq7h")
+
+[node name="BorderSprite" type="Sprite2D" parent="."]
+position = Vector2(5, 2.08165e-12)
+texture = ExtResource("2_2vpso")
+
+[node name="LitRegion" type="PointLight2D" parent="BorderSprite"]
+blend_mode = 2
+texture = ExtResource("3_qmtx8")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

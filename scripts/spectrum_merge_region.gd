@@ -1,0 +1,72 @@
+extends Area2D
+
+## Merge region spectrum
+@onready var _region_spectrum = $BorderSprite/LitRegion.range_item_cull_mask
+
+
+## Start spin animation
+func _ready() -> void:
+	var spin_direction = 1 if randi() % 2 == 0 else -1
+	(
+		self
+		. create_tween()
+		. set_loops()
+		. tween_property(self, "rotation_degrees", spin_direction * 360, 3)
+		. from_current()
+	)
+
+
+## Open this region
+func open() -> void:
+	(
+		self
+		. create_tween()
+		. set_trans(Tween.TRANS_SINE)
+		. tween_property(self, "scale", Vector2.ONE, 0.25)
+		. set_ease(Tween.EASE_IN)
+	)
+
+
+## Close this region
+func close() -> void:
+	(
+		self
+		. create_tween()
+		. set_trans(Tween.TRANS_SINE)
+		. tween_property(self, "scale", Vector2.ZERO, 0.25)
+		. set_ease(Tween.EASE_OUT)
+	)
+
+
+## Handle objects entering region
+##
+## Calls the object's `entered_merge_region`
+## @param object: object that entered
+func _handle_entered(object) -> void:
+	if object.has_method("entered_merge_region"):
+		object.entered_merge_region(_region_spectrum)
+
+
+## Handle objects exiting region
+##
+## Calls the object's exited_merge_region
+## @param object: object that exited
+func _handle_exited(object) -> void:
+	if object.has_method("exited_merge_region"):
+		object.exited_merge_region(_region_spectrum)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	_handle_entered(area)
+
+
+func _on_area_exited(area: Area2D) -> void:
+	_handle_exited(area)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	_handle_entered(body)
+
+
+func _on_body_exited(body: Node2D) -> void:
+	_handle_exited(body)

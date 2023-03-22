@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc0tvi1vyxfwb"]
+
+[ext_resource type="Script" path="res://tests/scenes/merge_region/test_merge_region.gd" id="1_7wxwj"]
+[ext_resource type="Script" path="res://tests/scenes/merge_region/dummy_block.gd" id="2_3oyl4"]
+[ext_resource type="PackedScene" uid="uid://bnbuhyp883j0w" path="res://objects/spectrum_merge_region.tscn" id="2_3wm8s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wp06"]
+size = Vector2(100, 100)
+
+[node name="test_merge_region" type="Node2D"]
+script = ExtResource("1_7wxwj")
+
+[node name="Unlighter" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1273, 444)
+script = ExtResource("2_3oyl4")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+light_mask = 2
+color = Color(0.501961, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 2.08165e-12, 100, 100, 2.08165e-12, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(50, 50)
+shape = SubResource("RectangleShape2D_0wp06")
+
+[node name="SpectrumMergeRegion" parent="." instance=ExtResource("2_3wm8s")]
+position = Vector2(857, 560)
+
+[node name="BorderSprite" parent="SpectrumMergeRegion" index="1"]
+modulate = Color(1, 0, 0, 1)
+light_mask = 3
+
+[node name="LitRegion" parent="SpectrumMergeRegion/BorderSprite" index="0"]
+range_item_cull_mask = 3
+
+[editable path="SpectrumMergeRegion"]
