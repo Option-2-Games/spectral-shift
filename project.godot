@@ -110,6 +110,7 @@ use_blue_spectrum={
 2d_physics/layer_6="Red Interactables"
 2d_physics/layer_7="Green Interactables"
 2d_physics/layer_8="Blue Interactables"
+2d_physics/layer_9="Merge Regions"
 
 [physics]
 
