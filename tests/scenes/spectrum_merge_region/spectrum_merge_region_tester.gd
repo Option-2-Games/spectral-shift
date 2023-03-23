@@ -4,7 +4,7 @@ extends Node2D
 onready var _merge_region = $SpectrumMergeRegion
 
 # Properties
-var _merge_region_open = true
+var _merge_region_open = false
 
 
 func _input(event: InputEvent) -> void:

@@ -13,8 +13,24 @@ extents = Vector2( 50, 50 )
 [node name="SpectrumMergeRegionTester" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="RedBg" type="ColorRect" parent="."]
+light_mask = 2
+material = ExtResource( 2 )
+margin_right = 978.0
+margin_bottom = 580.0
+color = Color( 1, 0, 0, 0.317647 )
+
+[node name="GreenBg" type="ColorRect" parent="."]
+light_mask = 4
+material = ExtResource( 2 )
+margin_left = 909.0
+margin_top = 15.0
+margin_right = 1887.0
+margin_bottom = 595.0
+color = Color( 0, 1, 0, 0.317647 )
+
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 1 )]
-position = Vector2( 960, 540 )
+position = Vector2( 525, 540 )
 collision_mask = 15
 
 [node name="Border" parent="SpectrumMergeRegion" index="1"]
@@ -22,6 +38,16 @@ modulate = Color( 1, 0, 0, 1 )
 
 [node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
 range_item_cull_mask = 2
+
+[node name="SpectrumMergeRegion2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1412, 554 )
+collision_mask = 15
+
+[node name="Border" parent="SpectrumMergeRegion2" index="1"]
+modulate = Color( 0, 1, 0, 1 )
+
+[node name="Region" parent="SpectrumMergeRegion2/Border" index="0"]
+range_item_cull_mask = 4
 
 [node name="RedDummy" type="Area2D" parent="."]
 position = Vector2( 718, 322 )
@@ -62,3 +88,4 @@ color = Color( 0, 1, 0, 1 )
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
 [editable path="SpectrumMergeRegion"]
+[editable path="SpectrumMergeRegion2"]
