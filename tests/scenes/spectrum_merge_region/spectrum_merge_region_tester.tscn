@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
 [ext_resource path="res://tests/scenes/spectrum_merge_region/spectrum_merge_region_tester.gd" type="Script" id=3]
+[ext_resource path="res://scripts/mergable.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
@@ -14,6 +15,7 @@ script = ExtResource( 3 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 1 )]
 position = Vector2( 960, 540 )
+collision_mask = 15
 
 [node name="Border" parent="SpectrumMergeRegion" index="1"]
 modulate = Color( 1, 0, 0, 1 )
@@ -23,6 +25,9 @@ range_item_cull_mask = 2
 
 [node name="RedDummy" type="Area2D" parent="."]
 position = Vector2( 718, 322 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -39,7 +44,10 @@ polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
 [node name="GreenDummy" type="RigidBody2D" parent="."]
 position = Vector2( 1079, 338 )
+collision_layer = 4
+collision_mask = 4
 gravity_scale = 0.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
