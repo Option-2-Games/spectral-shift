@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Spectral Shift"
-run/main_scene="res://tests/scenes/spectrum_shifting/player_lamp_test_scene.tscn"
+run/main_scene="res://tests/spectrum_shifting/player_lamp_test_scene.tscn"
 
 [autoload]
 
