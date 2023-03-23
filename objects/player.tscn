@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/spectrum_switcher.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 75, 75 )
@@ -42,6 +43,8 @@ modulate = Color( 0, 0, 1, 1 )
 
 [node name="Region" parent="BlueRegion/Border" index="0"]
 range_item_cull_mask = 8
+
+[node name="SpectrumSwitcher" parent="." instance=ExtResource( 2 )]
 
 [editable path="RedRegion"]
 [editable path="GreenRegion"]
