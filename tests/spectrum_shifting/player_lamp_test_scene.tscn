@@ -1,19 +1,51 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=1]
 [ext_resource path="res://tests/spectrum_shifting/demo_block.gd" type="Script" id=2]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://shaders/default_env.tres" type="Environment" id=4]
+[ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
 [node name="PlayerLampTestScene" type="Node2D"]
 
+[node name="BlueBg" type="ColorRect" parent="."]
+light_mask = 8
+material = ExtResource( 1 )
+margin_left = 684.0
+margin_top = 94.0
+margin_right = 1213.0
+margin_bottom = 541.0
+mouse_filter = 2
+color = Color( 0.305882, 0.32549, 0.780392, 0.345098 )
+
+[node name="GreenBg" type="ColorRect" parent="."]
+light_mask = 4
+material = ExtResource( 1 )
+margin_left = 981.0
+margin_top = 110.0
+margin_right = 1510.0
+margin_bottom = 557.0
+mouse_filter = 2
+color = Color( 0.32549, 0.780392, 0.305882, 0.337255 )
+
+[node name="RedBg" type="ColorRect" parent="."]
+light_mask = 2
+material = ExtResource( 1 )
+margin_left = 365.0
+margin_top = 103.0
+margin_right = 894.0
+margin_bottom = 550.0
+mouse_filter = 2
+color = Color( 0.780392, 0.305882, 0.32549, 0.309804 )
+
 [node name="DemoBlock" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 light_mask = 2
 position = Vector2( 760, 400 )
-collision_layer = 32
+collision_layer = 2
 collision_mask = 0
 script = ExtResource( 2 )
 spectrum = 1
@@ -30,7 +62,7 @@ shape = SubResource( 1 )
 [node name="DemoBlock2" type="Area2D" parent="."]
 modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 960, 400 )
-collision_layer = 128
+collision_layer = 8
 collision_mask = 0
 script = ExtResource( 2 )
 spectrum = 3
@@ -47,7 +79,7 @@ shape = SubResource( 1 )
 [node name="DemoKinematicBody" type="KinematicBody2D" parent="."]
 modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1160, 400 )
-collision_layer = 64
+collision_layer = 4
 collision_mask = 0
 script = ExtResource( 2 )
 spectrum = 2
@@ -62,4 +94,18 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 950, 728 )
+position = Vector2( 952, 681 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
+position = Vector2( 558, 255 )
+
+[node name="Border" parent="SpectrumMergeRegion" index="1"]
+modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
+
+[node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
+range_item_cull_mask = 2
+
+[editable path="SpectrumMergeRegion"]
