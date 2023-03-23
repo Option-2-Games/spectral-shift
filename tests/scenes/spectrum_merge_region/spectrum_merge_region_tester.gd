@@ -1,10 +1,10 @@
 extends Node2D
 
 # Components
-onready var _merge_region = $SpectrumMergeRegion
+onready var _merge_region = $RedRegion
 
 # Properties
-var _merge_region_open = false
+var _merge_region_open = true
 
 
 func _input(event: InputEvent) -> void:

@@ -6,27 +6,15 @@ extends CollisionObject2D
 ## Number of regions that is merging this object
 var _merges_count: int = 0
 
-## This object's region as a bitwise int
-onready var _my_spectrum = get_collision_layer()
 
-
-func entered_merge_region(region_spectrum: int) -> void:
-	# Only affect matching spectrums
-	if region_spectrum != _my_spectrum:
-		return
-
-	# Merge
+func entered_merge_region() -> void:
 	_merges_count += 1
 	if _merges_count == 1:
 		self.set_collision_layer_bit(0, true)
 		self.set_collision_mask_bit(0, true)
 
 
-func exited_merge_region(region_spectrum: int) -> void:
-	# Only affect matching spectrums
-	if region_spectrum != _my_spectrum:
-		return
-
+func exited_merge_region() -> void:
 	if _merges_count > 0:
 		_merges_count -= 1
 	if _merges_count == 0:
