@@ -42,18 +42,22 @@ blue_segment_path = NodePath("BlueSegment")
 scale = Vector2( 1, 200 )
 texture = SubResource( 4 )
 
-[node name="SwitchSegment" type="Sprite" parent="."]
+[node name="SwitchSegment" type="Sprite" parent="Center"]
 modulate = Color( 0.196078, 0.196078, 0.196078, 1 )
-rotation = 1.5708
+rotation = 1.57152
+scale = Vector2( 0.005, 1 )
 texture = ExtResource( 1 )
 
 [node name="SelectionBeam" type="Sprite" parent="."]
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 texture = ExtResource( 2 )
 
 [node name="StatusBeam" type="Sprite" parent="."]
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 texture = ExtResource( 2 )
 
 [node name="StatusTop" type="Sprite" parent="."]
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 texture = SubResource( 2 )
 
 [node name="RedSegment" type="Sprite" parent="."]

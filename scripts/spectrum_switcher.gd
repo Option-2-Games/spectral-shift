@@ -6,6 +6,9 @@ extends Node2D
 ## Selection signal
 signal spectrum_switched(selection)
 
+# === Constants ===
+const TWEEN_DURATION = 0.2
+
 # === Component Paths ===
 export(NodePath) var selection_beam_path
 export(NodePath) var status_beam_path
@@ -17,7 +20,7 @@ export(NodePath) var blue_segment_path
 # === Variables ===
 
 ## Whether the switcher interface is open for use
-var _open_state: bool
+var _switcher_is_open: bool
 
 ## The spectrum which is currently being selected by the player
 var _selecting_spectrum: int = Constants.Spectrum.BASE
@@ -33,14 +36,14 @@ onready var _red_segment = get_node(red_segment_path)
 onready var _green_segment = get_node(green_segment_path)
 onready var _blue_segment = get_node(blue_segment_path)
 
-var _segments = [_red_segment, _green_segment, _blue_segment]
+## Color segments as an array (null offset for base)
+onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
 
 # === Built-in Functions ===
 
 
 ## Hide the switcher interface by default
 func _ready() -> void:
-	# Hide by default
 	scale = Vector2.ZERO
 
 
@@ -51,9 +54,12 @@ func _ready() -> void:
 #
 # @param event: The input event. Triggered by the mouse.
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and _open_state:
+	if event is InputEventMouseMotion and _switcher_is_open:
 		# Check if mouse is selecting a spectrum
-		var mouse_pos = (event as InputEventMouseMotion).position - global_position
+		var mouse_pos = (
+			(event as InputEventMouseMotion).position
+			- global_position
+		)
 		if mouse_pos.length_squared() >= 16900:
 			# Get mouse angle to RED spectrum
 			mouse_pos.y *= -1
@@ -61,42 +67,48 @@ func _unhandled_input(event: InputEvent) -> void:
 				mouse_pos.angle_to(Vector2(-1, -1))
 			)
 
-			if mouse_angle_degrees >= 0 and mouse_angle_degrees < 90 and _selecting_spectrum != Constants.Spectrum.RED:
+			if (
+				mouse_angle_degrees >= 0
+				and mouse_angle_degrees < 90
+				and _selecting_spectrum != Constants.Spectrum.RED
+			):
 				# Selecting RED = 90º
-				_selecting_red()
-			elif mouse_angle_degrees >= 90 and mouse_angle_degrees < 180:
+				_do_selecting_spectrum(Constants.Spectrum.RED)
+			elif (
+				mouse_angle_degrees >= 90
+				and mouse_angle_degrees < 180
+				and _selecting_spectrum != Constants.Spectrum.GREEN
+			):
 				# Selecting GREEN = 180º
-				_select_green()
-				_selecting_spectrum = Constants.Spectrum.GREEN
-			elif mouse_angle_degrees >= -180 and mouse_angle_degrees < -90:
+				_do_selecting_spectrum(Constants.Spectrum.GREEN)
+			elif (
+				mouse_angle_degrees >= -180
+				and mouse_angle_degrees < -90
+				and _selecting_spectrum != Constants.Spectrum.BLUE
+			):
 				# Selecting BLUE = 270º
-				_select_blue()
-				_selecting_spectrum = Constants.Spectrum.BLUE
-			elif mouse_angle_degrees >= -90 and mouse_angle_degrees < 0:
+				_do_selecting_spectrum(Constants.Spectrum.BLUE)
+			elif (
+				mouse_angle_degrees >= -90
+				and mouse_angle_degrees < 0
+				and _selecting_spectrum != Constants.Spectrum.BASE
+			):
 				# Selecting BASE = 0º
-				_select_base()
-				_selecting_spectrum = Constants.Spectrum.BASE
+				_do_selecting_spectrum(Constants.Spectrum.BASE)
 
 		elif _selecting_spectrum != _selected_spectrum:
 			# Mouse is not selecting a spectrum (anymore), reset back to selected spectrum
-			match _selected_spectrum:
-				Constants.Spectrum.RED:
-					_selecting_red()
-				Constants.Spectrum.GREEN:
-					_select_green()
-				Constants.Spectrum.BLUE:
-					_select_blue()
-				Constants.Spectrum.BASE:
-					_select_base()
+			_do_selecting_spectrum(_selected_spectrum)
 
-			_selecting_spectrum = _selected_spectrum
-
-	elif event is InputEventMouseButton and (event as InputEventMouseButton).button_index == BUTTON_LEFT:
+	elif (
+		event is InputEventMouseButton
+		and (event as InputEventMouseButton).button_index == BUTTON_LEFT
+	):
 		# Open on mouse down, close otherwise
-		_open_state = event.is_pressed()
+		_switcher_is_open = event.is_pressed()
 
 		# Handle opening/closing switcher
-		if _open_state:
+		if _switcher_is_open:
 			# Move to mouse position
 			global_position = (event as InputEventMouseButton).position
 
@@ -107,98 +119,105 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		else:
 			# Close animation
-			var _close = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN).tween_property(
+			var _close = _create_cubic_tween().set_ease(Tween.EASE_IN).tween_property(
 				self, "scale", Vector2.ZERO, 0.1
 			)
 
+			# Set selected
+			_selected_spectrum = _selecting_spectrum
+
 			# Send signal for new selection
-			emit_signal("spectrum_switched", _selecting_spectrum)
+			emit_signal("spectrum_switched", _selected_spectrum)
 
 
 # === Helper Functions ===
 
 
-# Func: _create_tween_cubic_out
-# Creates a new SceneTreeTween with the default transition set to cubic and the easing set to out.
-#
-# This is the settings used for rotating the cover and opening the switcher.
-func _create_tween_cubic_out() -> SceneTreeTween:
-	return create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+func _create_cubic_tween() -> SceneTreeTween:
+	return create_tween().set_trans(Tween.TRANS_CUBIC)
 
 
-# Func: _create_tween_back_in
-# Creates a new SceneTreeTween with the default transition set to back and the easing set to in.
-#
-# This is the settings used for closing the switcher.
-func _create_tween_back_in():
-	return create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-
-
-# Func: _animate_rotate_cover_to_degree
-# Creates a SceneTreeTween for rotating the cover to a specified degree
-#
-# Parameters:
-#	degree - Target the cover should rotate too (in degrees)
-func _animate_rotate_cover_to_degree(degree: float):
-	return create_tween().set_trans(Tween.TRANS_CUBIC).tween_property(
-		_selection_beam, "rotation_degrees", degree, 0.1
+func _create_rotation_tween(degrees: float) -> PropertyTweener:
+	return _create_cubic_tween().tween_property(
+		_selection_beam, "rotation_degrees", degrees, TWEEN_DURATION
 	)
 
 
-## Show selecting red spectrum
-func _selecting_red() -> void:
-	# Highlight red
-	var _highlight = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	_highlight.tween_property(_red_segment, "scale", Vector2(1.1, 1.1), 0.2)
-	_highlight.parallel().tween_property(_red_segment, "modulate", Constants.HIGHLIGHT_COLOR[Constants.Spectrum.RED], 0.2)
-	
-	# Un-highlight previous segment (if color)
-	if _selecting_spectrum != Constants.Spectrum.BASE and _selecting_spectrum != Constants.Spectrum.RED:
-		var _unhighlight = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-		_unhighlight.tween_property(_segments[_selecting_spectrum], "scale", Vector2.ONE, 0.2)
-		_unhighlight.parallel().tween_property(_segments[_selecting_spectrum], "modulate", Constants.STANDARD_COLOR[_selected_spectrum-1], 0.1)
-	
-	# Set selecting variable
-	_selecting_spectrum = Constants.Spectrum.RED
+## Unhighlight the `selecting` segment
+##
+## Used with `_do_selecting_spectrum` to update switcher selection
+func _unhighlight_selecting() -> void:
+	var segment = _segments[_selecting_spectrum]
+	# Only applicable to colors
+	if not segment:
+		return
+
+	var _unhighlight = _create_cubic_tween().set_ease(Tween.EASE_IN)
+	_unhighlight.tween_property(segment, "scale", Vector2.ONE, TWEEN_DURATION)
+	_unhighlight.parallel().tween_property(
+		segment,
+		"modulate",
+		Constants.STANDARD_COLOR[_selecting_spectrum],
+		TWEEN_DURATION
+	)
+
+
+## Show selecting spectrum
+##
+## Does not confirm selection, only animates to show currently highlighted spectrum
+func _do_selecting_spectrum(spectrum: int) -> void:
+	var highlight_color = Constants.HIGHLIGHT_COLOR[spectrum]
+	var segment = _segments[spectrum]
+
+	# Highlight spectrum
+	if segment:
+		var _highlight = _create_cubic_tween().set_ease(Tween.EASE_OUT)
+		_highlight.tween_property(
+			segment, "scale", Vector2(1.1, 1.1), TWEEN_DURATION
+		)
+		_highlight.parallel().tween_property(
+			segment, "modulate", highlight_color, TWEEN_DURATION
+		)
+
+	# Unhighlight previous segment (if color)
+	_unhighlight_selecting()
 
 	# Rotate selection beam
-	var _rot = create_tween().set_trans(Tween.TRANS_CUBIC).tween_property(_selection_beam, "rotation_degrees", 90, 0.2)
+	match spectrum:
+		Constants.Spectrum.RED:
+			var _rot = _create_rotation_tween(90)
+		Constants.Spectrum.GREEN:
+			var _rot = _create_rotation_tween(180)
+		Constants.Spectrum.BLUE:
+			var current_rotation = _selection_beam.get_rotation_degrees()
+			var _rot = _create_rotation_tween(270).from(
+				(
+					current_rotation + 360
+					if _selecting_spectrum == Constants.Spectrum.BASE
+					else current_rotation
+				)
+			)
+		Constants.Spectrum.BASE:
+			var current_rotation = _selection_beam.get_rotation_degrees()
+			var _rot = _create_rotation_tween(0).from(
+				(
+					current_rotation - 360
+					if _selecting_spectrum == Constants.Spectrum.BLUE
+					else current_rotation
+				)
+			)
 
 	# Update colors of status and selection beams
-	_selection_beam.set_modulate(Constants.STANDARD_COLOR[Constants.Spectrum.RED])
-	_status_beam.set_modulate(Constants.STANDARD_COLOR[Constants.Spectrum.RED])
-	_status_top.set_modulate(Constants.STANDARD_COLOR[Constants.Spectrum.RED])
-
-
-
-# Rotates the cover to the green spectrum
-#
-# Also recalculates the appropriate starting degree to avoid rotating around the long way
-func _select_green():
-	var cover_current_rotation = _selection_beam.rotation_degrees
-	var _rot = _animate_rotate_cover_to_degree(270).from(
-		(
-			cover_current_rotation
-			if _selecting_spectrum != Constants.Spectrum.BLUE
-			else cover_current_rotation + 360
-		)
+	var _beam = _create_cubic_tween()
+	_beam.tween_property(
+		_selection_beam, "modulate", highlight_color, TWEEN_DURATION
+	)
+	_beam.parallel().tween_property(
+		_status_beam, "modulate", highlight_color, TWEEN_DURATION
+	)
+	_beam.parallel().tween_property(
+		_status_top, "modulate", highlight_color, TWEEN_DURATION
 	)
 
-
-# Rotates the cover to the blue spectrum
-#
-# Also recalculates the appropriate starting degree to avoid rotating around the long way
-func _select_blue():
-	var cover_current_rotation = _selection_beam.rotation_degrees
-	var _rot = _animate_rotate_cover_to_degree(0).from(
-		(
-			cover_current_rotation
-			if _selecting_spectrum != Constants.Spectrum.GREEN
-			else cover_current_rotation - 360
-		)
-	)
-
-
-# Rotates the cover to the base spectrum
-func _select_base():
-	var _rot = _animate_rotate_cover_to_degree(90)
+	# Set selecting variable
+	_selecting_spectrum = spectrum

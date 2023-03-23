@@ -9,7 +9,7 @@ func _ready() -> void:
 
 ## Open this region
 func open() -> void:
-	var _open = create_tween().set_trans(Tween.TRANS_BACK).tween_property(self, "scale", Vector2.ONE, 0.25).set_ease(
+	var _open = create_tween().set_trans(Tween.TRANS_BACK).tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(
 		Tween.EASE_OUT
 	)
 
