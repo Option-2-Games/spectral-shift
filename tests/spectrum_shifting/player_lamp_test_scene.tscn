@@ -15,6 +15,7 @@ extents = Vector2( 32, 32 )
 environment = ExtResource( 4 )
 
 [node name="BlueBg" type="ColorRect" parent="."]
+visible = false
 light_mask = 8
 material = ExtResource( 1 )
 margin_left = 684.0
@@ -25,6 +26,7 @@ mouse_filter = 2
 color = Color( 0.305882, 0.32549, 0.780392, 0.345098 )
 
 [node name="GreenBg" type="ColorRect" parent="."]
+visible = false
 light_mask = 4
 material = ExtResource( 1 )
 margin_left = 981.0
@@ -35,6 +37,7 @@ mouse_filter = 2
 color = Color( 0.32549, 0.780392, 0.305882, 0.337255 )
 
 [node name="RedBg" type="ColorRect" parent="."]
+visible = false
 light_mask = 2
 material = ExtResource( 1 )
 margin_left = 365.0
@@ -44,8 +47,10 @@ margin_bottom = 550.0
 mouse_filter = 2
 color = Color( 0.780392, 0.305882, 0.32549, 0.356863 )
 
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1087, 715 )
+
 [node name="RedDemoBlock" type="Area2D" parent="."]
-modulate = Color( 1, 0, 0, 1 )
 light_mask = 2
 position = Vector2( 760, 400 )
 collision_layer = 2
@@ -62,11 +67,7 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
 shape = SubResource( 1 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1087, 715 )
-
 [node name="BlueDemoBlock" type="Area2D" parent="."]
-modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 960, 400 )
 collision_layer = 8
 collision_mask = 8
@@ -83,7 +84,6 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 shape = SubResource( 1 )
 
 [node name="GreenDemoKinematic" type="KinematicBody2D" parent="."]
-modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1160, 400 )
 collision_layer = 4
 collision_mask = 4
@@ -100,6 +100,7 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 363, 527 )
+position = Vector2( 188, 596 )
+collision_mask = 2
 
 [editable path="SpectrumMergeRegion"]

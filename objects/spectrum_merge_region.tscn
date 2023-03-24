@@ -33,6 +33,7 @@ fill_to = Vector2( 0.5, 0 )
 [node name="SpectrumMergeRegion" type="Area2D"]
 rotation = -1.4205
 collision_layer = 256
+collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

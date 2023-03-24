@@ -5,6 +5,7 @@
         "gdtoolkit",
         "mdformat",
         "pipx",
+        "rfind",
         "stefanzweifel",
         "tweener",
         "unhighlight"

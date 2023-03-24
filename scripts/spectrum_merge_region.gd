@@ -10,6 +10,7 @@ export(Array, NodePath) var node_paths
 onready var border = get_node(node_paths[0]) as Sprite
 onready var region = get_node(node_paths[1]) as Light2D
 
+
 func _ready() -> void:
 	# Spin animation (only in-game)
 	if not Engine.editor_hint:
@@ -38,9 +39,10 @@ func close() -> void:
 ## @param new_spectrum: Selected spectrum
 func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
-	if border != null:
-		# Set collision masks and modulate border
-		set_collision_mask(1+1 << spectrum)
+
+	# Set collision masks and modulate border
+	if border:
+		set_collision_mask(1 + (1 << spectrum))
 		region.set_item_cull_mask(1 << spectrum)
 		border.set_modulate(Constants.STANDARD_COLOR[spectrum])
 
