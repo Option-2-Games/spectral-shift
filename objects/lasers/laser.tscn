@@ -12,7 +12,9 @@ node_paths = [ NodePath("RayCast2D"), NodePath("Beam") ]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 83, 0 )
+enabled = true
 cast_to = Vector2( 10000, 0 )
+collide_with_areas = true
 
 [node name="Beam" type="Line2D" parent="."]
 show_behind_parent = true

@@ -30,3 +30,4 @@ func _apply_spectrum(new_spectrum: int) -> void:
 		set_modulate(Constants.STANDARD_COLOR[spectrum])
 		_beam.set_default_color(Constants.HIGHLIGHT_COLOR[spectrum])
 		_beam.set_light_mask(1 << spectrum)
+		_start_ray.set_collision_mask(1 << spectrum)
