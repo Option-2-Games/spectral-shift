@@ -1,17 +1,15 @@
 extends KinematicBody2D
 
 # === Component Paths ===
-export(NodePath) var path_red_region
-export(NodePath) var path_green_region
-export(NodePath) var path_blue_region
+export(Array, NodePath) var node_paths
 
 # === Variables ===
 var _merged_region: MergeRegion
 
 # === Components Nodes ===
-onready var _red_region = get_node(path_red_region)
-onready var _green_region = get_node(path_green_region)
-onready var _blue_region = get_node(path_blue_region)
+onready var _red_region = get_node(node_paths[0])
+onready var _green_region = get_node(node_paths[1])
+onready var _blue_region = get_node(node_paths[2])
 
 ## Regions as an array
 onready var _regions = [null, _red_region, _green_region, _blue_region]
