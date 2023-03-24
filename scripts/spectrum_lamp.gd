@@ -103,11 +103,7 @@ func _unhandled_input(event: InputEvent):
 # Parameters:
 #	spectrum - <Spectrum> to use
 func use_spectrum(spectrum: int):
-	var proposed_change = (
-		1 + (1 << spectrum)
-		if spectrum > 0 and spectrum <= 3
-		else 1
-	)
+	var proposed_change = 1 + (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
 	if proposed_change != _lamp_state:
 		_lamp_state = proposed_change
 		_run_open_close_animation()
@@ -123,11 +119,7 @@ func use_spectrum(spectrum: int):
 # Parameters:
 #	spectrum - <Spectrum> to exclude
 func exclude_spectrum(spectrum: int):
-	var proposed_change = (
-		15 - (1 << spectrum)
-		if spectrum > 0 and spectrum <= 3
-		else 1
-	)
+	var proposed_change = 15 - (1 << spectrum) if spectrum > 0 and spectrum <= 3 else 1
 	if proposed_change != _lamp_state:
 		_lamp_state = proposed_change
 		_run_open_close_animation()
@@ -150,9 +142,7 @@ func _run_open_close_animation():
 		if should_be_on and !is_visually_on:
 			# Open and start rotating
 			animation_player.play(open_spectrum_animation_key)
-			animation_player.play(
-				ROTATE_LAMP_ANIMATION_KEYS[spectrum], 1, rand_range(-1, 1)
-			)
+			animation_player.play(ROTATE_LAMP_ANIMATION_KEYS[spectrum], 1, rand_range(-1, 1))
 		elif !should_be_on and is_visually_on:
 			# Close
 			animation_player.stop()

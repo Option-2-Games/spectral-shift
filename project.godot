@@ -18,16 +18,28 @@ _global_script_classes=[ {
 "class": "GutTest",
 "language": "GDScript",
 "path": "res://addons/gut/test.gd"
+}, {
+"base": "CollisionObject2D",
+"class": "Mergable",
+"language": "GDScript",
+"path": "res://scripts/mergable.gd"
+}, {
+"base": "Area2D",
+"class": "MergeRegion",
+"language": "GDScript",
+"path": "res://scripts/spectrum_merge_region.gd"
 } ]
 _global_script_class_icons={
 "GutHookScript": "",
-"GutTest": ""
+"GutTest": "",
+"Mergable": "",
+"MergeRegion": ""
 }
 
 [application]
 
 config/name="Spectral Shift"
-run/main_scene="res://tests/scenes/spectrum_shifting/player_lamp_test_scene.tscn"
+run/main_scene="res://tests/spectrum_shifting/player_lamp_test_scene.tscn"
 
 [autoload]
 
@@ -92,10 +104,10 @@ use_blue_spectrum={
 
 [layer_names]
 
-2d_render/layer_1="Base Reality"
-2d_render/layer_2="Red Reality"
-2d_render/layer_3="Green Reality"
-2d_render/layer_4="Blue Reality"
+2d_render/layer_1="Base"
+2d_render/layer_2="Red"
+2d_render/layer_3="Green"
+2d_render/layer_4="Blue"
 2d_physics/layer_1="Base Floor"
 2d_physics/layer_2="Red Floor"
 2d_physics/layer_3="Green Floor"
@@ -104,6 +116,7 @@ use_blue_spectrum={
 2d_physics/layer_6="Red Interactables"
 2d_physics/layer_7="Green Interactables"
 2d_physics/layer_8="Blue Interactables"
+2d_physics/layer_9="Merge Regions"
 
 [physics]
 
@@ -111,4 +124,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_clear_color=Color( 0.1, 0.1, 0.1, 1 )
+environment/default_environment="res://shaders/default_env.tres"

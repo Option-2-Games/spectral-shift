@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=1]
+[ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
+[ext_resource path="res://tests/spectrum_merge_region/spectrum_merge_region_tester.gd" type="Script" id=3]
+[ext_resource path="res://scripts/mergable.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 50 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="SpectrumMergeRegionTester" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="RedBg" type="ColorRect" parent="."]
+light_mask = 2
+material = ExtResource( 2 )
+margin_right = 978.0
+margin_bottom = 580.0
+color = Color( 1, 0, 0, 0.317647 )
+
+[node name="GreenBg" type="ColorRect" parent="."]
+light_mask = 4
+material = ExtResource( 2 )
+margin_left = 909.0
+margin_top = 15.0
+margin_right = 1887.0
+margin_bottom = 595.0
+color = Color( 0, 1, 0, 0.317647 )
+
+[node name="RedRegion" parent="." instance=ExtResource( 1 )]
+position = Vector2( 525, 540 )
+collision_mask = 2
+
+[node name="Border" parent="RedRegion" index="1"]
+modulate = Color( 1.3, 0, 0, 1 )
+
+[node name="Region" parent="RedRegion/Border" index="0"]
+range_item_cull_mask = 2
+
+[node name="GreenRegion" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1412, 554 )
+collision_mask = 4
+
+[node name="Border" parent="GreenRegion" index="1"]
+modulate = Color( 0, 1.2, 0, 1 )
+
+[node name="Region" parent="GreenRegion/Border" index="0"]
+range_item_cull_mask = 4
+
+[node name="RedDummy" type="Area2D" parent="."]
+position = Vector2( 718, 322 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedDummy"]
+position = Vector2( 50, 50 )
+shape = SubResource( 1 )
+
+[node name="Red" type="Polygon2D" parent="RedDummy"]
+light_mask = 2
+material = ExtResource( 2 )
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="GreenDummy" type="RigidBody2D" parent="."]
+position = Vector2( 1079, 338 )
+collision_layer = 4
+collision_mask = 4
+gravity_scale = 0.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenDummy"]
+shape = SubResource( 2 )
+
+[node name="Green" type="Polygon2D" parent="GreenDummy"]
+light_mask = 4
+material = ExtResource( 2 )
+color = Color( 0, 1, 0, 1 )
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[editable path="RedRegion"]
+[editable path="GreenRegion"]

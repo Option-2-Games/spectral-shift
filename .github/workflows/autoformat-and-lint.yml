@@ -37,7 +37,7 @@ jobs:
       run: pip install -r .github/requirements.txt
 
     - name: 🧼 Format code
-      run: gdformat -l 80 scripts/ tests/
+      run: gdformat scripts/ tests/
 
     - name: 🧼 Format Markdown
       run: mdformat .
