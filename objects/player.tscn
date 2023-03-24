@@ -27,7 +27,7 @@ scale = Vector2( 1e-05, 1e-05 )
 collision_mask = 2
 
 [node name="Border" parent="RedRegion" index="1"]
-modulate = Color( 1, 0, 0, 1 )
+modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 
 [node name="Region" parent="RedRegion/Border" index="0"]
 range_item_cull_mask = 2
@@ -37,7 +37,7 @@ scale = Vector2( 1e-05, 1e-05 )
 collision_mask = 4
 
 [node name="Border" parent="GreenRegion" index="1"]
-modulate = Color( 0, 1, 0, 1 )
+modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 
 [node name="Region" parent="GreenRegion/Border" index="0"]
 range_item_cull_mask = 4
@@ -47,7 +47,7 @@ scale = Vector2( 1e-05, 1e-05 )
 collision_mask = 4
 
 [node name="Border" parent="BlueRegion" index="1"]
-modulate = Color( 0, 0, 1, 1 )
+modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
 
 [node name="Region" parent="BlueRegion/Border" index="0"]
 range_item_cull_mask = 8

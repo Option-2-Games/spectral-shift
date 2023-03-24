@@ -11,6 +11,9 @@ extents = Vector2( 32, 32 )
 
 [node name="PlayerLampTestScene" type="Node2D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
 [node name="BlueBg" type="ColorRect" parent="."]
 light_mask = 8
 material = ExtResource( 1 )
@@ -93,12 +96,6 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DemoKinematicBody"]
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1087, 715 )
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 4 )
-
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
 position = Vector2( 363, 527 )
 
@@ -107,5 +104,8 @@ modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 
 [node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
 range_item_cull_mask = 2
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1087, 715 )
 
 [editable path="SpectrumMergeRegion"]
