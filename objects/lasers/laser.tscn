@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/laser/laser.webp" type="Texture" id=1]
+[ext_resource path="res://scripts/laser.gd" type="Script" id=3]
+
+[node name="Laser" type="Sprite"]
+modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 50, 0 )
+script = ExtResource( 3 )
+path_beam = NodePath("Beam")
+
+[node name="Beam" type="Line2D" parent="."]
+show_behind_parent = true
+points = PoolVector2Array( 83, 0, 120, 0 )
+width = 25.0
+default_color = Color( 1.5, 0.31, 0.33, 1 )

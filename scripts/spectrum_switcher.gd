@@ -9,6 +9,7 @@ signal spectrum_switched(selection)
 # === Constants ===
 const SQ_DISTANCE_TO_SEGMENT = 4225
 const TWEEN_DURATION = 0.2
+const OFF_COLOR = Color("646464")
 
 # === Component Paths ===
 export(NodePath) var path_selection_beam
@@ -194,7 +195,10 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 
 	# Update colors of selection beam
 	var _beam = _create_cubic_tween().tween_property(
-		_selection_beam, "modulate", highlight_color, TWEEN_DURATION
+		_selection_beam,
+		"modulate",
+		OFF_COLOR if spectrum == Constants.Spectrum.BASE else highlight_color,
+		TWEEN_DURATION
 	)
 
 	# Set selecting variable
