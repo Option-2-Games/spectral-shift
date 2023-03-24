@@ -42,7 +42,7 @@ margin_top = 103.0
 margin_right = 894.0
 margin_bottom = 550.0
 mouse_filter = 2
-color = Color( 0.780392, 0.305882, 0.32549, 0.309804 )
+color = Color( 0.780392, 0.305882, 0.32549, 0.356863 )
 
 [node name="DemoBlock" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
@@ -61,6 +61,9 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DemoBlock"]
 shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1087, 715 )
 
 [node name="DemoBlock2" type="Area2D" parent="."]
 modulate = Color( 0, 0, 1, 1 )
@@ -104,8 +107,5 @@ modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 
 [node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
 range_item_cull_mask = 2
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1087, 715 )
 
 [editable path="SpectrumMergeRegion"]

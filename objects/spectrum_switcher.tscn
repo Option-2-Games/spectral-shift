@@ -13,6 +13,7 @@ gradient = SubResource( 3 )
 width = 200
 
 [node name="SpectrumSwitcher" type="Node2D"]
+z_index = 4096
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true

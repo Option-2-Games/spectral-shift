@@ -7,6 +7,7 @@ extends Node2D
 signal spectrum_switched(selection)
 
 # === Constants ===
+const SQ_DISTANCE_TO_SEGMENT = 4225
 const TWEEN_DURATION = 0.2
 
 # === Component Paths ===
@@ -53,7 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and _switcher_is_open:
 		# Check if mouse is selecting a spectrum
 		var mouse_pos = (event as InputEventMouseMotion).position - global_position
-		if mouse_pos.length_squared() >= 16900:
+		if mouse_pos.length_squared() >= SQ_DISTANCE_TO_SEGMENT:
 			# Get mouse angle to RED spectrum
 			mouse_pos.y *= -1
 			var mouse_angle_degrees = rad2deg(mouse_pos.angle_to(Vector2(-1, -1)))

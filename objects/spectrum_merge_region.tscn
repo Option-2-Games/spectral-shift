@@ -41,6 +41,8 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="Border" type="Sprite" parent="."]
+z_index = 4095
+z_as_relative = false
 texture = SubResource( 5 )
 offset = Vector2( 5, 0 )
 
