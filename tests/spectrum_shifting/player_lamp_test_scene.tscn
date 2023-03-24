@@ -44,68 +44,62 @@ margin_bottom = 550.0
 mouse_filter = 2
 color = Color( 0.780392, 0.305882, 0.32549, 0.356863 )
 
-[node name="DemoBlock" type="Area2D" parent="."]
+[node name="RedDemoBlock" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 light_mask = 2
 position = Vector2( 760, 400 )
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource( 2 )
 spectrum = 1
 
-[node name="Shape" type="Polygon2D" parent="DemoBlock"]
+[node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
 material = ExtResource( 1 )
 antialiased = true
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DemoBlock"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1087, 715 )
 
-[node name="DemoBlock2" type="Area2D" parent="."]
+[node name="BlueDemoBlock" type="Area2D" parent="."]
 modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 960, 400 )
 collision_layer = 8
-collision_mask = 0
+collision_mask = 8
 script = ExtResource( 2 )
 spectrum = 3
 
-[node name="Shape" type="Polygon2D" parent="DemoBlock2"]
+[node name="Shape" type="Polygon2D" parent="BlueDemoBlock"]
 light_mask = 8
 material = ExtResource( 1 )
 antialiased = true
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DemoBlock2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlueDemoBlock"]
 shape = SubResource( 1 )
 
-[node name="DemoKinematicBody" type="KinematicBody2D" parent="."]
+[node name="GreenDemoKinematic" type="KinematicBody2D" parent="."]
 modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 1160, 400 )
 collision_layer = 4
-collision_mask = 0
+collision_mask = 4
 script = ExtResource( 2 )
 spectrum = 2
 
-[node name="Shape" type="Polygon2D" parent="DemoKinematicBody"]
+[node name="Shape" type="Polygon2D" parent="GreenDemoKinematic"]
 light_mask = 4
 material = ExtResource( 1 )
 antialiased = true
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DemoKinematicBody"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GreenDemoKinematic"]
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
 position = Vector2( 363, 527 )
-
-[node name="Border" parent="SpectrumMergeRegion" index="1"]
-modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-
-[node name="Region" parent="SpectrumMergeRegion/Border" index="0"]
-range_item_cull_mask = 2
 
 [editable path="SpectrumMergeRegion"]

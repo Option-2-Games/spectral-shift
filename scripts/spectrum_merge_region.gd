@@ -10,7 +10,6 @@ export(Array, NodePath) var node_paths
 onready var border = get_node(node_paths[0]) as Sprite
 onready var region = get_node(node_paths[1]) as Light2D
 
-
 func _ready() -> void:
 	# Spin animation (only in-game)
 	if not Engine.editor_hint:
@@ -41,7 +40,7 @@ func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
 	if border != null:
 		# Set collision masks and modulate border
-		set_collision_mask(1 << spectrum)
+		set_collision_mask(1+1 << spectrum)
 		region.set_item_cull_mask(1 << spectrum)
 		border.set_modulate(Constants.STANDARD_COLOR[spectrum])
 
@@ -52,7 +51,7 @@ func _apply_spectrum(new_spectrum: int) -> void:
 ## @param object: object that entered
 func _handle_entered(object) -> void:
 	if object.has_method("entered_merge_region"):
-		object.entered_merge_region()
+		object.entered_merge_region(spectrum)
 
 
 ## Handle objects exiting region
@@ -61,7 +60,7 @@ func _handle_entered(object) -> void:
 ## @param object: object that exited
 func _handle_exited(object) -> void:
 	if object.has_method("exited_merge_region"):
-		object.exited_merge_region()
+		object.exited_merge_region(spectrum)
 
 
 func _on_area_entered(area: Area2D) -> void:
