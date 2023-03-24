@@ -94,13 +94,13 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 952, 681 )
+position = Vector2( 1087, 715 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 4 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 558, 255 )
+position = Vector2( 363, 527 )
 
 [node name="Border" parent="SpectrumMergeRegion" index="1"]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )

@@ -10,12 +10,10 @@ signal spectrum_switched(selection)
 const TWEEN_DURATION = 0.2
 
 # === Component Paths ===
-export(NodePath) var selection_beam_path
-export(NodePath) var status_beam_path
-export(NodePath) var status_top_path
-export(NodePath) var red_segment_path
-export(NodePath) var green_segment_path
-export(NodePath) var blue_segment_path
+export(NodePath) var path_selection_beam
+export(NodePath) var path_red_segment
+export(NodePath) var path_green_segment
+export(NodePath) var path_blue_segment
 
 # === Variables ===
 
@@ -29,12 +27,10 @@ var _selecting_spectrum: int = Constants.Spectrum.BASE
 var _selected_spectrum: int
 
 # === Components Nodes===
-onready var _selection_beam = get_node(selection_beam_path)
-onready var _status_beam = get_node(status_beam_path)
-onready var _status_top = get_node(status_top_path)
-onready var _red_segment = get_node(red_segment_path)
-onready var _green_segment = get_node(green_segment_path)
-onready var _blue_segment = get_node(blue_segment_path)
+onready var _selection_beam = get_node(path_selection_beam)
+onready var _red_segment = get_node(path_red_segment)
+onready var _green_segment = get_node(path_green_segment)
+onready var _blue_segment = get_node(path_blue_segment)
 
 ## Color segments as an array (null offset for base)
 onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
@@ -207,16 +203,9 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 				)
 			)
 
-	# Update colors of status and selection beams
-	var _beam = _create_cubic_tween()
-	_beam.tween_property(
+	# Update colors of selection beam
+	var _beam = _create_cubic_tween().tween_property(
 		_selection_beam, "modulate", highlight_color, TWEEN_DURATION
-	)
-	_beam.parallel().tween_property(
-		_status_beam, "modulate", highlight_color, TWEEN_DURATION
-	)
-	_beam.parallel().tween_property(
-		_status_top, "modulate", highlight_color, TWEEN_DURATION
 	)
 
 	# Set selecting variable
