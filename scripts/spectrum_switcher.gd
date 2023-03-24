@@ -52,16 +52,11 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and _switcher_is_open:
 		# Check if mouse is selecting a spectrum
-		var mouse_pos = (
-			(event as InputEventMouseMotion).position
-			- global_position
-		)
+		var mouse_pos = (event as InputEventMouseMotion).position - global_position
 		if mouse_pos.length_squared() >= 16900:
 			# Get mouse angle to RED spectrum
 			mouse_pos.y *= -1
-			var mouse_angle_degrees = rad2deg(
-				mouse_pos.angle_to(Vector2(-1, -1))
-			)
+			var mouse_angle_degrees = rad2deg(mouse_pos.angle_to(Vector2(-1, -1)))
 
 			if (
 				mouse_angle_degrees >= 0
@@ -151,10 +146,7 @@ func _unhighlight_selecting() -> void:
 	var _unhighlight = _create_cubic_tween().set_ease(Tween.EASE_IN)
 	_unhighlight.tween_property(segment, "scale", Vector2.ONE, TWEEN_DURATION)
 	_unhighlight.parallel().tween_property(
-		segment,
-		"modulate",
-		Constants.STANDARD_COLOR[_selecting_spectrum],
-		TWEEN_DURATION
+		segment, "modulate", Constants.STANDARD_COLOR[_selecting_spectrum], TWEEN_DURATION
 	)
 
 
@@ -168,12 +160,8 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 	# Highlight spectrum
 	if segment:
 		var _highlight = _create_cubic_tween().set_ease(Tween.EASE_OUT)
-		_highlight.tween_property(
-			segment, "scale", Vector2(1.1, 1.1), TWEEN_DURATION
-		)
-		_highlight.parallel().tween_property(
-			segment, "modulate", highlight_color, TWEEN_DURATION
-		)
+		_highlight.tween_property(segment, "scale", Vector2(1.1, 1.1), TWEEN_DURATION)
+		_highlight.parallel().tween_property(segment, "modulate", highlight_color, TWEEN_DURATION)
 
 	# Unhighlight previous segment (if color)
 	_unhighlight_selecting()

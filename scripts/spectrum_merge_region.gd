@@ -1,25 +1,24 @@
-extends Area2D
 class_name MergeRegion
+extends Area2D
 
 
 ## Start spin animation
 func _ready() -> void:
 	var spin_direction = 1 if randi() % 2 == 0 else -1
-	var _spin = create_tween().set_loops().tween_property(self, "rotation_degrees", spin_direction * 360, 3).from_current()
+	var spin = create_tween().set_loops()
+	spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from_current()
 
 
 ## Open this region
 func open() -> void:
-	var _open = create_tween().set_trans(Tween.TRANS_BACK).tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(
-		Tween.EASE_OUT
-	)
+	var open = create_tween().set_trans(Tween.TRANS_BACK)
+	open.tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT)
 
 
 ## Close this region
 func close() -> void:
-	var _close = self.create_tween().set_trans(Tween.TRANS_CUBIC).tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(
-		Tween.EASE_IN
-	)
+	var close = self.create_tween().set_trans(Tween.TRANS_CUBIC)
+	close.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
 
 
 ## Handle objects entering region

@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 # === Component Paths ===
 export(NodePath) var path_red_region
 export(NodePath) var path_green_region
@@ -22,7 +21,7 @@ func _on_SpectrumSwitcher_spectrum_switched(selection: int) -> void:
 	# Close merged region
 	if _merged_region:
 		_merged_region.close()
-	
+
 	# Open (merge) region
 	var region = _regions[selection]
 	if region:

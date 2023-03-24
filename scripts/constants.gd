@@ -11,9 +11,7 @@ enum Spectrum { BASE, RED, GREEN, BLUE }
 
 ## Standard spectrum color pallet
 const STANDARD_COLOR = {
-	Spectrum.RED: Color("c74e53"),
-	Spectrum.GREEN: Color("53c74e"),
-	Spectrum.BLUE: Color("4e53c7")
+	Spectrum.RED: Color("c74e53"), Spectrum.GREEN: Color("53c74e"), Spectrum.BLUE: Color("4e53c7")
 }
 
 ## Highlight spectrum color pallet
