@@ -22,7 +22,7 @@ func entered_merge_region(region_spectrum: int) -> void:
 
 func exited_merge_region(region_spectrum: int) -> void:
 	# Mark exited one region of spectrum
-	_merges.remove(_merges.rfind(region_spectrum))
+	_merges.erase(region_spectrum)
 
 	# Remove layer if not merged with spectrum anymore
 	if _merges.rfind(region_spectrum) == -1:
