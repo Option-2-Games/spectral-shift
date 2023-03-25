@@ -2,13 +2,16 @@
 
 [ext_resource path="res://assets/laser/laser.webp" type="Texture" id=1]
 [ext_resource path="res://objects/lasers/laser_ray.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/laser.gd" type="Script" id=3]
+[ext_resource path="res://scripts/laser/laser.gd" type="Script" id=3]
 
 [node name="Laser" type="Sprite"]
 show_behind_parent = true
 texture = ExtResource( 1 )
 offset = Vector2( 50, 0 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
 node_paths = [ NodePath("LaserRay"), NodePath("Beam") ]
 
 [node name="LaserRay" parent="." instance=ExtResource( 2 )]

@@ -27,7 +27,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	print("Collider: {}; Shape: {}; Location: {}".format([_start_ray.get_collider(), _start_ray.get_collider_shape(), _start_ray.get_collision_point()]))
+	if _start_ray.is_colliding():
+		print("Collider: {}; Shape: {}; Location: {}".format([_start_ray.get_collider(), _start_ray.get_collider_shape(), _start_ray.get_collision_point()], "{}"))
 	# Check for intersection
 	# var intersected_ray = _start_ray
 
