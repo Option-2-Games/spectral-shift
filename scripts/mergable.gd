@@ -29,6 +29,10 @@ func exited_merge_region(region_spectrum: int) -> void:
 		self.set_collision_layer_bit(region_spectrum, false)
 		self.set_collision_mask_bit(region_spectrum, false)
 
+	# Clear all regions (unmerge) if there are no regions of source spectrum
+	if not spectrum in _merges:
+		_merges.clear()
+
 	# Reset layers if exited all regions
 	if _merges.size() == 0:
 		self.set_collision_layer(1 << spectrum)

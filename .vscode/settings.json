@@ -8,6 +8,7 @@
         "rfind",
         "stefanzweifel",
         "tweener",
-        "unhighlight"
+        "unhighlight",
+        "unmerge"
     ]
 }

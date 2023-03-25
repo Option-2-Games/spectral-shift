@@ -13,7 +13,7 @@ extents = Vector2( 32, 32 )
 [node name="Laser" parent="." instance=ExtResource( 1 )]
 position = Vector2( 181, 389 )
 
-[node name="RedDemoBlock" type="Area2D" parent="."]
+[node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
 position = Vector2( 935, 385 )
@@ -34,7 +34,7 @@ polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
 shape = SubResource( 1 )
 
-[node name="GreenDemoKinematic" type="KinematicBody2D" parent="."]
+[node name="GreenDemoKinematic" type="KinematicBody2D" parent="." groups=["magic"]]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 position = Vector2( 1160, 400 )
 collision_layer = 4
