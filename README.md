@@ -1,10 +1,10 @@
 ⚠️ This project is still in early development! Feel free to poke around the code, but there is no game here yet!
+
 # Spectral Shift
 
 [![Test](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml)
 [![Dependency Review](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml)
 [![Autoformat and Lint](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml/badge.svg)](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml)
-
 
 A 2D puzzle adventure into color and a reality ripped apart.
 
