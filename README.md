@@ -1,10 +1,10 @@
+⚠️ This project is still in early development! Feel free to poke around the code, but there is no game here yet!
 # Spectral Shift
 
 [![Test](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml)
+[![Dependency Review](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml)
+[![Autoformat and Lint](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml/badge.svg)](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml)
 
-[![Build](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/build.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/build.yml)
-
-[![Generate Code Documentation](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/generate-code-docs.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/generate-code-docs.yml)
 
 A 2D puzzle adventure into color and a reality ripped apart.
 
@@ -27,12 +27,11 @@ Other things to install are:
 - Code editor: [Visual Studio Code](https://code.visualstudio.com)
   - Language support: [godot-tools](https://marketplace.visualstudio.com/items?itemName=geequlim.godot-tools)
   - Unit testing support: [gut-extension](https://marketplace.visualstudio.com/items?itemName=bitwes.gut-extension)
-- Unit testing addon: [Gut](https://github.com/bitwes/Gut/wiki/Install)
+- Unit testing addon: [Gut 7.x](https://github.com/bitwes/Gut/wiki/Install)
 - Asset creation and management: [Plastic SCM Cloud Edition](https://www.plasticscm.com/download)
 - Godot Toolkit and Mdformat (Markdown formatter): install Python ≥ 3.7 then
   `pip install -r .github/requirements.txt`
   - Installing with `pipx` may be of interst as well
-- Code documentation generator: [Natural Docs](https://www.naturaldocs.org/download/)
 
 ### Setup instructions
 
