@@ -16,7 +16,7 @@ const STANDARD_COLOR = {
 
 ## Highlight spectrum color pallet
 const HIGHLIGHT_COLOR = {
-	Spectrum.BASE: Color("646464"),
+Spectrum.BASE: Color("646464"),
 	Spectrum.RED: Color(1.5, 0.31, 0.33),
 	Spectrum.GREEN: Color(0.33, 1.5, 0.31),
 	Spectrum.BLUE: Color(0.31, 0.33, 1.5)
