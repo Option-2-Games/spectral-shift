@@ -4,11 +4,14 @@ extends RayCast2D
 ## Handler for a ray in a laser
 
 # === Component Paths ===
+export(NodePath) var path_beam
 
 # === Components and properties ===
 var next_ray: LaserRay
-var beam: Line2D
-var beam_endpoint_index: int
+var spectrum: int
+
+# === Component Nodes ===
+onready var _beam = get_node(path_beam) as Line2D
 
 
 ## Delete function
@@ -20,5 +23,4 @@ func delete() -> void:
 		next_ray.delete()
 
 	# Then delete self
-	beam.remove_point(beam_endpoint_index)
 	queue_free()

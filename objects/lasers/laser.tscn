@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/laser/laser.webp" type="Texture" id=1]
-[ext_resource path="res://objects/lasers/laser_ray.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/laser/laser.gd" type="Script" id=3]
 
 [node name="Laser" type="Sprite"]
@@ -12,13 +11,4 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
-node_paths = [ NodePath("LaserRay"), NodePath("Beam") ]
-
-[node name="LaserRay" parent="." instance=ExtResource( 2 )]
-position = Vector2( 83, 0 )
-
-[node name="Beam" type="Line2D" parent="."]
-show_behind_parent = true
-points = PoolVector2Array( 83, 0 )
-width = 25.0
-default_color = Color( 1.5, 1.5, 1.5, 1 )
+node_paths = [ NodePath(""), NodePath("") ]

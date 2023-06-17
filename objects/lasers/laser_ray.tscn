@@ -7,6 +7,7 @@ enabled = true
 cast_to = Vector2( 10000, 0 )
 collide_with_areas = true
 script = ExtResource( 1 )
+path_beam = NodePath("Beam")
 
 [node name="Beam" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0 )

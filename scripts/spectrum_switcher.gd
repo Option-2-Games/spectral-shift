@@ -28,7 +28,7 @@ var _selecting_spectrum: int = Constants.Spectrum.BASE
 ## The spectrum which is selected in the switcher
 var _selected_spectrum: int
 
-# === Components Nodes===
+# === Component Nodes===
 onready var _selection_beam = get_node(path_selection_beam)
 onready var _red_segment = get_node(path_red_segment)
 onready var _green_segment = get_node(path_green_segment)
