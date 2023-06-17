@@ -3,6 +3,8 @@ extends RayCast2D
 
 ## Handler for a ray in a laser
 
+# === Component Paths ===
+
 # === Components and properties ===
 var next_ray: LaserRay
 var beam: Line2D
