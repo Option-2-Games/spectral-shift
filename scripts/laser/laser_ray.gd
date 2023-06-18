@@ -30,11 +30,10 @@ func _ready() -> void:
 
 ## Update laser position and next rays based on cast
 func _physics_process(_delta) -> void:
-	pass
-	# if is_colliding():
-	# 	_beam.set_point_position(1, get_collision_point() - global_position)
-	# else:
-	# 	_beam.set_point_position(1, Vector2.ZERO)
+	if is_colliding():
+		_beam.set_point_position(1, to_local(get_collision_point()))
+	else:
+		_beam.set_point_position(1, Vector2.RIGHT * 1000)
 
 
 ## Delete function

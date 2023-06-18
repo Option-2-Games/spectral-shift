@@ -14,12 +14,13 @@ extents = Vector2( 32, 32 )
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
 position = Vector2( 31, 390 )
+rotation = 0.616101
 spectrum = 1
 
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
-position = Vector2( 935, 385 )
+position = Vector2( 558, 727 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
@@ -55,6 +56,6 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 385, 353 )
+position = Vector2( 382, 595 )
 
 [editable path="Laser"]
