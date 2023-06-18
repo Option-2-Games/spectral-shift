@@ -7,7 +7,7 @@ extends Node
 ## RED - Red spectrum merged
 ## GREEN - Green spectrum merged
 ## BLUE - Blue spectrum merged
-enum Spectrum { BASE=0, RED=1, GREEN=2, BLUE=3 }
+enum Spectrum { BASE = 0, RED = 1, GREEN = 2, BLUE = 3 }
 
 ## Standard spectrum color pallet
 const STANDARD_COLOR = {

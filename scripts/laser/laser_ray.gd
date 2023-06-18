@@ -8,13 +8,28 @@ export(NodePath) var path_beam
 
 # === Components and properties ===
 var next_ray: LaserRay
-var spectrum: int setget _apply_spectrum
+var spectrum: int
 
 # === Component Nodes ===
 onready var _beam = get_node(path_beam) as Line2D
 
 
-func _physics_process(_delta):
+## Initialize a ray in a laser
+func _ready() -> void:
+	# Set color
+	self.set_modulate(Constants.STANDARD_COLOR[spectrum])
+
+	var spectrum_mask = 1 << spectrum
+
+	# Set collision mask
+	self.set_collision_mask(spectrum_mask)
+
+	# Set beam light mask
+	_beam.set_light_mask(spectrum_mask)
+
+
+## Update laser position and next rays based on cast
+func _physics_process(_delta) -> void:
 	if is_colliding():
 		_beam.set_point_position(1, get_collision_point() - global_position)
 	else:
@@ -31,12 +46,3 @@ func delete() -> void:
 
 	# Then delete self
 	queue_free()
-
-## Apply spectrum setting
-##
-## @param new_spectrum: Selected spectrum
-func _apply_spectrum(new_spectrum: int) -> void:
-	spectrum = new_spectrum
-	set_modulate(Constants.STANDARD_COLOR[spectrum])
-
-	set_light_mask(1 << spectrum)

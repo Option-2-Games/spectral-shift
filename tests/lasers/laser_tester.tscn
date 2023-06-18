@@ -13,7 +13,7 @@ extents = Vector2( 32, 32 )
 [node name="Laser" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
-position = Vector2( 182, 389 )
+position = Vector2( 31, 390 )
 spectrum = 1
 
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
@@ -55,6 +55,6 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1066, 767 )
+position = Vector2( 887, 680 )
 
 [editable path="Laser"]

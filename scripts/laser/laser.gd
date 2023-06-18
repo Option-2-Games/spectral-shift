@@ -5,6 +5,7 @@ extends Sprite
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
 export(PackedScene) var ray_object
 
+## Initialize laser emitter
 func _ready() -> void:
 	# Create a laser beam ray
 	var ray = ray_object.instance()
@@ -18,6 +19,5 @@ func _ready() -> void:
 ## @param new_spectrum: Selected spectrum
 func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
-	set_modulate(Constants.STANDARD_COLOR[spectrum])
-
-	set_light_mask(1 << spectrum)
+	self.set_modulate(Constants.STANDARD_COLOR[spectrum])
+	self.set_light_mask(1 << spectrum)
