@@ -16,8 +16,9 @@ func _ready() -> void:
 	ray.set_global_position(to_global(Vector2(90, 0)))
 	ray.set_global_rotation(get_global_rotation())
 
-	# Add to scene
+	# Add to scene (and at bottom)
 	get_tree().get_current_scene().call_deferred("add_child", ray)
+	get_tree().get_current_scene().call_deferred("move_child", ray, 0)
 
 
 ## Apply spectrum setting

@@ -148,7 +148,10 @@ func _unhighlight_selecting() -> void:
 	var _unhighlight = _create_cubic_tween().set_ease(Tween.EASE_IN)
 	_unhighlight.tween_property(segment, "scale", Vector2.ONE, TWEEN_DURATION)
 	_unhighlight.parallel().tween_property(
-		segment, "modulate", Constants.STANDARD_COLOR[_selecting_spectrum], TWEEN_DURATION
+		segment,
+		"modulate",
+		Constants.STANDARD_COLOR[_selecting_spectrum],
+		TWEEN_DURATION
 	)
 
 
@@ -163,7 +166,9 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 	if segment:
 		var _highlight = _create_cubic_tween().set_ease(Tween.EASE_OUT)
 		_highlight.tween_property(segment, "scale", Vector2(1.1, 1.1), TWEEN_DURATION)
-		_highlight.parallel().tween_property(segment, "modulate", highlight_color, TWEEN_DURATION)
+		_highlight.parallel().tween_property(
+			segment, "modulate", highlight_color, TWEEN_DURATION
+		)
 
 	# Unhighlight previous segment (if color)
 	_unhighlight_selecting()
