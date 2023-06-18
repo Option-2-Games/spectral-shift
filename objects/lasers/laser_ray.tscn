@@ -10,6 +10,6 @@ script = ExtResource( 1 )
 path_beam = NodePath("Beam")
 
 [node name="Beam" type="Line2D" parent="."]
-points = PoolVector2Array( 0, 0 )
+points = PoolVector2Array( 0, 0, 100, 0 )
 width = 25.0
 default_color = Color( 1, 1, 1, 1 )
