@@ -13,3 +13,5 @@ path_beam = NodePath("Beam")
 points = PoolVector2Array( 0, 0, 100, 0 )
 width = 25.0
 default_color = Color( 1, 1, 1, 1 )
+begin_cap_mode = 2
+end_cap_mode = 2

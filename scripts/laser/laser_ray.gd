@@ -14,9 +14,11 @@ var spectrum: int
 onready var _beam = get_node(path_beam) as Line2D
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_colliding():
-		_beam.points[1] = get_collision_point()
+		_beam.set_point_position(1, get_collision_point() - global_position)
+	else:
+		_beam.set_point_position(1, Vector2.ZERO)
 
 
 ## Delete function
