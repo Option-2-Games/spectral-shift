@@ -16,8 +16,8 @@ func entered_merge_region(region_spectrum: int) -> void:
 
 	# Enable spectrum layers (ensure exist on all merged layers)
 	var bitmask = get_collision_layer() | 1 << region_spectrum | 1
-	self.set_collision_layer(bitmask)
-	self.set_collision_mask(bitmask)
+	set_collision_layer(bitmask)
+	set_collision_mask(bitmask)
 
 
 func exited_merge_region(region_spectrum: int) -> void:
@@ -26,8 +26,8 @@ func exited_merge_region(region_spectrum: int) -> void:
 
 	# Remove layer if not merged with spectrum anymore
 	if _merges.rfind(region_spectrum) == -1:
-		self.set_collision_layer_bit(region_spectrum, false)
-		self.set_collision_mask_bit(region_spectrum, false)
+		set_collision_layer_bit(region_spectrum, false)
+		set_collision_mask_bit(region_spectrum, false)
 
 	# Clear all regions (unmerge) if there are no regions of source spectrum
 	if not spectrum in _merges:
@@ -35,8 +35,8 @@ func exited_merge_region(region_spectrum: int) -> void:
 
 	# Reset layers if exited all regions
 	if _merges.size() == 0:
-		self.set_collision_layer(1 << spectrum)
-		self.set_collision_mask(1 << spectrum)
+		set_collision_layer(1 << spectrum)
+		set_collision_mask(1 << spectrum)
 
 
 ## Apply spectrum setting

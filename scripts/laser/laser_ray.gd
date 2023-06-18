@@ -17,12 +17,12 @@ onready var _beam = get_node(path_beam) as Line2D
 ## Initialize a ray in a laser
 func _ready() -> void:
 	# Set color
-	self.set_modulate(Constants.STANDARD_COLOR[spectrum])
+	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
 	var spectrum_mask = 1 << spectrum
 
 	# Set collision mask
-	self.set_collision_mask(spectrum_mask)
+	set_collision_mask(spectrum_mask)
 
 	# Set beam light mask
 	_beam.set_light_mask(spectrum_mask)
@@ -30,10 +30,11 @@ func _ready() -> void:
 
 ## Update laser position and next rays based on cast
 func _physics_process(_delta) -> void:
-	if is_colliding():
-		_beam.set_point_position(1, get_collision_point() - global_position)
-	else:
-		_beam.set_point_position(1, Vector2.ZERO)
+	pass
+	# if is_colliding():
+	# 	_beam.set_point_position(1, get_collision_point() - global_position)
+	# else:
+	# 	_beam.set_point_position(1, Vector2.ZERO)
 
 
 ## Delete function

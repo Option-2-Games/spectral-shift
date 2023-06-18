@@ -55,6 +55,6 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 887, 680 )
+position = Vector2( 385, 353 )
 
 [editable path="Laser"]

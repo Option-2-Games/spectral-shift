@@ -30,7 +30,7 @@ func open() -> void:
 
 ## Close this region
 func close() -> void:
-	var close = self.create_tween().set_trans(Tween.TRANS_CUBIC)
+	var close = create_tween().set_trans(Tween.TRANS_CUBIC)
 	close.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
 
 
