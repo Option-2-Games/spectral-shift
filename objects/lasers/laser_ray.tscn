@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/laser/laser_ray.gd" type="Script" id=1]
+[ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
 
 [node name="LaserRay" type="RayCast2D"]
 enabled = true
@@ -10,6 +11,7 @@ script = ExtResource( 1 )
 path_beam = NodePath("Beam")
 
 [node name="Beam" type="Line2D" parent="."]
+material = ExtResource( 2 )
 points = PoolVector2Array( 0, 0, 100, 0 )
 width = 25.0
 default_color = Color( 1, 1, 1, 1 )

@@ -8,7 +8,7 @@ export(NodePath) var path_beam
 
 # === Components and properties ===
 var next_ray: LaserRay
-var spectrum: int
+var spectrum: int setget _apply_spectrum
 
 # === Component Nodes ===
 onready var _beam = get_node(path_beam) as Line2D
@@ -31,3 +31,12 @@ func delete() -> void:
 
 	# Then delete self
 	queue_free()
+
+## Apply spectrum setting
+##
+## @param new_spectrum: Selected spectrum
+func _apply_spectrum(new_spectrum: int) -> void:
+	spectrum = new_spectrum
+	set_modulate(Constants.STANDARD_COLOR[spectrum])
+
+	set_light_mask(1 << spectrum)
