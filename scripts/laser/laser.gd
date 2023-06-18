@@ -5,11 +5,45 @@ extends Sprite
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
 export(PackedScene) var ray_object
 
+# === Components ===
+var ray: LaserRay
 
-## Initialize laser emitter
-func _ready() -> void:
+# === Properties ===
+var _prev_position: Vector2
+var _prev_rotation: float
+
+# === System Functions ===
+
+
+## Begin listening for transform changes
+func _init() -> void:
+	set_notify_transform(true)
+
+
+## Notification handler
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		# Check if the transformation changed anything
+		if get_position() != _prev_position or get_rotation() != _prev_rotation:
+			# Delete previous ray
+			if ray:
+				ray.delete()
+
+			# Create replacement
+			_create_ray()
+
+			# Update prev values
+			_prev_position = get_position()
+			_prev_rotation = get_rotation()
+
+
+# === Private Functions ===
+
+
+## Create the initial ray
+func _create_ray() -> void:
 	# Create a laser ray
-	var ray = ray_object.instance()
+	ray = ray_object.instance()
 
 	# Set ray spectrum, offset ray to emitter head, and set rotation
 	ray.spectrum = spectrum

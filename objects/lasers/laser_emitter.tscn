@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/laser/laser.gd" type="Script" id=3]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=4]
 
-[node name="Laser" type="Sprite"]
+[node name="LaserEmitter" type="Sprite"]
 show_behind_parent = true
 material = ExtResource( 4 )
 texture = ExtResource( 1 )

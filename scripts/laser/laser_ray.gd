@@ -13,6 +13,8 @@ var spectrum: int
 # === Component Nodes ===
 onready var _beam = get_node(path_beam) as Line2D
 
+# === System ===
+
 
 ## Initialize a ray in a laser
 func _ready() -> void:
@@ -33,7 +35,10 @@ func _physics_process(_delta) -> void:
 	if is_colliding():
 		_beam.set_point_position(1, to_local(get_collision_point()))
 	else:
-		_beam.set_point_position(1, Vector2.RIGHT * 1000)
+		_beam.set_point_position(1, Vector2(INF, 0))
+
+
+# === Public Functions ===
 
 
 ## Delete function

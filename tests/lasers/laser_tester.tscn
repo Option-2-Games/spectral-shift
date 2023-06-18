@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://objects/lasers/laser.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/lasers/laser_emitter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
 [ext_resource path="res://scripts/mergable.gd" type="Script" id=3]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=4]
@@ -14,7 +14,7 @@ extents = Vector2( 32, 32 )
 [node name="Laser" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
-position = Vector2( 31, 390 )
+position = Vector2( 708, 420 )
 spectrum = 1
 
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
@@ -60,7 +60,6 @@ position = Vector2( 917, 670 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1311, 544 )
-scale = Vector2( 1, 1 )
 collision_mask = 5
 spectrum = 2
 
