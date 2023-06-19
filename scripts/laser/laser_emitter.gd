@@ -1,7 +1,8 @@
 tool
 extends Sprite
 
-# === Components and input ===
+# === Components and Properties ===
+export(bool) var is_on
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
 export(PackedScene) var ray_object
 
@@ -19,12 +20,6 @@ func _init() -> void:
 
 	# Listen for transform changes
 	set_notify_transform(true)
-
-
-## Setup laser
-func _ready():
-	_create_ray()
-
 
 ## Notification handler
 func _notification(what: int) -> void:
@@ -54,6 +49,17 @@ func _create_ray() -> void:
 func _set_ray_transform() -> void:
 	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(90, 0))))
 
+
+## Toggle on/off
+func toggle(new_state: bool) -> void:
+	is_on = new_state
+
+	# Create or destroy ray
+	if new_state:
+		_create_ray()
+	else:
+		if ray:
+			ray.delete()
 
 ## Apply spectrum setting
 ##
