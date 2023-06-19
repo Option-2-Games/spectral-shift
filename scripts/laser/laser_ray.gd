@@ -41,9 +41,9 @@ func _physics_process(_delta) -> void:
 # === Public Functions ===
 
 
-## Delete function
+## Delete segment
 ##
-## Cascades a delete command down the chain
+## Cascades a delete command down the chain to future rays
 func delete() -> void:
 	# Delete next ray first
 	if next_ray:

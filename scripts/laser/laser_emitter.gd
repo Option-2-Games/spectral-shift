@@ -19,18 +19,18 @@ var _prev_rotation: float
 func _init() -> void:
 	set_notify_transform(true)
 
+func _ready():
+	if not Engine.editor_hint:
+		set_use_parent_material(false)
+	_create_ray()
 
 ## Notification handler
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSFORM_CHANGED:
 		# Check if the transformation changed anything
-		if get_position() != _prev_position or get_rotation() != _prev_rotation:
-			# Delete previous ray
-			if ray:
-				ray.delete()
-
-			# Create replacement
-			_create_ray()
+		if ray and (get_position() != _prev_position or get_rotation() != _prev_rotation):
+			# Update position and rotation
+			_set_ray_transform()
 
 			# Update prev values
 			_prev_position = get_position()
@@ -47,12 +47,17 @@ func _create_ray() -> void:
 
 	# Set ray spectrum, offset ray to emitter head, and set rotation
 	ray.spectrum = spectrum
-	ray.set_global_position(to_global(Vector2(90, 0)))
-	ray.set_global_rotation(get_global_rotation())
+	_set_ray_transform()
 
 	# Add to scene (and at bottom)
 	get_tree().get_current_scene().call_deferred("add_child", ray)
 	get_tree().get_current_scene().call_deferred("move_child", ray, 0)
+
+
+## Set ray's position and rotation
+func _set_ray_transform() -> void:
+	ray.set_global_position(to_global(Vector2(90, 0)))
+	ray.set_global_rotation(get_global_rotation())
 
 
 ## Apply spectrum setting
