@@ -8,33 +8,29 @@ export(PackedScene) var ray_object
 # === Components ===
 var ray: LaserRay
 
-# === Properties ===
-var _prev_position: Vector2
-var _prev_rotation: float
-
 # === System Functions ===
 
 
-## Begin listening for transform changes
+## Setup emitter
 func _init() -> void:
-	set_notify_transform(true)
-
-func _ready():
+	# Enable light-only material
 	if not Engine.editor_hint:
 		set_use_parent_material(false)
+
+	# Listen for transform changes
+	set_notify_transform(true)
+
+
+## Setup laser
+func _ready():
 	_create_ray()
+
 
 ## Notification handler
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_TRANSFORM_CHANGED:
-		# Check if the transformation changed anything
-		if ray and (get_position() != _prev_position or get_rotation() != _prev_rotation):
-			# Update position and rotation
-			_set_ray_transform()
-
-			# Update prev values
-			_prev_position = get_position()
-			_prev_rotation = get_rotation()
+	if ray and what == NOTIFICATION_TRANSFORM_CHANGED:
+		# Update position and rotation
+		_set_ray_transform()
 
 
 # === Private Functions ===
@@ -45,7 +41,7 @@ func _create_ray() -> void:
 	# Create a laser ray
 	ray = ray_object.instance()
 
-	# Set ray spectrum, offset ray to emitter head, and set rotation
+	# Set ray spectrum and transform (to emitter head)
 	ray.spectrum = spectrum
 	_set_ray_transform()
 
@@ -56,8 +52,7 @@ func _create_ray() -> void:
 
 ## Set ray's position and rotation
 func _set_ray_transform() -> void:
-	ray.set_global_position(to_global(Vector2(90, 0)))
-	ray.set_global_rotation(get_global_rotation())
+	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(90, 0))))
 
 
 ## Apply spectrum setting

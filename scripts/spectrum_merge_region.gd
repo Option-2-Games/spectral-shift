@@ -10,6 +10,8 @@ export(Array, NodePath) var node_paths
 onready var border = get_node(node_paths[0]) as Sprite
 onready var region = get_node(node_paths[1]) as Light2D
 
+# === System ===
+
 
 func _ready() -> void:
 	# Spin animation (only in-game)

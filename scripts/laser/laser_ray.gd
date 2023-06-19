@@ -16,6 +16,11 @@ onready var _beam = get_node(path_beam) as Line2D
 # === System ===
 
 
+## Begin listening for transform changes
+func _init() -> void:
+	set_notify_transform(true)
+
+
 ## Initialize a ray in a laser
 func _ready() -> void:
 	# Set color
@@ -34,8 +39,16 @@ func _ready() -> void:
 func _physics_process(_delta) -> void:
 	if is_colliding():
 		_beam.set_point_position(1, to_local(get_collision_point()))
+
+		# Compute next ray transform
+		if next_ray:
+			next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
 	else:
 		_beam.set_point_position(1, Vector2(INF, 0))
+
+		# Remove next ray
+		if next_ray:
+			next_ray.delete()
 
 
 # === Public Functions ===
