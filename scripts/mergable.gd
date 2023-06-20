@@ -4,10 +4,23 @@ extends CollisionObject2D
 
 ## Class definition for objects that can be merged into the base spectrums
 
+# === Properties ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
 
 ## Keep track of all regions merged with
 var _merges: Array
+
+# === System ===
+
+
+## Setup emitter
+func _init() -> void:
+	# Enable light-only material
+	if not Engine.editor_hint:
+		set_use_parent_material(false)
+
+
+# === Public functions
 
 
 func entered_merge_region(region_spectrum: int) -> void:

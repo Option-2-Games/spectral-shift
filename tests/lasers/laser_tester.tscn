@@ -20,6 +20,8 @@ spectrum = 1
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
+material = ExtResource( 2 )
+use_parent_material = true
 position = Vector2( 736, 218 )
 collision_layer = 2
 collision_mask = 2
@@ -31,7 +33,7 @@ spectrum = 1
 
 [node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
-material = ExtResource( 2 )
+use_parent_material = true
 antialiased = true
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
@@ -40,6 +42,8 @@ shape = SubResource( 1 )
 
 [node name="GreenDemoKinematic" type="KinematicBody2D" parent="." groups=["magic"]]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
+material = ExtResource( 2 )
+use_parent_material = true
 position = Vector2( 1100, 400 )
 collision_layer = 4
 collision_mask = 4
@@ -48,7 +52,7 @@ spectrum = 2
 
 [node name="Shape" type="Polygon2D" parent="GreenDemoKinematic"]
 light_mask = 4
-material = ExtResource( 2 )
+use_parent_material = true
 antialiased = true
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 

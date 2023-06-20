@@ -1,9 +1,9 @@
 tool
-extends Sprite
+extends Mergable
 
 # === Components and Properties ===
 export(bool) var is_on
-export(Constants.Spectrum) var spectrum setget _apply_spectrum
+# export(Constants.Spectrum) var spectrum setget _apply_spectrum
 export(PackedScene) var ray_object
 
 # === Components ===
@@ -14,12 +14,9 @@ var ray: LaserRay
 
 ## Setup emitter
 func _init() -> void:
-	# Enable light-only material
-	if not Engine.editor_hint:
-		set_use_parent_material(false)
-
 	# Listen for transform changes
 	set_notify_transform(true)
+
 
 ## Notification handler
 func _notification(what: int) -> void:
@@ -60,6 +57,7 @@ func toggle(new_state: bool) -> void:
 	else:
 		if ray:
 			ray.delete()
+
 
 ## Apply spectrum setting
 ##
