@@ -2,8 +2,7 @@ tool
 extends Mergable
 
 # === Components and Properties ===
-export(bool) var is_on
-# export(Constants.Spectrum) var spectrum setget _apply_spectrum
+export(bool) var is_on setget enable_emitter
 export(PackedScene) var ray_object
 
 # === Components ===
@@ -47,22 +46,12 @@ func _set_ray_transform() -> void:
 	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(90, 0))))
 
 
-## Toggle on/off
-func toggle(new_state: bool) -> void:
+## Turn on or off emitter
+func enable_emitter(new_state: bool) -> void:
 	is_on = new_state
 
 	# Create or destroy ray
 	if new_state:
 		_create_ray()
-	else:
-		if ray:
-			ray.delete()
-
-
-## Apply spectrum setting
-##
-## @param new_spectrum: Selected spectrum
-func _apply_spectrum(new_spectrum: int) -> void:
-	spectrum = new_spectrum
-	set_modulate(Constants.STANDARD_COLOR[spectrum])
-	set_light_mask(1 << spectrum)
+	elif ray:
+		ray.delete()

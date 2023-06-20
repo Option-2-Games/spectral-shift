@@ -6,6 +6,7 @@ extends CollisionObject2D
 
 # === Properties ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
+export(Array, NodePath) var visual_node_paths
 
 ## Keep track of all regions merged with
 var _merges: Array
@@ -56,5 +57,10 @@ func exited_merge_region(region_spectrum: int) -> void:
 ##
 ## @param new_spectrum: Selected spectrum
 func _apply_spectrum(new_spectrum: int) -> void:
+	# Apply spectrum and modulation
 	spectrum = new_spectrum
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
+
+	for path in visual_node_paths:
+		var node = get_node(path)
+		node.set_light_mask(1 << spectrum)
