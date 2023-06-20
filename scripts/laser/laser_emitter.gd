@@ -43,7 +43,7 @@ func _create_ray() -> void:
 
 ## Set ray's position and rotation
 func _set_ray_transform() -> void:
-	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(90, 0))))
+	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(95, 0))))
 
 
 ## Turn on or off emitter
@@ -52,6 +52,7 @@ func enable_emitter(new_state: bool) -> void:
 
 	# Create or destroy ray
 	if new_state:
-		_create_ray()
+		# Use deferred to avoid initialization before the scene is ready
+		call_deferred("_create_ray")
 	elif ray:
 		ray.delete()

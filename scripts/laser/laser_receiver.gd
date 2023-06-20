@@ -11,10 +11,6 @@ var incident_rays: Array
 # === Public Functions ===
 
 
-func _init():
-	print(spectrum)
-
-
 ## Function called by LaserRay when incident on a receiver
 ##
 ## @param from_ray: LaserRay that is incident
