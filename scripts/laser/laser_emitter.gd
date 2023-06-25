@@ -12,12 +12,17 @@ var ray: LaserRay
 
 
 ## Setup emitter
+##
+## @modifies: notify_transform
+## @effects: sets notify_transform to true
 func _init() -> void:
 	# Listen for transform changes
 	set_notify_transform(true)
 
 
 ## Notification handler
+##
+## @param what: Notification type
 func _notification(what: int) -> void:
 	if ray and what == NOTIFICATION_TRANSFORM_CHANGED:
 		# Update position and rotation
@@ -28,6 +33,9 @@ func _notification(what: int) -> void:
 
 
 ## Create the initial ray
+##
+## @modifies: ray
+## @effects: creates the initial ray object
 func _create_ray() -> void:
 	# Create a laser ray
 	ray = ray_object.instance()
@@ -42,11 +50,18 @@ func _create_ray() -> void:
 
 
 ## Set ray's position and rotation
+##
+## @modifies: ray
+## @effects: sets the position and rotation of the ray
 func _set_ray_transform() -> void:
 	ray.set_global_transform(Transform2D(get_global_rotation(), to_global(Vector2(95, 0))))
 
 
 ## Turn on or off emitter
+##
+## @param new_state: New on/off state
+## @modifies: is_on
+## @effects: sets is_on based on state
 func enable_emitter(new_state: bool) -> void:
 	is_on = new_state
 

@@ -37,7 +37,7 @@ onready var _blue_segment = get_node(path_blue_segment)
 ## Color segments as an array (null offset for base)
 onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
 
-# === Built-in Functions ===
+# === System ===
 
 
 ## Hide the switcher interface by default
@@ -126,10 +126,14 @@ func _unhandled_input(event: InputEvent) -> void:
 # === Helper Functions ===
 
 
+## Create a tween object with a cubic easing
 func _create_cubic_tween() -> SceneTreeTween:
 	return create_tween().set_trans(Tween.TRANS_CUBIC)
 
 
+## Create a tween to rotate a certain degrees
+##
+## @param degrees: The degrees to rotate
 func _create_rotation_tween(degrees: float) -> PropertyTweener:
 	return _create_cubic_tween().tween_property(
 		_selection_beam, "rotation_degrees", degrees, TWEEN_DURATION
@@ -155,6 +159,8 @@ func _unhighlight_selecting() -> void:
 ## Show selecting spectrum
 ##
 ## Does not confirm selection, only animates to show currently highlighted spectrum
+##
+## @param spectrum: The spectrum to highlight
 func _do_selecting_spectrum(spectrum: int) -> void:
 	var highlight_color = Constants.HIGHLIGHT_COLOR[spectrum]
 	var segment = _segments[spectrum]

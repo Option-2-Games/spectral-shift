@@ -14,7 +14,14 @@ onready var _blue_region = get_node(node_paths[2])
 ## Regions as an array
 onready var _regions = [null, _red_region, _green_region, _blue_region]
 
+# === Signal Handlers ===
 
+
+## Handle spectrum switcher choosing a new spectrum
+##
+## @param selection: New spectrum
+## @modifies: _merged_region
+## @effects: Updates _merged_region to the new spectrum
 func _on_SpectrumSwitcher_spectrum_switched(selection: int) -> void:
 	# Close merged region
 	if _merged_region:

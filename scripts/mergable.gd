@@ -24,6 +24,10 @@ func _init() -> void:
 # === Public functions
 
 
+## Called by merge region when object enters
+##
+## @param region_spectrum: Region's spectrum
+## @modifies: collision layer and masks
 func entered_merge_region(region_spectrum: int) -> void:
 	# Mark entered a region of spectrum
 	_merges.append(region_spectrum)
@@ -34,6 +38,10 @@ func entered_merge_region(region_spectrum: int) -> void:
 	set_collision_mask(bitmask)
 
 
+## Called by merge region when object exits
+##
+## @param region_spectrum: Region's spectrum
+## @modifies: collision layer and masks
 func exited_merge_region(region_spectrum: int) -> void:
 	# Mark exited one region of spectrum
 	_merges.erase(region_spectrum)

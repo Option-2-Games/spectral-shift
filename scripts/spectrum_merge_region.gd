@@ -24,6 +24,9 @@ func _ready() -> void:
 	_apply_spectrum(spectrum)
 
 
+# === Public Functions ===
+
+
 ## Open this region
 func open() -> void:
 	var open = create_tween().set_trans(Tween.TRANS_BACK)
@@ -36,9 +39,14 @@ func close() -> void:
 	close.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
 
 
+# === Private Functions ===
+
+
 ## Apply spectrum setting
 ##
 ## @param new_spectrum: Selected spectrum
+## @modifies: spectrum
+## @effects: Updates spectrum based on input
 func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
 
@@ -65,6 +73,9 @@ func _handle_entered(object) -> void:
 func _handle_exited(object) -> void:
 	if object.has_method("exited_merge_region"):
 		object.exited_merge_region(spectrum)
+
+
+# === Signal Handlers ===
 
 
 func _on_area_entered(area: Area2D) -> void:

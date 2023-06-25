@@ -16,12 +16,9 @@ onready var _beam = get_node(path_beam) as Line2D
 # === System ===
 
 
-## Begin listening for transform changes
-func _init() -> void:
-	set_notify_transform(true)
-
-
 ## Initialize a ray in a laser
+##
+## Sets the color and layer masks based on the spectrum
 func _ready() -> void:
 	# Set color
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
@@ -36,6 +33,9 @@ func _ready() -> void:
 
 
 ## Update laser position and next rays based on cast
+##
+## @modifies: next_ray
+## @effects: updates the position and rotation of the next ray or deletes it
 func _physics_process(_delta) -> void:
 	if is_colliding():
 		_beam.set_point_position(1, to_local(get_collision_point()))
@@ -57,6 +57,9 @@ func _physics_process(_delta) -> void:
 ## Delete segment
 ##
 ## Cascades a delete command down the chain to future rays
+##
+## @modifies: self, next_ray
+## @effects: deletes next ray and then deletes self
 func delete() -> void:
 	# Delete next ray first
 	if next_ray:
