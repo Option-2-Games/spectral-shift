@@ -1,9 +1,12 @@
 tool
-class_name LaserReceiver
 extends Mergable
 
 # === Signals ===
-signal receiver_hit(state)
+
+## Called when the receiver state changes
+##
+## @param state: New state (true for on, false for off)
+signal receiver_active(state)
 
 # === Properties ===
 var incident_rays: Array
@@ -16,9 +19,10 @@ var incident_rays: Array
 ## @param from_ray: LaserRay that is incident
 ## @modifies: incident_rays
 ## @effects: adds from_ray to incident_rays if it does not exist
-func hit(from_ray: LaserRay) -> void:
-	# Notify about new hit
-	emit_signal("receiver_hit", true)
+func receiver_hit(from_ray: LaserRay) -> void:
+	# Notify about first hit (is now activated)
+	if incident_rays.size() == 0:
+		emit_signal("receiver_active", true)
 
 	# Add incident ray if it does not exist
 	if !incident_rays.has(from_ray):
@@ -30,10 +34,11 @@ func hit(from_ray: LaserRay) -> void:
 ## @param from_ray: LaserRay that is no longer incident
 ## @modifies: incident_rays
 ## @effects: removes from_ray from incident_rays if it exists
-func leave(from_ray: LaserRay) -> void:
-	# Notify about laser leaving
-	emit_signal("receiver_hit", false)
-
+func receiver_leave(from_ray: LaserRay) -> void:
 	# Remove incident ray if it exists
 	if incident_rays.has(from_ray):
 		incident_rays.erase(from_ray)
+
+	# Notify about last laser leaving (is now deactivated)
+	if incident_rays.size() == 0:
+		emit_signal("receiver_active", false)
