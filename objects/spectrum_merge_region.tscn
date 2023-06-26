@@ -31,20 +31,25 @@ fill_from = Vector2( 0.5, 0.5 )
 fill_to = Vector2( 0.5, 0 )
 
 [node name="SpectrumMergeRegion" type="Area2D"]
+rotation = -1.4205
 collision_layer = 256
+collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+node_paths = [ NodePath("Border"), NodePath("Region") ]
 
 [node name="MergeRegion" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Border" type="Sprite" parent="."]
+z_index = 4095
+z_as_relative = false
 texture = SubResource( 5 )
 offset = Vector2( 5, 0 )
 
-[node name="Region" type="Light2D" parent="Border"]
+[node name="Region" type="Light2D" parent="."]
 texture = SubResource( 3 )
 offset = Vector2( 5, 0 )
 mode = 2

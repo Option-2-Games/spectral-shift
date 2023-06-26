@@ -21,7 +21,7 @@
 		{
 			"label": "Format GDScript",
 			"type": "shell",
-			"command": "gdformat -l 80 scripts/ tests/",
+			"command": "gdformat scripts/ tests/",
 			"problemMatcher": []
 		},
 		{
