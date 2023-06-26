@@ -25,8 +25,8 @@ func receiver_hit(from_ray: LaserRay) -> void:
 		emit_signal("receiver_active", true)
 
 	# Add incident ray if it does not exist
-	if !incident_rays.has(from_ray):
-		incident_rays.append(from_ray)
+	if not from_ray in incident_rays:
+		incident_rays.push_front(from_ray)
 
 
 ## Function called by LaserRay when a ray is no longer incident on a receiver
@@ -36,7 +36,7 @@ func receiver_hit(from_ray: LaserRay) -> void:
 ## @effects: removes from_ray from incident_rays if it exists
 func receiver_leave(from_ray: LaserRay) -> void:
 	# Remove incident ray if it exists
-	if incident_rays.has(from_ray):
+	if from_ray in incident_rays:
 		incident_rays.erase(from_ray)
 
 	# Notify about last laser leaving (is now deactivated)

@@ -19,6 +19,5 @@ shape = SubResource( 1 )
 
 [node name="Shape" type="Sprite" parent="."]
 show_behind_parent = true
-use_parent_material = true
 texture = ExtResource( 1 )
 offset = Vector2( 50, 0 )

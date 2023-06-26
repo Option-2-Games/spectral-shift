@@ -9,6 +9,7 @@ export(NodePath) var path_beam
 # === Components and properties ===
 var next_ray: LaserRay
 var spectrum: int
+var _colliding_object = null
 
 # === Component Nodes ===
 onready var _beam = get_node(path_beam) as Line2D
@@ -38,17 +39,38 @@ func _ready() -> void:
 ## @effects: updates the position and rotation of the next ray or deletes it
 func _physics_process(_delta) -> void:
 	if is_colliding():
+		# Update beam extent to the collision point
 		_beam.set_point_position(1, to_local(get_collision_point()))
 
 		# Compute next ray transform
 		if next_ray:
 			next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
+
+		# Shortcut exit if colliding object is same
+		if _colliding_object and _colliding_object == get_collider():
+			return
+
+		# Un-collide with previous object first if needed
+		if _colliding_object and _colliding_object != get_collider():
+			_handle_leave_object_collision()
+
+		# Handle new colliding object
+		_colliding_object = get_collider()
+		_handle_enter_object_collision()
 	else:
-		_beam.set_point_position(1, Vector2(INF, 0))
+		# Extend beam to the full extent of the ray
+		_beam.set_point_position(1, get_cast_to())
 
 		# Remove next ray
 		if next_ray:
 			next_ray.delete()
+
+		# Shortcut exit if there was no colliding object
+		if not _colliding_object:
+			return
+
+		# De-interact with colliding object
+		_handle_leave_object_collision()
 
 
 # === Public Functions ===
@@ -67,3 +89,25 @@ func delete() -> void:
 
 	# Then delete self
 	queue_free()
+
+
+# === Private Functions ===
+
+
+## Handle enter object collision
+func _handle_enter_object_collision() -> void:
+	if _colliding_object.has_method("receiver_hit"):
+		# Is colliding with a laser receiver
+		_colliding_object.receiver_hit(self)
+
+
+## Handle leave object collision
+##
+## @modifies: _colliding_object
+## @effects: sets _colliding_object to null
+func _handle_leave_object_collision() -> void:
+	if _colliding_object.has_method("receiver_leave"):
+		# Un-collide with a laser receiver
+		_colliding_object.receiver_leave(self)
+	# Reset colliding object
+	_colliding_object = null

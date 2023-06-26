@@ -69,6 +69,12 @@ func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
+	# Set collision masks
+	set_collision_layer(1 << spectrum)
+	set_collision_mask(1 << spectrum)
+
+	# Set light masks and material for visual nodes
 	for path in visual_node_paths:
 		var node = get_node(path)
 		node.set_light_mask(1 << spectrum)
+		node.set_use_parent_material(true)

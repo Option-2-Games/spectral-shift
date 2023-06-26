@@ -40,7 +40,7 @@ modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 light_mask = 4
 material = ExtResource( 2 )
 use_parent_material = true
-position = Vector2( 1100, 400 )
+position = Vector2( 1049, 220 )
 collision_layer = 4
 collision_mask = 4
 script = ExtResource( 3 )
@@ -59,18 +59,22 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 position = Vector2( 917, 670 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1311, 544 )
+position = Vector2( 1424, 648 )
 collision_mask = 5
 spectrum = 2
 
 [node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 position = Vector2( 592, 415 )
+collision_layer = 2
+collision_mask = 2
 spectrum = 1
 is_on = true
 
 [node name="LaserReceiver" parent="." instance=ExtResource( 6 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1700, 411 )
+position = Vector2( 1182, 422 )
 rotation = 3.14159
+collision_layer = 4
+collision_mask = 4
 spectrum = 2
