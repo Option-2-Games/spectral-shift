@@ -32,6 +32,10 @@ func _ready() -> void:
 	# Set beam light mask
 	_beam.set_light_mask(spectrum_mask)
 
+	# Add exception to mirror body objects (ignore body)
+	for mirror_body in get_tree().get_nodes_in_group("mirror_body"):
+		add_exception_rid(RID(mirror_body))
+
 
 ## Update laser position and next rays based on cast
 ##
