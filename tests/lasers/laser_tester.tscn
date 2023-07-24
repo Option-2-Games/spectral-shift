@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/lasers/laser_emitter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
@@ -10,6 +10,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 100, 10 )
 
 [node name="LaserTester" type="Node2D"]
 
@@ -65,7 +68,7 @@ spectrum = 2
 
 [node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 592, 415 )
+position = Vector2( 543, 408 )
 collision_layer = 2
 collision_mask = 2
 spectrum = 1
@@ -81,8 +84,19 @@ spectrum = 2
 
 [node name="Mirror" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1065, 411 )
+position = Vector2( 1041, 377 )
+rotation = 0.890118
 collision_layer = 4
 collision_mask = 4
-gravity_scale = 0.0
 spectrum = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 1040, 480 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( -100, -10, 100, -10, 100, 10, -100, 10 )

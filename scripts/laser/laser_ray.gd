@@ -32,10 +32,6 @@ func _ready() -> void:
 	# Set beam light mask
 	_beam.set_light_mask(spectrum_mask)
 
-	# Add exception to mirror body objects (ignore body)
-	for mirror_body in get_tree().get_nodes_in_group("mirror_body"):
-		add_exception_rid(RID(mirror_body))
-
 
 ## Update laser position and next rays based on cast
 ##
@@ -46,7 +42,10 @@ func _physics_process(_delta) -> void:
 		# Update beam extent to the collision point
 		_beam.set_point_position(1, to_local(get_collision_point()))
 
-		# Compute next ray transform
+		if not next_ray:
+			print("%s: %s -> %s" % [get_name(), get_global_position(), get_collision_point()])
+
+		# Update next ray transform
 		if next_ray:
 			next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
 
@@ -103,6 +102,18 @@ func _handle_enter_object_collision() -> void:
 	if _colliding_object.has_method("receiver_hit"):
 		# Is colliding with a laser receiver
 		_colliding_object.receiver_hit(self)
+	elif _colliding_object.is_in_group("mirror_body"):
+		pass
+		# set_global_position(get_collision_point()+to_global(Vector2.RIGHT*5))
+		# Is colliding with a mirror body (should extend beam)
+		# next_ray = duplicate()
+
+		# Start at tip + 5 of last collision point
+		# next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()+to_global(Vector2.RIGHT*5)))
+
+		# # Add to scene (and at bottom)
+		# get_tree().get_current_scene().call_deferred("add_child", next_ray)
+		# get_tree().get_current_scene().call_deferred("move_child", next_ray, 0)
 
 
 ## Handle leave object collision

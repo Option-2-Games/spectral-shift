@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scripts/mergable.gd" type="Script" id=1]
+[ext_resource path="res://scripts/mirror.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
@@ -8,26 +8,27 @@ extents = Vector2( 50, 50 )
 [sub_resource type="LineShape2D" id=2]
 normal = Vector2( 1, 1 )
 
-[node name="Mirror" type="RigidBody2D"]
+[node name="Mirror" type="Area2D"]
 script = ExtResource( 1 )
-visual_node_paths = [ NodePath("Shape"), NodePath("Reflector/ReflectorShape") ]
-child_collision_node_paths = [ NodePath("Reflector") ]
+visual_node_paths = [ NodePath("ReflectorShape"), NodePath("MirrorBody/Shape") ]
+child_collision_node_paths = [ NodePath("MirrorBody") ]
+mirror_body_path = NodePath("MirrorBody")
 
-[node name="MirrorCollider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="MirrorBody" type="RigidBody2D" parent="." groups=["mirror_body"]]
 
-[node name="Shape" type="Polygon2D" parent="."]
+[node name="Shape" type="Polygon2D" parent="MirrorBody"]
 color = Color( 1, 1, 1, 0.196078 )
 polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
-[node name="Reflector" type="Area2D" parent="."]
+[node name="MirrorCollider" type="CollisionShape2D" parent="MirrorBody"]
+shape = SubResource( 1 )
 
-[node name="ReflectorCollider" type="CollisionShape2D" parent="Reflector"]
+[node name="ReflectorCollider" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 2 )
 one_way_collision_margin = 10.0
 
-[node name="ReflectorShape" type="Line2D" parent="Reflector"]
+[node name="ReflectorShape" type="Line2D" parent="."]
 points = PoolVector2Array( -45, 45, 45, -45 )
 default_color = Color( 1, 1, 1, 1 )
 begin_cap_mode = 2
