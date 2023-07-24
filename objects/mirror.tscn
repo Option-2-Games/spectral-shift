@@ -8,26 +8,27 @@ extents = Vector2( 50, 50 )
 [sub_resource type="LineShape2D" id=2]
 normal = Vector2( 1, 1 )
 
-[node name="Mirror" type="RigidBody2D" groups=["mirror_body"]]
+[node name="Mirror" type="RigidBody2D"]
 script = ExtResource( 1 )
 visual_node_paths = [ NodePath("Shape"), NodePath("Reflector/ReflectorShape") ]
+child_collision_node_paths = [ NodePath("Reflector") ]
 
 [node name="MirrorCollider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Shape" type="Polygon2D" parent="."]
-color = Color( 1, 1, 1, 0.7 )
+color = Color( 1, 1, 1, 0.196078 )
 polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
 [node name="Reflector" type="Area2D" parent="."]
+
+[node name="ReflectorCollider" type="CollisionShape2D" parent="Reflector"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+one_way_collision_margin = 10.0
 
 [node name="ReflectorShape" type="Line2D" parent="Reflector"]
 points = PoolVector2Array( -45, 45, 45, -45 )
 default_color = Color( 1, 1, 1, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2
-
-[node name="ReflectorCollider" type="CollisionShape2D" parent="Reflector"]
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 2 )
-one_way_collision_margin = 10.0

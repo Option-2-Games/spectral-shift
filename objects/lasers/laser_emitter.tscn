@@ -9,7 +9,6 @@
 material = ExtResource( 4 )
 use_parent_material = true
 script = ExtResource( 3 )
-visual_node_paths = [ NodePath("Shape") ]
 ray_object = ExtResource( 2 )
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]

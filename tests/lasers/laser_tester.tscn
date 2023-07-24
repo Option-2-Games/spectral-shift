@@ -18,14 +18,13 @@ modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
 material = ExtResource( 2 )
 use_parent_material = true
-position = Vector2( 736, 218 )
+position = Vector2( 754, 163 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
-spectrum = 1
 
 [node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
@@ -60,7 +59,7 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 position = Vector2( 917, 670 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1424, 648 )
+position = Vector2( 1405, 593 )
 collision_mask = 5
 spectrum = 2
 
@@ -82,7 +81,7 @@ spectrum = 2
 
 [node name="Mirror" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1065, 426 )
+position = Vector2( 1065, 411 )
 collision_layer = 4
 collision_mask = 4
 gravity_scale = 0.0
