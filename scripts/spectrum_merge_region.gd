@@ -63,7 +63,7 @@ func _apply_spectrum(new_spectrum: int) -> void:
 ## @param object: object that entered
 func _handle_entered(object) -> void:
 	if object.has_method("entered_merge_region"):
-		object.entered_merge_region(spectrum)
+		object.entered_merge_region()
 
 
 ## Handle objects exiting region
@@ -72,7 +72,7 @@ func _handle_entered(object) -> void:
 ## @param object: object that exited
 func _handle_exited(object) -> void:
 	if object.has_method("exited_merge_region"):
-		object.exited_merge_region(spectrum)
+		object.exited_merge_region()
 
 
 # === Signal Handlers ===

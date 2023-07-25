@@ -22,12 +22,13 @@ light_mask = 2
 material = ExtResource( 2 )
 use_parent_material = true
 position = Vector2( 754, 163 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
+spectrum = 1
 
 [node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
@@ -36,6 +37,8 @@ antialiased = true
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
+light_mask = 2
+use_parent_material = true
 shape = SubResource( 1 )
 
 [node name="GreenDemoKinematic" type="KinematicBody2D" parent="." groups=["magic"]]
@@ -44,8 +47,8 @@ light_mask = 4
 material = ExtResource( 2 )
 use_parent_material = true
 position = Vector2( 1049, 220 )
-collision_layer = 4
-collision_mask = 4
+collision_layer = 64
+collision_mask = 64
 script = ExtResource( 3 )
 spectrum = 2
 
@@ -56,6 +59,8 @@ antialiased = true
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GreenDemoKinematic"]
+light_mask = 4
+use_parent_material = true
 polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
@@ -70,7 +75,7 @@ spectrum = 2
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 position = Vector2( 543, 408 )
 collision_layer = 2
-collision_mask = 2
+collision_mask = 8226
 spectrum = 1
 is_on = true
 
@@ -79,15 +84,15 @@ modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 position = Vector2( 1182, 422 )
 rotation = 3.14159
 collision_layer = 4
-collision_mask = 4
+collision_mask = 16452
 spectrum = 2
 
 [node name="Mirror" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 position = Vector2( 1041, 377 )
 rotation = 0.890118
-collision_layer = 4
-collision_mask = 4
+collision_layer = 16384
+collision_mask = 16452
 spectrum = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
