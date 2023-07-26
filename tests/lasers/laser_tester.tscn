@@ -73,14 +73,15 @@ spectrum = 2
 
 [node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 608, 368 )
+position = Vector2( 612, 393 )
 collision_layer = 2
 collision_mask = 8226
 spectrum = 1
+is_on = true
 
 [node name="LaserReceiver" parent="." instance=ExtResource( 6 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1237, 389 )
+position = Vector2( 1237, 401 )
 rotation = 3.14159
 collision_layer = 4
 collision_mask = 16452

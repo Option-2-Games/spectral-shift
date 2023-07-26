@@ -6,7 +6,7 @@ extends CollisionObject2D
 
 # === Properties ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(Constants.PhysicsObjectType) var physics_object_type = Constants.PhysicsObjectType.INTERACTABLE
+export(Constants.PhysicsObjectType) var physics_object_type = 1
 
 ## Keep track of the number of regions merged with
 var _merge_region_count: int

@@ -63,7 +63,12 @@ func _set_ray_transform() -> void:
 ## @modifies: is_on
 ## @effects: sets is_on based on state
 func enable_emitter(new_state: bool) -> void:
+	# Set new state
 	is_on = new_state
+	
+	# Shortcut exit if not in play mode
+	if Engine.editor_hint:
+		return
 
 	# Create or destroy ray
 	if new_state:

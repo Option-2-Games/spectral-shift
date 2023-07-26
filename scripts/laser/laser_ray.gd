@@ -24,8 +24,8 @@ func _ready() -> void:
 	# Set color
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
-	var spectrum_mask = 1 << spectrum
-	var mob_mask = 16 << spectrum
+	var spectrum_mask = Constants.PhysicsObjectType.INTERACTABLE << spectrum
+	var mob_mask = Constants.PhysicsObjectType.MOB << spectrum
 
 	# Set collision mask
 	set_collision_mask(spectrum_mask | mob_mask)
@@ -100,18 +100,6 @@ func _handle_enter_object_collision() -> void:
 	if _colliding_object.has_method("receiver_hit"):
 		# Is colliding with a laser receiver
 		_colliding_object.receiver_hit(self)
-	elif _colliding_object.is_in_group("mirror_body"):
-		pass
-		# set_global_position(get_collision_point()+to_global(Vector2.RIGHT*5))
-		# Is colliding with a mirror body (should extend beam)
-		# next_ray = duplicate()
-
-		# Start at tip + 5 of last collision point
-		# next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()+to_global(Vector2.RIGHT*5)))
-
-		# # Add to scene (and at bottom)
-		# get_tree().get_current_scene().call_deferred("add_child", next_ray)
-		# get_tree().get_current_scene().call_deferred("move_child", next_ray, 0)
 
 
 ## Handle leave object collision
