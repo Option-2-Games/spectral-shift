@@ -6,7 +6,7 @@ extends CollisionObject2D
 
 # === Properties ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
-
+export(Constants.PhysicsObjectType) var physics_object_type = Constants.PhysicsObjectType.INTERACTABLE
 
 ## Keep track of the number of regions merged with
 var _merge_region_count: int
@@ -18,14 +18,23 @@ var _starting_collision_mask: int
 # === System ===
 
 
-## Setup material
-func _init() -> void:
-	# Enable light-only material
-	if not Engine.editor_hint:
+func _ready() -> void:
+	# Enable light-only material in game and not a child of mergable
+	if not Engine.editor_hint and get_parent().get_class() != "Mergable":
 		set_use_parent_material(false)
 
+	# Grab parent spectrum if they're mergable
+	if get_parent().get_class() == "Mergable":
+		var parent = get_parent() as Mergable
+		spectrum = parent.spectrum
 
-# === Public functions
+	# Set light masks and material for children and copy spectrum if also mergable
+	for child in get_children():
+		child.set_light_mask(1 << spectrum)
+		child.set_use_parent_material(true)
+
+
+# === Public functions ===
 
 
 ## Called by merge region when object enters
@@ -34,7 +43,7 @@ func _init() -> void:
 ## @effects: enables the base collision layer and mask of the object's type
 func entered_merge_region() -> void:
 	# Mark entered a merge region
-	_merge_region_count+=1
+	_merge_region_count += 1
 
 	# Enable base collision layer (of the same type)
 	set_collision_layer(get_collision_layer() | _starting_collision_layer >> spectrum)
@@ -49,12 +58,22 @@ func entered_merge_region() -> void:
 ## @effects: removes the base collision layer once all regions are exited
 func exited_merge_region() -> void:
 	# Mark exited a merge region
-	_merge_region_count-=1
+	_merge_region_count -= 1
 
 	# Reset back to starting layers once all regions are exited
 	if _merge_region_count == 0:
 		set_collision_layer(_starting_collision_layer)
 		set_collision_mask(_starting_collision_mask)
+
+
+## Override class name to return "Mergable"
+##
+## @returns: "Mergable" as class type
+func get_class() -> String:
+	return "Mergable"
+
+
+# === Private functions ===
 
 
 ## Apply spectrum setting
@@ -70,15 +89,21 @@ func _apply_spectrum(new_spectrum: int) -> void:
 	# Apply modulation
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
-	# Set starting collision layer and mask
-	set_collision_layer(get_collision_layer() << spectrum)
-	set_collision_mask(get_collision_mask() << spectrum)
+	# Set starting collision layer
+	set_collision_layer(physics_object_type << spectrum)
+
+	# Set starting collision mask
+	set_collision_mask(
+		(
+			Constants.PhysicsObjectType.INTERACTABLE << spectrum
+			| Constants.PhysicsObjectType.GLASS << spectrum
+		)
+	)
+
+	# Also include MOB in mask if not a mob
+	if physics_object_type != Constants.PhysicsObjectType.MOB:
+		collision_mask |= Constants.PhysicsObjectType.MOB << spectrum
 
 	# Remember collision layer and mask for resetting later
 	_starting_collision_layer = get_collision_layer()
 	_starting_collision_mask = get_collision_mask()
-
-	# Set light masks and material for children
-	for child in get_children():
-		child.set_light_mask(1 << spectrum)
-		child.set_use_parent_material(true)

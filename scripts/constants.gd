@@ -9,6 +9,13 @@ extends Node
 ## BLUE - Blue spectrum merged
 enum Spectrum { BASE = 0, RED = 1, GREEN = 2, BLUE = 3 }
 
+## Physics Object type
+##
+## INTERACTABLE - any object that expects to have collisions with other things
+## MOB - enemy types that can pass through each other without colliding
+## GLASS - objects that ignore raycasts
+enum PhysicsObjectType { INTERACTABLE = 1, MOB = 16, GLASS = 4096 }
+
 ## Standard spectrum color pallet
 const STANDARD_COLOR = {
 	Spectrum.BASE: Color.white,

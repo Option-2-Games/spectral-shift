@@ -12,7 +12,6 @@ material = ExtResource( 4 )
 use_parent_material = true
 collision_mask = 4113
 script = ExtResource( 2 )
-visual_node_paths = [ NodePath("Shape") ]
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( 21, 0 )

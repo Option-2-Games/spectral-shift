@@ -24,19 +24,19 @@ polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 [node name="RedRegion" parent="." instance=ExtResource( 1 )]
 rotation = 1.59649
 scale = Vector2( 1e-05, 1e-05 )
-collision_mask = 3
+collision_mask = 12339
 spectrum = 1
 
 [node name="GreenRegion" parent="." instance=ExtResource( 1 )]
 rotation = -0.00387989
 scale = Vector2( 1e-05, 1e-05 )
-collision_mask = 5
+collision_mask = 20565
 spectrum = 2
 
 [node name="BlueRegion" parent="." instance=ExtResource( 1 )]
 rotation = 5.42466
 scale = Vector2( 1e-05, 1e-05 )
-collision_mask = 9
+collision_mask = 37017
 spectrum = 3
 
 [node name="SpectrumSwitcher" parent="." instance=ExtResource( 2 )]

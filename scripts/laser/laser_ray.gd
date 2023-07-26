@@ -25,9 +25,10 @@ func _ready() -> void:
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
 	var spectrum_mask = 1 << spectrum
+	var mob_mask = 16 << spectrum
 
 	# Set collision mask
-	set_collision_mask(spectrum_mask)
+	set_collision_mask(spectrum_mask | mob_mask)
 
 	# Set beam light mask
 	_beam.set_light_mask(spectrum_mask)
@@ -41,9 +42,6 @@ func _physics_process(_delta) -> void:
 	if is_colliding():
 		# Update beam extent to the collision point
 		_beam.set_point_position(1, to_local(get_collision_point()))
-
-		if not next_ray:
-			print("%s: %s -> %s" % [get_name(), get_global_position(), get_collision_point()])
 
 		# Update next ray transform
 		if next_ray:

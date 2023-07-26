@@ -13,9 +13,11 @@ script = ExtResource( 3 )
 ray_object = ExtResource( 2 )
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]
+use_parent_material = true
 polygon = PoolVector2Array( 0, -50, 18, -50, 94, 0, 18, 50, 0, 50 )
 
 [node name="Shape" type="Sprite" parent="."]
 show_behind_parent = true
+use_parent_material = true
 texture = ExtResource( 1 )
 offset = Vector2( 50, 0 )

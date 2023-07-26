@@ -52,7 +52,16 @@ func _apply_spectrum(new_spectrum: int) -> void:
 
 	# Set collision masks and modulate border
 	if border:
-		set_collision_mask(1 + (1 << spectrum))
+		set_collision_mask(
+			(
+				Constants.PhysicsObjectType.INTERACTABLE
+				| Constants.PhysicsObjectType.GLASS
+				| Constants.PhysicsObjectType.MOB
+				| Constants.PhysicsObjectType.INTERACTABLE << spectrum
+				| Constants.PhysicsObjectType.GLASS << spectrum
+				| Constants.PhysicsObjectType.MOB << spectrum
+			)
+		)
 		region.set_item_cull_mask(1 << spectrum)
 		border.set_modulate(Constants.STANDARD_COLOR[spectrum])
 
