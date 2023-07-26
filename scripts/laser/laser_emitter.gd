@@ -65,7 +65,7 @@ func _set_ray_transform() -> void:
 func enable_emitter(new_state: bool) -> void:
 	# Set new state
 	is_on = new_state
-	
+
 	# Shortcut exit if not in play mode
 	if Engine.editor_hint:
 		return

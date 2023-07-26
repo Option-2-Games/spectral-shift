@@ -8,12 +8,8 @@ extends CollisionObject2D
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
 export(Constants.PhysicsObjectType) var physics_object_type = 1
 
-## Keep track of the number of regions merged with
-var _merge_region_count: int
-
-## Keep track of starting collision layer and mask
-var _starting_collision_layer: int
-var _starting_collision_mask: int
+## Keep track of the merged regions
+var _merged_regions: Array
 
 # === System ===
 
@@ -41,29 +37,60 @@ func _ready() -> void:
 ##
 ## @modifies: collision layer and masks
 ## @effects: enables the base collision layer and mask of the object's type
-func entered_merge_region() -> void:
+func entered_merge_region(region_spectrum: int) -> void:
 	# Mark entered a merge region
-	_merge_region_count += 1
+	_merged_regions.append(region_spectrum)
 
-	# Enable base collision layer (of the same type)
-	set_collision_layer(get_collision_layer() | _starting_collision_layer >> spectrum)
+	# Enable collision layer (of the same type)
+	set_collision_layer(get_collision_layer() | physics_object_type << region_spectrum)
 
-	# Enable base collision mask (of the same type)
-	set_collision_mask(get_collision_mask() | _starting_collision_mask >> spectrum)
+	# Enable collision mask (of the same type)
+	set_collision_mask(
+		(
+			get_collision_mask()
+			| (
+				Constants.PhysicsObjectType.INTERACTABLE << region_spectrum
+				| Constants.PhysicsObjectType.GLASS << region_spectrum
+			)
+		)
+	)
+
+	# Also include MOB in mask if not a mob
+	if physics_object_type != Constants.PhysicsObjectType.MOB:
+		set_collision_mask(
+			get_collision_mask() | Constants.PhysicsObjectType.MOB << region_spectrum
+		)
 
 
 ## Called by merge region when object exits
 ##
 ## @modifies: collision layer and masks
 ## @effects: removes the base collision layer once all regions are exited
-func exited_merge_region() -> void:
+func exited_merge_region(region_spectrum: int) -> void:
 	# Mark exited a merge region
-	_merge_region_count -= 1
+	_merged_regions.erase(region_spectrum)
 
-	# Reset back to starting layers once all regions are exited
-	if _merge_region_count == 0:
-		set_collision_layer(_starting_collision_layer)
-		set_collision_mask(_starting_collision_mask)
+	# Remove spectrum if there are no more merges
+	if not region_spectrum in _merged_regions:
+		# Disable collision layer
+		set_collision_layer(get_collision_layer() & ~(physics_object_type << region_spectrum))
+
+		# Disable collision mask
+		set_collision_mask(
+			(
+				get_collision_mask()
+				& ~(
+					Constants.PhysicsObjectType.INTERACTABLE << region_spectrum
+					| Constants.PhysicsObjectType.GLASS << region_spectrum
+				)
+			)
+		)
+
+		# Also remove MOB in mask if not a mob
+		if physics_object_type != Constants.PhysicsObjectType.MOB:
+			set_collision_mask(
+				get_collision_mask() & ~(Constants.PhysicsObjectType.MOB << region_spectrum)
+			)
 
 
 ## Override class name to return "Mergable"
@@ -102,8 +129,4 @@ func _apply_spectrum(new_spectrum: int) -> void:
 
 	# Also include MOB in mask if not a mob
 	if physics_object_type != Constants.PhysicsObjectType.MOB:
-		collision_mask |= Constants.PhysicsObjectType.MOB << spectrum
-
-	# Remember collision layer and mask for resetting later
-	_starting_collision_layer = get_collision_layer()
-	_starting_collision_mask = get_collision_mask()
+		set_collision_mask(get_collision_mask() | Constants.PhysicsObjectType.MOB << spectrum)

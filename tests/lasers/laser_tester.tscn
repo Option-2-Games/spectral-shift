@@ -90,7 +90,7 @@ spectrum = 2
 [node name="Mirror" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 position = Vector2( 1072, 376 )
-collision_layer = 16384
+collision_layer = 4
 collision_mask = 16452
 spectrum = 2
 
