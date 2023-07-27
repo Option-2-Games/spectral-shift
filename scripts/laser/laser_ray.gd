@@ -9,7 +9,7 @@ export(NodePath) var path_beam
 # === Components and properties ===
 var next_ray: LaserRay
 var spectrum: int
-var _colliding_object = null
+var _prev_colliding_object = null
 
 # === Component Nodes ===
 onready var _beam = get_node(path_beam) as Line2D
@@ -44,20 +44,20 @@ func _physics_process(_delta) -> void:
 		_beam.set_point_position(1, to_local(get_collision_point()))
 
 		# Update next ray transform
-		if next_ray:
-			next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
+		# if next_ray:
+		# 	next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
 
 		# Shortcut exit if colliding object is same
-		if _colliding_object and _colliding_object == get_collider():
+		if _prev_colliding_object and _prev_colliding_object == get_collider():
 			return
 
 		# Un-collide with previous object first if needed
-		if _colliding_object and _colliding_object != get_collider():
+		if _prev_colliding_object and _prev_colliding_object != get_collider():
 			_handle_leave_object_collision()
 
 		# Handle new colliding object
-		_colliding_object = get_collider()
 		_handle_enter_object_collision()
+		_prev_colliding_object = get_collider()
 	else:
 		# Extend beam to the full extent of the ray
 		_beam.set_point_position(1, get_cast_to())
@@ -67,7 +67,7 @@ func _physics_process(_delta) -> void:
 			next_ray.delete()
 
 		# Shortcut exit if there was no colliding object
-		if not _colliding_object:
+		if not _prev_colliding_object:
 			return
 
 		# De-interact with colliding object
@@ -97,18 +97,34 @@ func delete() -> void:
 
 ## Handle enter object collision
 func _handle_enter_object_collision() -> void:
-	if _colliding_object.has_method("receiver_hit"):
+	var collision_object = get_collider()
+	if collision_object.has_method("receiver_hit"):
 		# Is colliding with a laser receiver
-		_colliding_object.receiver_hit(self)
+		collision_object.receiver_hit(self)
+	if collision_object.is_in_group("mirror_reflector"):
+		print("Hit reflector")
+		var incident_vector = Vector2(1, 0).rotated(get_rotation())
+		print("Incoming vector (norm): " + str(incident_vector))
+		print("Reflector normal: " + str(get_collision_normal()))
+		var reflected_vector = incident_vector.bounce(get_collision_normal())
+		print("Reflected vector: " + str(reflected_vector))
+		print("As angle: " + str(rad2deg(reflected_vector.angle())))
+		# Is colliding with a mirror
+		# next_ray = duplicate()
+		# next_ray.set_global_transform(Transform2D(deg2rad(-90), get_collision_point()))
+
+		# # Add to scene (and at bottom)
+		# get_tree().get_current_scene().call_deferred("add_child", next_ray)
+		# get_tree().get_current_scene().call_deferred("move_child", next_ray, 0)
 
 
 ## Handle leave object collision
 ##
-## @modifies: _colliding_object
-## @effects: sets _colliding_object to null
+## @modifies: _prev_colliding_object
+## @effects: sets _prev_colliding_object to null
 func _handle_leave_object_collision() -> void:
-	if _colliding_object.has_method("receiver_leave"):
+	if _prev_colliding_object.has_method("receiver_leave"):
 		# Un-collide with a laser receiver
-		_colliding_object.receiver_leave(self)
+		_prev_colliding_object.receiver_leave(self)
 	# Reset colliding object
-	_colliding_object = null
+	_prev_colliding_object = null

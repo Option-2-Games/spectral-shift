@@ -26,7 +26,7 @@ polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 use_parent_material = true
 shape = SubResource( 1 )
 
-[node name="Reflector" type="Area2D" parent="."]
+[node name="Reflector" type="Area2D" parent="." groups=["mirror_reflector"]]
 use_parent_material = true
 collision_mask = 4113
 script = ExtResource( 1 )
