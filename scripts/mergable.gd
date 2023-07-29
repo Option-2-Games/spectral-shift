@@ -6,75 +6,127 @@ extends CollisionObject2D
 
 # === Properties ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(Array, NodePath) var visual_node_paths
+export(Constants.PhysicsObjectType) var physics_object_type = 1
 
-## Keep track of all regions merged with
-var _merges: Array
+## Keep track of the merged regions
+var _merged_regions: Array
 
 # === System ===
 
 
-## Setup emitter
-func _init() -> void:
-	# Enable light-only material
-	if not Engine.editor_hint:
+func _ready() -> void:
+	# Enable light-only material in game and not a child of mergable
+	if not Engine.editor_hint and get_parent().get_class() != "Mergable":
 		set_use_parent_material(false)
 
+	# Grab parent spectrum if they're mergable
+	if get_parent().get_class() == "Mergable":
+		var parent = get_parent() as Mergable
+		spectrum = parent.spectrum
 
-# === Public functions
+	# Set light masks and material for children and copy spectrum if also mergable
+	for child in get_children():
+		child.set_light_mask(1 << spectrum)
+		child.set_use_parent_material(true)
+
+
+# === Public functions ===
 
 
 ## Called by merge region when object enters
 ##
-## @param region_spectrum: Region's spectrum
 ## @modifies: collision layer and masks
+## @effects: enables the base collision layer and mask of the object's type
 func entered_merge_region(region_spectrum: int) -> void:
-	# Mark entered a region of spectrum
-	_merges.append(region_spectrum)
+	# Mark entered a merge region
+	_merged_regions.append(region_spectrum)
 
-	# Enable spectrum layers (ensure exist on all merged layers)
-	var bitmask = get_collision_layer() | 1 << region_spectrum | 1
-	set_collision_layer(bitmask)
-	set_collision_mask(bitmask)
+	# Enable collision layer (of the same type)
+	set_collision_layer(get_collision_layer() | physics_object_type << region_spectrum)
+
+	# Enable collision mask (of the same type)
+	set_collision_mask(
+		(
+			get_collision_mask()
+			| (
+				Constants.PhysicsObjectType.INTERACTABLE << region_spectrum
+				| Constants.PhysicsObjectType.GLASS << region_spectrum
+			)
+		)
+	)
+
+	# Also include MOB in mask if not a mob
+	if physics_object_type != Constants.PhysicsObjectType.MOB:
+		set_collision_mask(
+			get_collision_mask() | Constants.PhysicsObjectType.MOB << region_spectrum
+		)
 
 
 ## Called by merge region when object exits
 ##
-## @param region_spectrum: Region's spectrum
 ## @modifies: collision layer and masks
+## @effects: removes the base collision layer once all regions are exited
 func exited_merge_region(region_spectrum: int) -> void:
-	# Mark exited one region of spectrum
-	_merges.erase(region_spectrum)
+	# Mark exited a merge region
+	_merged_regions.erase(region_spectrum)
 
-	# Remove layer if not merged with spectrum anymore
-	if _merges.rfind(region_spectrum) == -1:
-		set_collision_layer_bit(region_spectrum, false)
-		set_collision_mask_bit(region_spectrum, false)
+	# Remove spectrum if there are no more merges
+	if not region_spectrum in _merged_regions:
+		# Disable collision layer
+		set_collision_layer(get_collision_layer() & ~(physics_object_type << region_spectrum))
 
-	# Clear all regions (unmerge) if there are no regions of source spectrum
-	if not spectrum in _merges:
-		_merges.clear()
+		# Disable collision mask
+		set_collision_mask(
+			(
+				get_collision_mask()
+				& ~(
+					Constants.PhysicsObjectType.INTERACTABLE << region_spectrum
+					| Constants.PhysicsObjectType.GLASS << region_spectrum
+				)
+			)
+		)
 
-	# Reset layers if exited all regions
-	if _merges.size() == 0:
-		set_collision_layer(1 << spectrum)
-		set_collision_mask(1 << spectrum)
+		# Also remove MOB in mask if not a mob
+		if physics_object_type != Constants.PhysicsObjectType.MOB:
+			set_collision_mask(
+				get_collision_mask() & ~(Constants.PhysicsObjectType.MOB << region_spectrum)
+			)
+
+
+## Override class name to return "Mergable"
+##
+## @returns: "Mergable" as class type
+func get_class() -> String:
+	return "Mergable"
+
+
+# === Private functions ===
 
 
 ## Apply spectrum setting
+## Ran once during initialization
 ##
 ## @param new_spectrum: Selected spectrum
+## @modifies: collision layer and masks
+## @effects: applies the spectrum's layer and mask
 func _apply_spectrum(new_spectrum: int) -> void:
-	# Apply spectrum and modulation
+	# Record spectrum
 	spectrum = new_spectrum
+
+	# Apply modulation
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
-	# Set collision masks
-	set_collision_layer(1 << spectrum)
-	set_collision_mask(1 << spectrum)
+	# Set starting collision layer
+	set_collision_layer(physics_object_type << spectrum)
 
-	# Set light masks and material for visual nodes
-	for path in visual_node_paths:
-		var node = get_node(path)
-		node.set_light_mask(1 << spectrum)
-		node.set_use_parent_material(true)
+	# Set starting collision mask
+	set_collision_mask(
+		(
+			Constants.PhysicsObjectType.INTERACTABLE << spectrum
+			| Constants.PhysicsObjectType.GLASS << spectrum
+		)
+	)
+
+	# Also include MOB in mask if not a mob
+	if physics_object_type != Constants.PhysicsObjectType.MOB:
+		set_collision_mask(get_collision_mask() | Constants.PhysicsObjectType.MOB << spectrum)
