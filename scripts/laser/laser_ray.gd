@@ -104,7 +104,7 @@ func _handle_enter_object_collision() -> void:
 		# Is colliding with a laser receiver
 		collision_object.receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
-		print("Hit reflector: "+collision_object.name)
+		print("Hit reflector: " + collision_object.name)
 		next_ray = duplicate(7)
 		next_ray.spectrum = spectrum
 

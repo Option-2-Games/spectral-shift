@@ -18,7 +18,7 @@ func _ready() -> void:
 		var spin_direction = 1 if randi() % 2 == 0 else -1
 		var spin = create_tween().set_loops()
 		spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from(0.0)
-	
+
 	# Apply spectrum after nodes load
 	_apply_spectrum(spectrum)
 

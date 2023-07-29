@@ -91,6 +91,7 @@ spectrum = 2
 [node name="Mirror2" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
 position = Vector2( 1079, 51 )
+rotation = 0.411898
 collision_layer = 32768
 collision_mask = 32904
 gravity_scale = 0.0
@@ -110,6 +111,6 @@ spectrum = 3
 
 [node name="SpectrumMergeRegion3" parent="." instance=ExtResource( 5 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 1071, -313 )
+position = Vector2( 1231, -228 )
 collision_mask = 12339
 spectrum = 1
