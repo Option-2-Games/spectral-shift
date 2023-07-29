@@ -63,11 +63,6 @@ polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 917, 670 )
 
-[node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1503, 536 )
-collision_mask = 20565
-spectrum = 2
-
 [node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 position = Vector2( 612, 393 )
@@ -100,9 +95,14 @@ collision_mask = 32904
 gravity_scale = 0.0
 spectrum = 3
 
+[node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
+modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
+position = Vector2( 1358, 585 )
+collision_mask = 20565
+spectrum = 2
+
 [node name="SpectrumMergeRegion2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1233, -149 )
-scale = Vector2( 1, 1 )
+modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
+position = Vector2( 1257, -165 )
 collision_mask = 37017
 spectrum = 3
-node_paths = [ NodePath("../SpectrumMergeRegion/Border"), NodePath("../SpectrumMergeRegion/Region") ]

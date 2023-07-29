@@ -37,7 +37,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-node_paths = [ NodePath("Border"), NodePath("Region") ]
+path_border = NodePath("Border")
+path_region = NodePath("Region")
 
 [node name="MergeRegion" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

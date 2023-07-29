@@ -4,11 +4,10 @@ extends Area2D
 
 # === Spectrum and Component Paths ===
 export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(Array, NodePath) var node_paths
+export(NodePath) var path_region
 
 # === Components ===
-onready var border = get_node(node_paths[0]) as Sprite
-onready var region = get_node(node_paths[1]) as Light2D
+onready var region = get_node(path_region) as Light2D
 
 # === System ===
 
@@ -19,8 +18,8 @@ func _ready() -> void:
 		var spin_direction = 1 if randi() % 2 == 0 else -1
 		var spin = create_tween().set_loops()
 		spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from(0.0)
-
-	# Apply spectrum
+	
+	# Apply spectrum after nodes load
 	_apply_spectrum(spectrum)
 
 
@@ -51,19 +50,16 @@ func _apply_spectrum(new_spectrum: int) -> void:
 	spectrum = new_spectrum
 
 	# Set collision masks and modulate border
-	if border:
-		set_collision_mask(
-			(
-				Constants.PhysicsObjectType.INTERACTABLE
-				| Constants.PhysicsObjectType.GLASS
-				| Constants.PhysicsObjectType.MOB
-				| Constants.PhysicsObjectType.INTERACTABLE << spectrum
-				| Constants.PhysicsObjectType.GLASS << spectrum
-				| Constants.PhysicsObjectType.MOB << spectrum
-			)
-		)
+	var base_mask = (
+		Constants.PhysicsObjectType.INTERACTABLE
+		| Constants.PhysicsObjectType.GLASS
+		| Constants.PhysicsObjectType.MOB
+	)
+	set_collision_mask(base_mask | base_mask << spectrum)
+	set_modulate(Constants.STANDARD_COLOR[spectrum])
+
+	if region:
 		region.set_item_cull_mask(1 << spectrum)
-		border.set_modulate(Constants.STANDARD_COLOR[spectrum])
 
 
 ## Handle objects entering region
