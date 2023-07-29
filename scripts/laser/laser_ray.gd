@@ -44,8 +44,8 @@ func _physics_process(_delta) -> void:
 		_beam.set_point_position(1, to_local(get_collision_point()))
 
 		# Update next ray transform
-		# if next_ray:
-		# 	next_ray.set_global_transform(Transform2D(get_global_rotation(), get_collision_point()))
+		if next_ray:
+			_update_next_ray_transform()
 
 		# Shortcut exit if colliding object is same
 		if _prev_colliding_object and _prev_colliding_object == get_collider():
@@ -102,20 +102,13 @@ func _handle_enter_object_collision() -> void:
 		# Is colliding with a laser receiver
 		collision_object.receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
-		print("Hit reflector")
-		var incident_vector = Vector2(1, 0).rotated(get_rotation())
-		print("Incoming vector (norm): " + str(incident_vector))
-		print("Reflector normal: " + str(get_collision_normal()))
-		var reflected_vector = incident_vector.bounce(get_collision_normal())
-		print("Reflected vector: " + str(reflected_vector))
-		print("As angle: " + str(rad2deg(reflected_vector.angle())))
-		# Is colliding with a mirror
-		# next_ray = duplicate()
-		# next_ray.set_global_transform(Transform2D(deg2rad(-90), get_collision_point()))
+		next_ray = duplicate(7)
+		next_ray.spectrum = spectrum
 
-		# # Add to scene (and at bottom)
-		# get_tree().get_current_scene().call_deferred("add_child", next_ray)
-		# get_tree().get_current_scene().call_deferred("move_child", next_ray, 0)
+		_update_next_ray_transform()
+
+		get_tree().get_current_scene().call_deferred("add_child", next_ray)
+		get_tree().get_current_scene().call_deferred("move_child", next_ray, 0)
 
 
 ## Handle leave object collision
@@ -128,3 +121,11 @@ func _handle_leave_object_collision() -> void:
 		_prev_colliding_object.receiver_leave(self)
 	# Reset colliding object
 	_prev_colliding_object = null
+
+
+func _update_next_ray_transform() -> void:
+	var incident_vector = Vector2(1, 0).rotated(get_rotation())
+	var reflected_vector = incident_vector.bounce(get_collision_normal())
+	next_ray.set_global_transform(
+		Transform2D(reflected_vector.angle(), get_collision_point() + reflected_vector * 5)
+	)

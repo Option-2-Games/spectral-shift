@@ -31,7 +31,6 @@ fill_from = Vector2( 0.5, 0.5 )
 fill_to = Vector2( 0.5, 0 )
 
 [node name="SpectrumMergeRegion" type="Area2D"]
-rotation = -1.4205
 collision_layer = 256
 collision_mask = 4113
 script = ExtResource( 1 )
