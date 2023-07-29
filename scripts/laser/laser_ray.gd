@@ -65,6 +65,7 @@ func _physics_process(_delta) -> void:
 		# Remove next ray
 		if next_ray:
 			next_ray.delete()
+			next_ray = null
 
 		# Shortcut exit if there was no colliding object
 		if not _prev_colliding_object:
@@ -87,6 +88,7 @@ func delete() -> void:
 	# Delete next ray first
 	if next_ray:
 		next_ray.delete()
+		next_ray = null
 
 	# Then delete self
 	queue_free()
@@ -102,6 +104,7 @@ func _handle_enter_object_collision() -> void:
 		# Is colliding with a laser receiver
 		collision_object.receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
+		print("Hit reflector: "+collision_object.name)
 		next_ray = duplicate(7)
 		next_ray.spectrum = spectrum
 

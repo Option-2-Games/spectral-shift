@@ -14,6 +14,7 @@ extents = Vector2( 32, 32 )
 [node name="LaserTester" type="Node2D"]
 
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
+visible = false
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
 light_mask = 2
 material = ExtResource( 2 )
@@ -65,7 +66,7 @@ position = Vector2( 917, 670 )
 
 [node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
 modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 612, 393 )
+position = Vector2( 588, 398 )
 collision_layer = 2
 collision_mask = 8226
 spectrum = 1
@@ -81,7 +82,7 @@ spectrum = 2
 
 [node name="Mirror" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1072, 376 )
+position = Vector2( 1075, 405 )
 collision_layer = 16384
 collision_mask = 16452
 gravity_scale = 0.0
@@ -89,7 +90,7 @@ spectrum = 2
 
 [node name="Mirror2" parent="." instance=ExtResource( 7 )]
 modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
-position = Vector2( 1067, 143 )
+position = Vector2( 1079, 51 )
 collision_layer = 32768
 collision_mask = 32904
 gravity_scale = 0.0
@@ -97,12 +98,18 @@ spectrum = 3
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1358, 585 )
+position = Vector2( 1410, 619 )
 collision_mask = 20565
 spectrum = 2
 
 [node name="SpectrumMergeRegion2" parent="." instance=ExtResource( 5 )]
 modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
-position = Vector2( 1257, -165 )
+position = Vector2( 1420, -132 )
 collision_mask = 37017
 spectrum = 3
+
+[node name="SpectrumMergeRegion3" parent="." instance=ExtResource( 5 )]
+modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
+position = Vector2( 1071, -313 )
+collision_mask = 12339
+spectrum = 1

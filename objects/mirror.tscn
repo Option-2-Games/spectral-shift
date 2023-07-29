@@ -6,8 +6,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
 
-[sub_resource type="LineShape2D" id=2]
-normal = Vector2( 1, 1 )
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( -100, 100 )
+b = Vector2( 100, -100 )
 
 [node name="Mirror" type="RigidBody2D"]
 material = ExtResource( 2 )
