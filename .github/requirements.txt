@@ -1,4 +1,4 @@
 gdtoolkit==3.5.0
 mdformat-gfm==0.3.5
 mdformat_footnote==0.1.1
-mdformat_frontmatter==2.0.1
+mdformat_frontmatter==2.0.8
