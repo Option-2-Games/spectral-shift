@@ -10,7 +10,7 @@ extends RayCast2D
 #region Properties
 var next_ray: LaserRay
 var spectrum: int
-var _prev_colliding_object = null
+var _prev_colliding_object: Node = null
 #endregion
 
 #region Godot
@@ -23,14 +23,14 @@ func _ready() -> void:
 	# Set color
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
-	var spectrum_mask = Constants.PhysicsObjectType.INTERACTABLE << spectrum
-	var mob_mask = Constants.PhysicsObjectType.MOB << spectrum
+	var spectrum_mask: int = Constants.PhysicsObjectType.INTERACTABLE << spectrum
+	var mob_mask: int = Constants.PhysicsObjectType.MOB << spectrum
 
 	# Set collision mask
 	set_collision_mask(spectrum_mask | mob_mask)
 
 	# Set beam light mask
-	_beam.set_light_mask(spectrum_mask)
+	beam.set_light_mask(spectrum_mask)
 
 
 ## Update laser position and next rays based on cast
@@ -40,7 +40,7 @@ func _ready() -> void:
 func _physics_process(_delta) -> void:
 	if is_colliding():
 		# Update beam extent to the collision point
-		_beam.set_point_position(1, to_local(get_collision_point()))
+		beam.set_point_position(1, to_local(get_collision_point()))
 
 		# Update next ray transform
 		if next_ray:
@@ -59,7 +59,7 @@ func _physics_process(_delta) -> void:
 		_prev_colliding_object = get_collider()
 	else:
 		# Extend beam to the full extent of the ray
-		_beam.set_point_position(1, get_target_position())
+		beam.set_point_position(1, get_target_position())
 
 		# Remove next ray
 		if next_ray:
@@ -72,6 +72,7 @@ func _physics_process(_delta) -> void:
 
 		# De-interact with colliding object
 		_handle_leave_object_collision()
+
 
 #endregion
 
@@ -99,7 +100,7 @@ func delete() -> void:
 
 ## Handle enter object collision
 func _handle_enter_object_collision() -> void:
-	var collision_object = get_collider()
+	var collision_object: Node = get_collider()
 	if collision_object.has_method("receiver_hit"):
 		# Is colliding with a laser receiver
 		collision_object.receiver_hit(self)
@@ -127,8 +128,8 @@ func _handle_leave_object_collision() -> void:
 
 
 func _update_next_ray_transform() -> void:
-	var incident_vector = Vector2(1, 0).rotated(get_rotation())
-	var reflected_vector = incident_vector.bounce(get_collision_normal())
+	var incident_vector := Vector2(1, 0).rotated(get_rotation())
+	var reflected_vector := incident_vector.bounce(get_collision_normal())
 	next_ray.set_global_transform(
 		Transform2D(reflected_vector.angle(), get_collision_point() + reflected_vector * 5)
 	)

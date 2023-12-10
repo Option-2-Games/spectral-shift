@@ -1,4 +1,3 @@
-extends Node
 ## Collection of global constants
 
 ## Spectrum enum
@@ -17,17 +16,11 @@ enum Spectrum { BASE = 0, RED = 1, GREEN = 2, BLUE = 3 }
 enum PhysicsObjectType { INTERACTABLE = 1, MOB = 16, GLASS = 4096 }
 
 ## Standard spectrum color pallet
-const STANDARD_COLOR = {
-	Spectrum.BASE: Color.WHITE,
-	Spectrum.RED: Color("c74e53"),
-	Spectrum.GREEN: Color("53c74e"),
-	Spectrum.BLUE: Color("4e53c7")
-}
+const STANDARD_COLOR: Array[Color] = [
+	Color.WHITE, Color("c74e53"), Color("53c74e"), Color("4e53c7")
+]
 
 ## Highlight spectrum color pallet
-const HIGHLIGHT_COLOR = {
-	Spectrum.BASE: Color(1.5, 1.5, 1.5),
-	Spectrum.RED: Color(1.5, 0.31, 0.33),
-	Spectrum.GREEN: Color(0.33, 1.5, 0.31),
-	Spectrum.BLUE: Color(0.31, 0.33, 1.5)
-}
+const HIGHLIGHT_COLOR: Array[Color] = [
+	Color(1.5, 1.5, 1.5), Color(1.5, 0.31, 0.33), Color(0.33, 1.5, 0.31), Color(0.31, 0.33, 1.5)
+]
