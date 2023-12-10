@@ -18,10 +18,10 @@ collision_mask = 4113
 script = ExtResource( 1 )
 physics_object_type = 4096
 
-[node name="Shape" type="Polygon2D" parent="."]
+[node name="Shape3D" type="Polygon2D" parent="."]
 use_parent_material = true
 color = Color( 1, 1, 1, 0.196078 )
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+polygon = PackedVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
 [node name="MirrorCollider" type="CollisionShape2D" parent="."]
 use_parent_material = true
@@ -40,7 +40,7 @@ one_way_collision_margin = 10.0
 
 [node name="ReflectorShape" type="Line2D" parent="Reflector"]
 use_parent_material = true
-points = PoolVector2Array( -45, 45, 45, -45 )
+points = PackedVector2Array( -45, 45, 45, -45 )
 default_color = Color( 1, 1, 1, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2

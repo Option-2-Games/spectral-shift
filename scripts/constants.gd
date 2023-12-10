@@ -18,7 +18,7 @@ enum PhysicsObjectType { INTERACTABLE = 1, MOB = 16, GLASS = 4096 }
 
 ## Standard spectrum color pallet
 const STANDARD_COLOR = {
-	Spectrum.BASE: Color.white,
+	Spectrum.BASE: Color.WHITE,
 	Spectrum.RED: Color("c74e53"),
 	Spectrum.GREEN: Color("53c74e"),
 	Spectrum.BLUE: Color("4e53c7")

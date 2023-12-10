@@ -5,14 +5,14 @@
 
 [node name="LaserRay" type="RayCast2D"]
 enabled = true
-cast_to = Vector2( 10000, 0 )
+target_position = Vector2( 10000, 0 )
 collide_with_areas = true
 script = ExtResource( 1 )
 path_beam = NodePath("Beam")
 
 [node name="Beam" type="Line2D" parent="."]
 material = ExtResource( 2 )
-points = PoolVector2Array( 0, 0, 100, 0 )
+points = PackedVector2Array( 0, 0, 100, 0 )
 width = 25.0
 default_color = Color( 1, 1, 1, 1 )
 begin_cap_mode = 2

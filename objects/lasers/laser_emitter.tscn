@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/laser/laser.webp" type="Texture" id=1]
+[ext_resource path="res://assets/laser/laser.webp" type="Texture2D" id=1]
 [ext_resource path="res://objects/lasers/laser_ray.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/laser/laser_emitter.gd" type="Script" id=3]
 [ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=4]
@@ -14,9 +14,9 @@ ray_object = ExtResource( 2 )
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]
 use_parent_material = true
-polygon = PoolVector2Array( 0, -50, 18, -50, 94, 0, 18, 50, 0, 50 )
+polygon = PackedVector2Array( 0, -50, 18, -50, 94, 0, 18, 50, 0, 50 )
 
-[node name="Shape" type="Sprite" parent="."]
+[node name="Shape3D" type="Sprite2D" parent="."]
 show_behind_parent = true
 use_parent_material = true
 texture = ExtResource( 1 )

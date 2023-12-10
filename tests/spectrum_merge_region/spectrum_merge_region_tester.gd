@@ -4,7 +4,7 @@ extends Node2D
 var _merge_region_open = true
 
 # Components
-onready var _merge_region = $RedRegion
+@onready var _merge_region = $RedRegion
 
 
 func _input(event: InputEvent) -> void:

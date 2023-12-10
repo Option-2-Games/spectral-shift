@@ -12,10 +12,10 @@ const TWEEN_DURATION = 0.2
 const OFF_COLOR = Color("646464")
 
 # === Component Paths ===
-export(NodePath) var path_selection_beam
-export(NodePath) var path_red_segment
-export(NodePath) var path_green_segment
-export(NodePath) var path_blue_segment
+@export var path_selection_beam: NodePath
+@export var path_red_segment: NodePath
+@export var path_green_segment: NodePath
+@export var path_blue_segment: NodePath
 
 # === Variables ===
 
@@ -29,13 +29,13 @@ var _selecting_spectrum: int = Constants.Spectrum.BASE
 var _selected_spectrum: int
 
 # === Component Nodes===
-onready var _selection_beam = get_node(path_selection_beam)
-onready var _red_segment = get_node(path_red_segment)
-onready var _green_segment = get_node(path_green_segment)
-onready var _blue_segment = get_node(path_blue_segment)
+@onready var _selection_beam = get_node(path_selection_beam)
+@onready var _red_segment = get_node(path_red_segment)
+@onready var _green_segment = get_node(path_green_segment)
+@onready var _blue_segment = get_node(path_blue_segment)
 
 ## Color segments as an array (null offset for base)
-onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
+@onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
 
 # === System ===
 
@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if mouse_pos.length_squared() >= SQ_DISTANCE_TO_SEGMENT:
 			# Get mouse angle to RED spectrum
 			mouse_pos.y *= -1
-			var mouse_angle_degrees = rad2deg(mouse_pos.angle_to(Vector2(-1, -1)))
+			var mouse_angle_degrees = rad_to_deg(mouse_pos.angle_to(Vector2(-1, -1)))
 
 			if (
 				mouse_angle_degrees >= 0
@@ -95,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	elif (
 		event is InputEventMouseButton
-		and (event as InputEventMouseButton).button_index == BUTTON_LEFT
+		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
 	):
 		# Open on mouse down, close otherwise
 		_switcher_is_open = event.is_pressed()
@@ -127,7 +127,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 ## Create a tween object with a cubic easing
-func _create_cubic_tween() -> SceneTreeTween:
+func _create_cubic_tween() -> Tween:
 	return create_tween().set_trans(Tween.TRANS_CUBIC)
 
 

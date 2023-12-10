@@ -1,20 +1,20 @@
-tool
+@tool
 class_name MergeRegion
 extends Area2D
 
 # === Spectrum and Component Paths ===
-export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(NodePath) var path_region
+@export var spectrum : set = _apply_spectrum
+@export var path_region: NodePath
 
 # === Components ===
-onready var region = get_node(path_region) as Light2D
+@onready var region = get_node(path_region) as PointLight2D
 
 # === System ===
 
 
 func _ready() -> void:
 	# Spin animation (only in-game)
-	if not Engine.editor_hint:
+	if not Engine.is_editor_hint():
 		var spin_direction = 1 if randi() % 2 == 0 else -1
 		var spin = create_tween().set_loops()
 		spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from(0.0)

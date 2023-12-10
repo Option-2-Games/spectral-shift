@@ -1,12 +1,12 @@
-tool
+@tool
 class_name Mergable
 extends CollisionObject2D
 
 ## Class definition for objects that can be merged into the base spectrums
 
 # === Properties ===
-export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(Constants.PhysicsObjectType) var physics_object_type = 1
+@export var spectrum : set = _apply_spectrum
+@export var physics_object_type = 1 # (Constants.PhysicsObjectType)
 
 ## Keep track of the merged regions
 var _merged_regions: Array
@@ -16,7 +16,7 @@ var _merged_regions: Array
 
 func _ready() -> void:
 	# Enable light-only material in game and not a child of mergable
-	if not Engine.editor_hint and get_parent().get_class() != "Mergable":
+	if not Engine.is_editor_hint() and get_parent().get_class() != "Mergable":
 		set_use_parent_material(false)
 
 	# Grab parent spectrum if they're mergable

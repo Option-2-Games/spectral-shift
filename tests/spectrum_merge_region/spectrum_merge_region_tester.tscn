@@ -16,17 +16,17 @@ script = ExtResource( 3 )
 [node name="RedBg" type="ColorRect" parent="."]
 light_mask = 2
 material = ExtResource( 2 )
-margin_right = 978.0
-margin_bottom = 580.0
+offset_right = 978.0
+offset_bottom = 580.0
 color = Color( 1, 0, 0, 0.317647 )
 
 [node name="GreenBg" type="ColorRect" parent="."]
 light_mask = 4
 material = ExtResource( 2 )
-margin_left = 909.0
-margin_top = 15.0
-margin_right = 1887.0
-margin_bottom = 595.0
+offset_left = 909.0
+offset_top = 15.0
+offset_right = 1887.0
+offset_bottom = 595.0
 color = Color( 0, 1, 0, 0.317647 )
 
 [node name="RedDummy" type="Area2D" parent="."]
@@ -47,7 +47,7 @@ shape = SubResource( 1 )
 [node name="Red" type="Polygon2D" parent="RedDummy"]
 light_mask = 2
 material = ExtResource( 2 )
-polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+polygon = PackedVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
 [node name="GreenDummy" type="RigidBody2D" parent="."]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
@@ -67,7 +67,7 @@ shape = SubResource( 2 )
 [node name="Green" type="Polygon2D" parent="GreenDummy"]
 light_mask = 4
 material = ExtResource( 2 )
-polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+polygon = PackedVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
 [node name="RedRegion" parent="." instance=ExtResource( 1 )]
 position = Vector2( 375, 575 )

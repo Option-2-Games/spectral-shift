@@ -17,30 +17,30 @@ environment = ExtResource( 4 )
 [node name="BlueBg" type="ColorRect" parent="."]
 light_mask = 8
 material = ExtResource( 1 )
-margin_left = 684.0
-margin_top = 94.0
-margin_right = 1213.0
-margin_bottom = 541.0
+offset_left = 684.0
+offset_top = 94.0
+offset_right = 1213.0
+offset_bottom = 541.0
 mouse_filter = 2
 color = Color( 0.305882, 0.32549, 0.780392, 0.345098 )
 
 [node name="GreenBg" type="ColorRect" parent="."]
 light_mask = 4
 material = ExtResource( 1 )
-margin_left = 981.0
-margin_top = 110.0
-margin_right = 1510.0
-margin_bottom = 557.0
+offset_left = 981.0
+offset_top = 110.0
+offset_right = 1510.0
+offset_bottom = 557.0
 mouse_filter = 2
 color = Color( 0.32549, 0.780392, 0.305882, 0.337255 )
 
 [node name="RedBg" type="ColorRect" parent="."]
 light_mask = 2
 material = ExtResource( 1 )
-margin_left = 365.0
-margin_top = 103.0
-margin_right = 894.0
-margin_bottom = 550.0
+offset_left = 365.0
+offset_top = 103.0
+offset_right = 894.0
+offset_bottom = 550.0
 mouse_filter = 2
 color = Color( 0.780392, 0.305882, 0.32549, 0.356863 )
 
@@ -56,11 +56,11 @@ collision_mask = 2
 script = ExtResource( 2 )
 spectrum = 1
 
-[node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
+[node name="Shape3D" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
 material = ExtResource( 1 )
 antialiased = true
-polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+polygon = PackedVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
 shape = SubResource( 1 )
@@ -73,16 +73,16 @@ collision_mask = 8
 script = ExtResource( 2 )
 spectrum = 3
 
-[node name="Shape" type="Polygon2D" parent="BlueDemoBlock"]
+[node name="Shape3D" type="Polygon2D" parent="BlueDemoBlock"]
 light_mask = 8
 material = ExtResource( 1 )
 antialiased = true
-polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+polygon = PackedVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlueDemoBlock"]
 shape = SubResource( 1 )
 
-[node name="GreenDemoKinematic" type="KinematicBody2D" parent="."]
+[node name="GreenDemoKinematic" type="CharacterBody2D" parent="."]
 modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
 position = Vector2( 1160, 400 )
 collision_layer = 4
@@ -90,14 +90,14 @@ collision_mask = 4
 script = ExtResource( 2 )
 spectrum = 2
 
-[node name="Shape" type="Polygon2D" parent="GreenDemoKinematic"]
+[node name="Shape3D" type="Polygon2D" parent="GreenDemoKinematic"]
 light_mask = 4
 material = ExtResource( 1 )
 antialiased = true
-polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
+polygon = PackedVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GreenDemoKinematic"]
-polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
+polygon = PackedVector2Array( 0, -32, -32, 32, 32, 32 )
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
 position = Vector2( 352, 521 )

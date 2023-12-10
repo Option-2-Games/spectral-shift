@@ -3,18 +3,17 @@ extends RayCast2D
 
 ## Handler for a ray in a laser
 
-# === Component Paths ===
-export(NodePath) var path_beam
+#region Nodes
+@export var beam: Line2D
+#endregion
 
-# === Components and properties ===
+#region Properties
 var next_ray: LaserRay
 var spectrum: int
 var _prev_colliding_object = null
+#endregion
 
-# === Component Nodes ===
-onready var _beam = get_node(path_beam) as Line2D
-
-# === System ===
+#region Godot
 
 
 ## Initialize a ray in a laser
@@ -60,7 +59,7 @@ func _physics_process(_delta) -> void:
 		_prev_colliding_object = get_collider()
 	else:
 		# Extend beam to the full extent of the ray
-		_beam.set_point_position(1, get_cast_to())
+		_beam.set_point_position(1, get_target_position())
 
 		# Remove next ray
 		if next_ray:
@@ -74,6 +73,7 @@ func _physics_process(_delta) -> void:
 		# De-interact with colliding object
 		_handle_leave_object_collision()
 
+#endregion
 
 # === Public Functions ===
 
