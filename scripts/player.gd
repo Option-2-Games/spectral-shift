@@ -1,18 +1,15 @@
 extends CharacterBody2D
 
 # === Component Paths ===
-@export var node_paths # (Array, NodePath)
+@export var red_region: MergeRegion
+@export var green_region: MergeRegion
+@export var blue_region: MergeRegion
 
 # === Variables ===
 var _merged_region: MergeRegion
 
 # === Components Nodes ===
-@onready var _red_region = get_node(node_paths[0])
-@onready var _green_region = get_node(node_paths[1])
-@onready var _blue_region = get_node(node_paths[2])
-
-## Regions as an array
-@onready var _regions = [null, _red_region, _green_region, _blue_region]
+var _regions: Array[MergeRegion] = [null, red_region, green_region, blue_region]
 
 # === Signal Handlers ===
 
