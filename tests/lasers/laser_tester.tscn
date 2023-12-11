@@ -58,8 +58,11 @@ light_mask = 4
 use_parent_material = true
 polygon = PackedVector2Array(0, -32, -32, 32, 32, 32)
 
-[node name="Player" parent="." instance=ExtResource("4")]
+[node name="Player" parent="." node_paths=PackedStringArray("red_region", "green_region", "blue_region") instance=ExtResource("4")]
 position = Vector2(917, 670)
+red_region = NodePath("")
+green_region = NodePath("")
+blue_region = NodePath("")
 
 [node name="LaserEmitter" parent="." instance=ExtResource("1")]
 modulate = Color(0.780392, 0.305882, 0.32549, 1)
@@ -87,7 +90,7 @@ spectrum = 2
 
 [node name="Mirror2" parent="." instance=ExtResource("7")]
 modulate = Color(0.305882, 0.32549, 0.780392, 1)
-position = Vector2(1079, 51)
+position = Vector2(1079, 130.61)
 rotation = 0.411898
 collision_layer = 32768
 collision_mask = 32904
@@ -108,6 +111,6 @@ spectrum = 3
 
 [node name="SpectrumMergeRegion3" parent="." instance=ExtResource("5")]
 modulate = Color(0.780392, 0.305882, 0.32549, 1)
-position = Vector2(1231, -228)
+position = Vector2(1236, -198)
 collision_mask = 12339
 spectrum = 1

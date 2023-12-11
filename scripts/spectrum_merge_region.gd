@@ -3,7 +3,7 @@ class_name MergeRegion
 extends Area2D
 
 # === Spectrum and Component Paths ===
-@export var spectrum: int:
+@export var spectrum: Constants.Spectrum:
 	set = _apply_spectrum
 @export var region: PointLight2D
 
@@ -14,7 +14,7 @@ func _ready() -> void:
 	# Spin animation (only in-game)
 	if not Engine.is_editor_hint():
 		var spin_direction = 1 if randi() % 2 == 0 else -1
-		var spin = create_tween().set_loops()
+		var spin = get_tree().create_tween().set_loops()
 		spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from(0.0)
 
 	# Apply spectrum after nodes load
@@ -44,7 +44,7 @@ func close() -> void:
 ## @param new_spectrum: Selected spectrum
 ## @modifies: spectrum
 ## @effects: Updates spectrum based on input
-func _apply_spectrum(new_spectrum: int) -> void:
+func _apply_spectrum(new_spectrum: Constants.Spectrum) -> void:
 	spectrum = new_spectrum
 
 	# Set collision masks and modulate border
@@ -64,7 +64,7 @@ func _apply_spectrum(new_spectrum: int) -> void:
 ##
 ## Calls the object's `entered_merge_region`
 ## @param object: object that entered
-func _handle_entered(object) -> void:
+func _handle_entered(object: Node) -> void:
 	if object.has_method("entered_merge_region"):
 		object.entered_merge_region(spectrum)
 
@@ -73,7 +73,7 @@ func _handle_entered(object) -> void:
 ##
 ## Calls the object's exited_merge_region
 ## @param object: object that exited
-func _handle_exited(object) -> void:
+func _handle_exited(object: Node) -> void:
 	if object.has_method("exited_merge_region"):
 		object.exited_merge_region(spectrum)
 

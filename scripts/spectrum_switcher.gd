@@ -29,7 +29,7 @@ var _selecting_spectrum: Constants.Spectrum = Constants.Spectrum.BASE
 var _selected_spectrum: int
 
 ## Color segments as an array (null offset for base)
-var _segments: Array[Node2D] = [null, red_segment, green_segment, blue_segment]
+@onready var _segments: Array[Node2D] = [null, red_segment, green_segment, blue_segment]
 
 # === System ===
 

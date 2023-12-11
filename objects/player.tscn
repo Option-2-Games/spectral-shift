@@ -10,9 +10,9 @@ size = Vector2(100, 100)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("red_region", "green_region", "blue_region")]
 collision_mask = 4113
 script = ExtResource("3")
-red_region = NodePath("RedRegion")
-green_region = NodePath("GreenRegion")
-blue_region = NodePath("BlueRegion")
+red_region = NodePath("")
+green_region = NodePath("")
+blue_region = NodePath("")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
@@ -20,30 +20,28 @@ shape = SubResource("1")
 [node name="Body" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
 
-[node name="RedRegion" parent="." node_paths=PackedStringArray("region") instance=ExtResource("1")]
+[node name="RedRegion" parent="." instance=ExtResource("1")]
 modulate = Color(0.780392, 0.305882, 0.32549, 1)
 rotation = 1.59649
 scale = Vector2(1e-05, 1e-05)
 collision_mask = 12339
 spectrum = 1
-region = NodePath("Region")
 
-[node name="GreenRegion" parent="." node_paths=PackedStringArray("region") instance=ExtResource("1")]
+[node name="GreenRegion" parent="." instance=ExtResource("1")]
 modulate = Color(0.32549, 0.780392, 0.305882, 1)
 rotation = -0.00387989
 scale = Vector2(1e-05, 1e-05)
 collision_mask = 20565
 spectrum = 2
-region = NodePath("Region")
 
-[node name="BlueRegion" parent="." node_paths=PackedStringArray("region") instance=ExtResource("1")]
+[node name="BlueRegion" parent="." instance=ExtResource("1")]
 modulate = Color(0.305882, 0.32549, 0.780392, 1)
 rotation = 5.42466
 scale = Vector2(1e-05, 1e-05)
 collision_mask = 37017
 spectrum = 3
-region = NodePath("Region")
 
 [node name="SpectrumSwitcher" parent="." instance=ExtResource("2")]
+position = Vector2(300, 2.08165e-12)
 
 [connection signal="spectrum_switched" from="SpectrumSwitcher" to="." method="_on_SpectrumSwitcher_spectrum_switched"]

@@ -100,7 +100,7 @@ func delete() -> void:
 
 ## Handle enter object collision
 func _handle_enter_object_collision() -> void:
-	var collision_object = get_collider()
+	var collision_object: Node = get_collider()
 	if collision_object.has_method("receiver_hit"):
 		# Is colliding with a laser receiver
 		collision_object.receiver_hit(self)

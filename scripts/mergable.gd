@@ -5,7 +5,7 @@ extends CollisionObject2D
 ## Class definition for objects that can be merged into the base spectrums
 
 # === Properties ===
-@export var spectrum: int:
+@export var spectrum: Constants.Spectrum:
 	set = _apply_spectrum
 @export
 var physics_object_type: Constants.PhysicsObjectType = Constants.PhysicsObjectType.INTERACTABLE
@@ -104,7 +104,7 @@ func exited_merge_region(region_spectrum: int) -> void:
 ## @param new_spectrum: Selected spectrum
 ## @modifies: collision layer and masks
 ## @effects: applies the spectrum's layer and mask
-func _apply_spectrum(new_spectrum: int) -> void:
+func _apply_spectrum(new_spectrum: Constants.Spectrum) -> void:
 	# Record spectrum
 	spectrum = new_spectrum
 

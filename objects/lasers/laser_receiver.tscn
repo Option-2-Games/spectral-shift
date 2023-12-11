@@ -14,10 +14,12 @@ collision_mask = 4113
 script = ExtResource("2")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+use_parent_material = true
 position = Vector2(21, 0)
 shape = SubResource("1")
 
 [node name="Shape3D" type="Sprite2D" parent="."]
 show_behind_parent = true
+use_parent_material = true
 texture = ExtResource("1")
 offset = Vector2(50, 0)
