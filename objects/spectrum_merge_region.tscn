@@ -34,11 +34,6 @@ fill_to = Vector2(0.5, 0)
 collision_layer = 256
 collision_mask = 4113
 script = ExtResource("1")
-__meta__ = {
-"_edit_group_": true
-}
-path_border = NodePath("Border")
-path_region = NodePath("Region")
 
 [node name="MergeRegion" type="CollisionShape2D" parent="."]
 shape = SubResource("1")

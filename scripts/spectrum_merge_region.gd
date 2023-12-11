@@ -5,10 +5,7 @@ extends Area2D
 # === Spectrum and Component Paths ===
 @export var spectrum: int:
 	set = _apply_spectrum
-@export var path_region: NodePath
-
-# === Components ===
-@onready var region = get_node(path_region) as PointLight2D
+@export var region: PointLight2D
 
 # === System ===
 

@@ -1,3 +1,4 @@
+extends Node
 ## Collection of global constants
 
 ## Spectrum enum

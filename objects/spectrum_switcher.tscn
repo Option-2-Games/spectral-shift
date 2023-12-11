@@ -13,13 +13,13 @@ gradient = SubResource("3")
 width = 200
 height = 200
 
-[node name="SpectrumSwitcher" type="Node2D"]
+[node name="SpectrumSwitcher" type="Node2D" node_paths=PackedStringArray("selection_beam", "red_segment", "green_segment", "blue_segment")]
 z_index = 4096
 script = ExtResource("4")
-path_selection_beam = NodePath("SelectionBeam")
-path_red_segment = NodePath("RedSegment")
-path_green_segment = NodePath("GreenSegment")
-path_blue_segment = NodePath("BlueSegment")
+selection_beam = NodePath("SelectionBeam")
+red_segment = NodePath("RedSegment")
+green_segment = NodePath("GreenSegment")
+blue_segment = NodePath("BlueSegment")
 
 [node name="Center" type="Sprite2D" parent="."]
 texture = SubResource("4")

@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://c4xyhu0jrbv4f"]
 
-[ext_resource type="PackedScene" path="res://objects/lasers/laser_emitter.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://gsxbxdxg05i7" path="res://objects/lasers/laser_emitter.tscn" id="1"]
 [ext_resource type="Material" path="res://shaders/light_only_canvas_item.tres" id="2"]
 [ext_resource type="Script" path="res://scripts/mergable.gd" id="3"]
-[ext_resource type="PackedScene" path="res://objects/player.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cgla7xvrqq7wy" path="res://objects/player.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://bc3vxsludc7lq" path="res://objects/spectrum_merge_region.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://objects/lasers/laser_receiver.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://objects/mirror.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://b4eks38ui1ucu" path="res://objects/lasers/laser_receiver.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://3m5n5ogdfwma" path="res://objects/mirror.tscn" id="7"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(64, 64)
@@ -23,9 +23,6 @@ position = Vector2(754, 163)
 collision_layer = 2
 collision_mask = 8226
 script = ExtResource("3")
-__meta__ = {
-"_edit_group_": true
-}
 spectrum = 1
 
 [node name="Shape3D" type="Polygon2D" parent="RedDemoBlock"]
@@ -69,8 +66,8 @@ modulate = Color(0.780392, 0.305882, 0.32549, 1)
 position = Vector2(588, 398)
 collision_layer = 2
 collision_mask = 8226
-spectrum = 1
 is_on = true
+spectrum = 1
 
 [node name="LaserReceiver" parent="." instance=ExtResource("6")]
 modulate = Color(0.32549, 0.780392, 0.305882, 1)
