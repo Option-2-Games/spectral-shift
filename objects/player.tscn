@@ -10,9 +10,9 @@ size = Vector2(100, 100)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("red_region", "green_region", "blue_region")]
 collision_mask = 4113
 script = ExtResource("3")
-red_region = NodePath("")
-green_region = NodePath("")
-blue_region = NodePath("")
+red_region = NodePath("RedRegion")
+green_region = NodePath("GreenRegion")
+blue_region = NodePath("BlueRegion")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
