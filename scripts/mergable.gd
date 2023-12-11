@@ -5,8 +5,8 @@ extends CollisionObject2D
 ## Class definition for objects that can be merged into the base spectrums
 
 # === Properties ===
-@export var spectrum : set = _apply_spectrum
-@export var physics_object_type = 1 # (Constants.PhysicsObjectType)
+@export var spectrum: int : set = _apply_spectrum
+@export var physics_object_type: Constants.PhysicsObjectType = Constants.PhysicsObjectType.INTERACTABLE
 
 ## Keep track of the merged regions
 var _merged_regions: Array
@@ -25,7 +25,7 @@ func _ready() -> void:
 		spectrum = parent.spectrum
 
 	# Set light masks and material for children and copy spectrum if also mergable
-	for child in get_children():
+	for child: CanvasItem in get_children():
 		child.set_light_mask(1 << spectrum)
 		child.set_use_parent_material(true)
 
@@ -91,13 +91,6 @@ func exited_merge_region(region_spectrum: int) -> void:
 			set_collision_mask(
 				get_collision_mask() & ~(Constants.PhysicsObjectType.MOB << region_spectrum)
 			)
-
-
-## Override class name to return "Mergable"
-##
-## @returns: "Mergable" as class type
-func get_class() -> String:
-	return "Mergable"
 
 
 # === Private functions ===

@@ -1,4 +1,5 @@
 @tool
+class_name LaserReceiver
 extends Mergable
 
 # === Signals ===
@@ -9,7 +10,7 @@ extends Mergable
 signal receiver_active(state)
 
 # === Properties ===
-var incident_rays: Array
+var incident_rays: Array[LaserRay]
 
 # === Public Functions ===
 
