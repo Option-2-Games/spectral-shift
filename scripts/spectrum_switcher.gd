@@ -7,15 +7,9 @@ extends Node2D
 signal spectrum_switched(selection)
 
 # === Constants ===
-const SQ_DISTANCE_TO_SEGMENT = 4225
-const TWEEN_DURATION = 0.2
-const OFF_COLOR = Color("646464")
-
-# === Component Paths ===
-@export var path_selection_beam: NodePath
-@export var path_red_segment: NodePath
-@export var path_green_segment: NodePath
-@export var path_blue_segment: NodePath
+const SQ_DISTANCE_TO_SEGMENT := 4225
+const TWEEN_DURATION := 0.2
+const OFF_COLOR := Color("646464")
 
 # === Variables ===
 
@@ -23,19 +17,19 @@ const OFF_COLOR = Color("646464")
 var _switcher_is_open: bool
 
 ## The spectrum which is currently being selected by the player
-var _selecting_spectrum: int = Constants.Spectrum.BASE
+var _selecting_spectrum: Constants.Spectrum = Constants.Spectrum.BASE
 
 ## The spectrum which is selected in the switcher
 var _selected_spectrum: int
 
 # === Component Nodes===
-@onready var _selection_beam = get_node(path_selection_beam)
-@onready var _red_segment = get_node(path_red_segment)
-@onready var _green_segment = get_node(path_green_segment)
-@onready var _blue_segment = get_node(path_blue_segment)
+@export var selection_beam: Node2D
+@export var red_segment: Node2D
+@export var green_segment: Node2D
+@export var blue_segment: Node2D
 
 ## Color segments as an array (null offset for base)
-@onready var _segments = [null, _red_segment, _green_segment, _blue_segment]
+var _segments: Array[Node2D] = [null, red_segment, green_segment, blue_segment]
 
 # === System ===
 
@@ -136,7 +130,7 @@ func _create_cubic_tween() -> Tween:
 ## @param degrees: The degrees to rotate
 func _create_rotation_tween(degrees: float) -> PropertyTweener:
 	return _create_cubic_tween().tween_property(
-		_selection_beam, "rotation_degrees", degrees, TWEEN_DURATION
+		selection_beam, "rotation_degrees", degrees, TWEEN_DURATION
 	)
 
 
@@ -144,7 +138,7 @@ func _create_rotation_tween(degrees: float) -> PropertyTweener:
 ##
 ## Used with `_do_selecting_spectrum` to update switcher selection
 func _unhighlight_selecting() -> void:
-	var segment = _segments[_selecting_spectrum]
+	var segment: Node2D = _segments[_selecting_spectrum]
 	# Only applicable to colors
 	if not segment:
 		return
@@ -161,9 +155,9 @@ func _unhighlight_selecting() -> void:
 ## Does not confirm selection, only animates to show currently highlighted spectrum
 ##
 ## @param spectrum: The spectrum to highlight
-func _do_selecting_spectrum(spectrum: int) -> void:
-	var highlight_color = Constants.HIGHLIGHT_COLOR[spectrum]
-	var segment = _segments[spectrum]
+func _do_selecting_spectrum(spectrum: Constants.Spectrum) -> void:
+	var highlight_color: Color = Constants.HIGHLIGHT_COLOR[spectrum]
+	var segment: Node2D = _segments[spectrum]
 
 	# Highlight spectrum
 	if segment:
@@ -181,7 +175,7 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 		Constants.Spectrum.GREEN:
 			var _rot = _create_rotation_tween(180)
 		Constants.Spectrum.BLUE:
-			var current_rotation = _selection_beam.get_rotation_degrees()
+			var current_rotation = selection_beam.get_rotation_degrees()
 			var _rot = _create_rotation_tween(270).from(
 				(
 					current_rotation + 360
@@ -190,7 +184,7 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 				)
 			)
 		Constants.Spectrum.BASE:
-			var current_rotation = _selection_beam.get_rotation_degrees()
+			var current_rotation = selection_beam.get_rotation_degrees()
 			var _rot = _create_rotation_tween(0).from(
 				(
 					current_rotation - 360
@@ -201,7 +195,7 @@ func _do_selecting_spectrum(spectrum: int) -> void:
 
 	# Update colors of selection beam
 	var _beam = _create_cubic_tween().tween_property(
-		_selection_beam,
+		selection_beam,
 		"modulate",
 		OFF_COLOR if spectrum == Constants.Spectrum.BASE else highlight_color,
 		TWEEN_DURATION
