@@ -58,11 +58,8 @@ light_mask = 4
 use_parent_material = true
 polygon = PackedVector2Array(0, -32, -32, 32, 32, 32)
 
-[node name="Player" parent="." node_paths=PackedStringArray("red_region", "green_region", "blue_region") instance=ExtResource("4")]
+[node name="Player" parent="." instance=ExtResource("4")]
 position = Vector2(917, 670)
-red_region = NodePath("")
-green_region = NodePath("")
-blue_region = NodePath("")
 
 [node name="LaserEmitter" parent="." instance=ExtResource("1")]
 modulate = Color(0.780392, 0.305882, 0.32549, 1)
