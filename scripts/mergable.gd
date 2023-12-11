@@ -5,8 +5,10 @@ extends CollisionObject2D
 ## Class definition for objects that can be merged into the base spectrums
 
 # === Properties ===
-@export var spectrum: int : set = _apply_spectrum
-@export var physics_object_type: Constants.PhysicsObjectType = Constants.PhysicsObjectType.INTERACTABLE
+@export var spectrum: int:
+	set = _apply_spectrum
+@export
+var physics_object_type: Constants.PhysicsObjectType = Constants.PhysicsObjectType.INTERACTABLE
 
 ## Keep track of the merged regions
 var _merged_regions: Array

@@ -11,6 +11,12 @@ const SQ_DISTANCE_TO_SEGMENT := 4225
 const TWEEN_DURATION := 0.2
 const OFF_COLOR := Color("646464")
 
+# === Component Nodes===
+@export var selection_beam: Node2D
+@export var red_segment: Node2D
+@export var green_segment: Node2D
+@export var blue_segment: Node2D
+
 # === Variables ===
 
 ## Whether the switcher interface is open for use
@@ -21,12 +27,6 @@ var _selecting_spectrum: Constants.Spectrum = Constants.Spectrum.BASE
 
 ## The spectrum which is selected in the switcher
 var _selected_spectrum: int
-
-# === Component Nodes===
-@export var selection_beam: Node2D
-@export var red_segment: Node2D
-@export var green_segment: Node2D
-@export var blue_segment: Node2D
 
 ## Color segments as an array (null offset for base)
 var _segments: Array[Node2D] = [null, red_segment, green_segment, blue_segment]
@@ -100,8 +100,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			global_position = (event as InputEventMouseButton).position
 
 			# Open animation
-			var _open = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(
-				self, "scale", Vector2.ONE, 0.1
+			var _open = (
+				create_tween()
+				. set_trans(Tween.TRANS_BACK)
+				. set_ease(Tween.EASE_OUT)
+				. tween_property(self, "scale", Vector2.ONE, 0.1)
 			)
 
 		else:

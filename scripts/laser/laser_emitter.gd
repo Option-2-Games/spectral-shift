@@ -2,7 +2,8 @@
 extends Mergable
 
 # === Components and Properties ===
-@export var is_on: bool: set = enable_emitter
+@export var is_on: bool:
+	set = enable_emitter
 @export var ray_object: PackedScene
 
 # === Components ===

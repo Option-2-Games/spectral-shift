@@ -3,7 +3,8 @@ class_name MergeRegion
 extends Area2D
 
 # === Spectrum and Component Paths ===
-@export var spectrum: int : set = _apply_spectrum
+@export var spectrum: int:
+	set = _apply_spectrum
 @export var path_region: NodePath
 
 # === Components ===
