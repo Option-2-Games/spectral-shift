@@ -101,9 +101,9 @@ func delete() -> void:
 ## Handle enter object collision
 func _handle_enter_object_collision() -> void:
 	var collision_object: Node = get_collider()
-	if collision_object.has_method("receiver_hit"):
+	if collision_object is LaserReceiver:
 		# Is colliding with a laser receiver
-		collision_object.receiver_hit(self)
+		(collision_object as LaserReceiver).receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
 		print("Hit reflector: " + collision_object.name)
 		next_ray = duplicate(7)
@@ -120,9 +120,9 @@ func _handle_enter_object_collision() -> void:
 ## @modifies: _prev_colliding_object
 ## @effects: sets _prev_colliding_object to null
 func _handle_leave_object_collision() -> void:
-	if _prev_colliding_object.has_method("receiver_leave"):
+	if _prev_colliding_object is LaserReceiver:
 		# Un-collide with a laser receiver
-		_prev_colliding_object.receiver_leave(self)
+		(_prev_colliding_object as LaserReceiver).receiver_leave(self)
 	# Reset colliding object
 	_prev_colliding_object = null
 

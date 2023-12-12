@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4xyhu0jrbv4f"]
+[gd_scene load_steps=8 format=3 uid="uid://c4xyhu0jrbv4f"]
 
 [ext_resource type="PackedScene" uid="uid://gsxbxdxg05i7" path="res://objects/lasers/laser_emitter.tscn" id="1"]
-[ext_resource type="Material" path="res://shaders/light_only_canvas_item.tres" id="2"]
 [ext_resource type="Script" path="res://scripts/mergable.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://cgla7xvrqq7wy" path="res://objects/player.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://bc3vxsludc7lq" path="res://objects/spectrum_merge_region.tscn" id="5"]
@@ -17,7 +16,6 @@ size = Vector2(64, 64)
 visible = false
 modulate = Color(0.780392, 0.305882, 0.32549, 1)
 light_mask = 2
-material = ExtResource("2")
 use_parent_material = true
 position = Vector2(754, 163)
 collision_layer = 2
@@ -39,7 +37,6 @@ shape = SubResource("1")
 [node name="GreenDemoKinematic" type="CharacterBody2D" parent="." groups=["magic"]]
 modulate = Color(0.32549, 0.780392, 0.305882, 1)
 light_mask = 4
-material = ExtResource("2")
 use_parent_material = true
 position = Vector2(1049, 220)
 collision_layer = 4
@@ -96,7 +93,7 @@ spectrum = 3
 
 [node name="SpectrumMergeRegion" parent="." instance=ExtResource("5")]
 modulate = Color(0.32549, 0.780392, 0.305882, 1)
-position = Vector2(1410, 619)
+position = Vector2(1401, 628)
 collision_mask = 20565
 spectrum = 2
 

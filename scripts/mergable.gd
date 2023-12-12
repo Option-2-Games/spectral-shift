@@ -1,8 +1,7 @@
 @tool
 class_name Mergable
 extends CollisionObject2D
-
-## Class definition for objects that can be merged into the base spectrums
+## Definition for objects that can be merged into the base spectrums.
 
 # === Properties ===
 @export var spectrum: Constants.Spectrum:
@@ -10,21 +9,26 @@ extends CollisionObject2D
 @export
 var physics_object_type: Constants.PhysicsObjectType = Constants.PhysicsObjectType.INTERACTABLE
 
-## Keep track of the merged regions
-var _merged_regions: Array
+## Keep track of the merge regions object is in.
+var _in_merge_regions: Array
 
-# === System ===
+var _light_only_material: Material = preload("res://shaders/light_only_canvas_item.tres")
+
+# === Godot ===
 
 
 func _ready() -> void:
-	# Enable light-only material in game and not a child of mergable
-	if not Engine.is_editor_hint() and get_parent().get_class() != "Mergable":
-		set_use_parent_material(false)
+	# Disable light_only material in editor, but use it in game
+	if Engine.is_editor_hint():
+		set_material(null)
+	else:
+		set_material(_light_only_material)
 
-	# Grab parent spectrum if they're mergable
-	if get_parent().get_class() == "Mergable":
-		var parent = get_parent() as Mergable
-		spectrum = parent.spectrum
+	# Setup properties as child
+	if get_parent() is Mergable:
+		set_use_parent_material(true)
+
+		spectrum = (get_parent() as Mergable).spectrum
 
 	# Set light masks and material for children and copy spectrum if also mergable
 	for child: CanvasItem in get_children():
@@ -41,7 +45,7 @@ func _ready() -> void:
 ## @effects: enables the base collision layer and mask of the object's type
 func entered_merge_region(region_spectrum: int) -> void:
 	# Mark entered a merge region
-	_merged_regions.append(region_spectrum)
+	_in_merge_regions.append(region_spectrum)
 
 	# Enable collision layer (of the same type)
 	set_collision_layer(get_collision_layer() | physics_object_type << region_spectrum)
@@ -70,10 +74,10 @@ func entered_merge_region(region_spectrum: int) -> void:
 ## @effects: removes the base collision layer once all regions are exited
 func exited_merge_region(region_spectrum: int) -> void:
 	# Mark exited a merge region
-	_merged_regions.erase(region_spectrum)
+	_in_merge_regions.erase(region_spectrum)
 
 	# Remove spectrum if there are no more merges
-	if not region_spectrum in _merged_regions:
+	if not region_spectrum in _in_merge_regions:
 		# Disable collision layer
 		set_collision_layer(get_collision_layer() & ~(physics_object_type << region_spectrum))
 

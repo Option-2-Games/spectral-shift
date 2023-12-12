@@ -67,8 +67,8 @@ func _apply_spectrum(new_spectrum: Constants.Spectrum) -> void:
 ## Calls the object's `entered_merge_region`
 ## @param object: object that entered
 func _handle_entered(object: Node) -> void:
-	if object.has_method("entered_merge_region"):
-		object.entered_merge_region(spectrum)
+	if object is Mergable:
+		(object as Mergable).entered_merge_region(spectrum)
 
 
 ## Handle objects exiting region
@@ -76,8 +76,8 @@ func _handle_entered(object: Node) -> void:
 ## Calls the object's exited_merge_region
 ## @param object: object that exited
 func _handle_exited(object: Node) -> void:
-	if object.has_method("exited_merge_region"):
-		object.exited_merge_region(spectrum)
+	if object is Mergable:
+		(object as Mergable).exited_merge_region(spectrum)
 
 
 # === Signal Handlers ===

@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://3m5n5ogdfwma"]
+[gd_scene load_steps=4 format=3 uid="uid://3m5n5ogdfwma"]
 
 [ext_resource type="Script" path="res://scripts/mergable.gd" id="1"]
-[ext_resource type="Material" path="res://shaders/light_only_canvas_item.tres" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(100, 100)
@@ -11,8 +10,6 @@ a = Vector2(-100, 100)
 b = Vector2(100, -100)
 
 [node name="Mirror" type="RigidBody2D"]
-material = ExtResource("2")
-use_parent_material = true
 collision_layer = 4096
 collision_mask = 4113
 script = ExtResource("1")
