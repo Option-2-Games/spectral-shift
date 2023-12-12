@@ -30,7 +30,7 @@ jobs:
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.x'
         cache: 'pip'
 
     - name: 📦 Install dependencies
@@ -38,9 +38,6 @@ jobs:
 
     - name: 🧼 Format code
       run: gdformat scripts/ tests/
-
-    - name: 🧼 Format Markdown
-      run: mdformat .
 
     - name: ✅ Commit code format changes
       if: github.event.pull_request.user.login != 'dependabot[bot]'
