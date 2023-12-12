@@ -1,1 +1,2 @@
 gdtoolkit==4.2.2
+setuptools==69.0.2
