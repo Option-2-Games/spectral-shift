@@ -9,7 +9,7 @@ extends RayCast2D
 
 #region Properties
 var next_ray: LaserRay
-var spectrum: int
+var spectrum: Constants.Spectrum
 var _prev_colliding_object: Node = null
 #endregion
 

@@ -16,6 +16,11 @@ enum Spectrum { BASE = 0, RED = 1, GREEN = 2, BLUE = 3 }
 ## GLASS - objects that ignore raycasts
 enum PhysicsObjectType { INTERACTABLE = 1, MOB = 16, GLASS = 4096 }
 
+## Base physics layer bit mask
+const BASE_SPECTRUM_MASK: int = (
+	PhysicsObjectType.INTERACTABLE | PhysicsObjectType.MOB | PhysicsObjectType.GLASS
+)
+
 ## Standard spectrum color pallet
 const STANDARD_COLOR: Array[Color] = [
 	Color.WHITE, Color("c74e53"), Color("53c74e"), Color("4e53c7")

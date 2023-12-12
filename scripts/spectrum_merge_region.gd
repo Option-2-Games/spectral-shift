@@ -50,12 +50,7 @@ func _apply_spectrum(new_spectrum: Constants.Spectrum) -> void:
 	spectrum = new_spectrum
 
 	# Set collision masks and modulate border
-	var base_mask: int = (
-		Constants.PhysicsObjectType.INTERACTABLE
-		| Constants.PhysicsObjectType.GLASS
-		| Constants.PhysicsObjectType.MOB
-	)
-	set_collision_mask(base_mask | base_mask << spectrum)
+	set_collision_mask(Constants.BASE_SPECTRUM_MASK | Constants.BASE_SPECTRUM_MASK << spectrum)
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
 	if region:
