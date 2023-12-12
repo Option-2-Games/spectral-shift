@@ -1,37 +1,47 @@
+@tool
 class_name LaserRay
 extends RayCast2D
 
 ## Handler for a ray in a laser
 
-# === Component Paths ===
-export(NodePath) var path_beam
-
-# === Components and properties ===
+# === Properties ===
 var next_ray: LaserRay
-var spectrum: int
-var _prev_colliding_object = null
+var spectrum: Constants.Spectrum
+var _prev_colliding_object: Node = null
 
-# === Component Nodes ===
-onready var _beam = get_node(path_beam) as Line2D
+var _light_only_material: Material = preload("res://shaders/light_only_canvas_item.tres")
 
-# === System ===
+# === Nodes ===
+@onready var beam: Line2D = $Beam
+
+# === Godot ===
 
 
 ## Initialize a ray in a laser
 ##
 ## Sets the color and layer masks based on the spectrum
 func _ready() -> void:
-	# Set color
+	# Disable light_only material in editor, but use it in game.
+	if Engine.is_editor_hint():
+		set_material(null)
+	else:
+		set_material(_light_only_material)
+
+	# Set color.
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
-	var spectrum_mask = Constants.PhysicsObjectType.INTERACTABLE << spectrum
-	var mob_mask = Constants.PhysicsObjectType.MOB << spectrum
+	# Reset beam extent.
+	beam.set_point_position(1, Vector2.ZERO)
+
+	# Set masks.
+	var spectrum_mask: int = Constants.PhysicsObjectType.INTERACTABLE << spectrum
+	var mob_mask: int = Constants.PhysicsObjectType.MOB << spectrum
 
 	# Set collision mask
 	set_collision_mask(spectrum_mask | mob_mask)
 
 	# Set beam light mask
-	_beam.set_light_mask(spectrum_mask)
+	beam.set_light_mask(spectrum_mask)
 
 
 ## Update laser position and next rays based on cast
@@ -41,7 +51,7 @@ func _ready() -> void:
 func _physics_process(_delta) -> void:
 	if is_colliding():
 		# Update beam extent to the collision point
-		_beam.set_point_position(1, to_local(get_collision_point()))
+		beam.set_point_position(1, to_local(get_collision_point()))
 
 		# Update next ray transform
 		if next_ray:
@@ -60,7 +70,7 @@ func _physics_process(_delta) -> void:
 		_prev_colliding_object = get_collider()
 	else:
 		# Extend beam to the full extent of the ray
-		_beam.set_point_position(1, get_cast_to())
+		beam.set_point_position(1, get_target_position())
 
 		# Remove next ray
 		if next_ray:
@@ -99,13 +109,15 @@ func delete() -> void:
 
 ## Handle enter object collision
 func _handle_enter_object_collision() -> void:
-	var collision_object = get_collider()
-	if collision_object.has_method("receiver_hit"):
-		# Is colliding with a laser receiver
-		collision_object.receiver_hit(self)
+	var collision_object: Node = get_collider()
+	if collision_object is LaserReceiver:
+		# Is colliding with a laser receiver? Collide with it.
+		(collision_object as LaserReceiver).receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
-		print("Hit reflector: " + collision_object.name)
+		# Is colliding with a mirror? Create next ray.
 		next_ray = duplicate(7)
+
+		# Copy over spectrum and reset the beam extent.
 		next_ray.spectrum = spectrum
 
 		_update_next_ray_transform()
@@ -119,16 +131,16 @@ func _handle_enter_object_collision() -> void:
 ## @modifies: _prev_colliding_object
 ## @effects: sets _prev_colliding_object to null
 func _handle_leave_object_collision() -> void:
-	if _prev_colliding_object.has_method("receiver_leave"):
+	if _prev_colliding_object is LaserReceiver:
 		# Un-collide with a laser receiver
-		_prev_colliding_object.receiver_leave(self)
+		(_prev_colliding_object as LaserReceiver).receiver_leave(self)
 	# Reset colliding object
 	_prev_colliding_object = null
 
 
 func _update_next_ray_transform() -> void:
-	var incident_vector = Vector2(1, 0).rotated(get_rotation())
-	var reflected_vector = incident_vector.bounce(get_collision_normal())
+	var incident_vector := Vector2(1, 0).rotated(get_rotation())
+	var reflected_vector := incident_vector.bounce(get_collision_normal())
 	next_ray.set_global_transform(
 		Transform2D(reflected_vector.angle(), get_collision_point() + reflected_vector * 5)
 	)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4eks38ui1ucu"]
+
+[ext_resource type="Texture2D" uid="uid://jweaw2pllh3b" path="res://assets/laser/receiver.webp" id="1"]
+[ext_resource type="Script" path="res://scripts/laser/laser_receiver.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(42, 100)
+
+[node name="LaserReceiver" type="StaticBody2D"]
+collision_mask = 4113
+script = ExtResource("2")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+use_parent_material = true
+position = Vector2(21, 0)
+shape = SubResource("1")
+
+[node name="Shape3D" type="Sprite2D" parent="."]
+show_behind_parent = true
+use_parent_material = true
+texture = ExtResource("1")
+offset = Vector2(50, 0)

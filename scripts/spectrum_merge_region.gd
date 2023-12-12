@@ -1,22 +1,20 @@
-tool
+@tool
 class_name MergeRegion
 extends Area2D
 
 # === Spectrum and Component Paths ===
-export(Constants.Spectrum) var spectrum setget _apply_spectrum
-export(NodePath) var path_region
-
-# === Components ===
-onready var region = get_node(path_region) as Light2D
+@export var spectrum: Constants.Spectrum:
+	set = _apply_spectrum
+@export var region: PointLight2D
 
 # === System ===
 
 
 func _ready() -> void:
 	# Spin animation (only in-game)
-	if not Engine.editor_hint:
+	if not Engine.is_editor_hint():
 		var spin_direction = 1 if randi() % 2 == 0 else -1
-		var spin = create_tween().set_loops()
+		var spin = get_tree().create_tween().set_loops()
 		spin.tween_property(self, "rotation_degrees", spin_direction * 360, 3).from(0.0)
 
 	# Apply spectrum after nodes load
@@ -28,14 +26,14 @@ func _ready() -> void:
 
 ## Open this region
 func open() -> void:
-	var open = create_tween().set_trans(Tween.TRANS_BACK)
-	open.tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT)
+	var open_tween: Tween = create_tween().set_trans(Tween.TRANS_BACK)
+	open_tween.tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT)
 
 
 ## Close this region
 func close() -> void:
-	var close = create_tween().set_trans(Tween.TRANS_CUBIC)
-	close.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
+	var close_tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
+	close_tween.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
 
 
 # === Private Functions ===
@@ -46,16 +44,11 @@ func close() -> void:
 ## @param new_spectrum: Selected spectrum
 ## @modifies: spectrum
 ## @effects: Updates spectrum based on input
-func _apply_spectrum(new_spectrum: int) -> void:
+func _apply_spectrum(new_spectrum: Constants.Spectrum) -> void:
 	spectrum = new_spectrum
 
 	# Set collision masks and modulate border
-	var base_mask = (
-		Constants.PhysicsObjectType.INTERACTABLE
-		| Constants.PhysicsObjectType.GLASS
-		| Constants.PhysicsObjectType.MOB
-	)
-	set_collision_mask(base_mask | base_mask << spectrum)
+	set_collision_mask(Constants.BASE_SPECTRUM_MASK | Constants.BASE_SPECTRUM_MASK << spectrum)
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
 	if region:
@@ -66,18 +59,18 @@ func _apply_spectrum(new_spectrum: int) -> void:
 ##
 ## Calls the object's `entered_merge_region`
 ## @param object: object that entered
-func _handle_entered(object) -> void:
-	if object.has_method("entered_merge_region"):
-		object.entered_merge_region(spectrum)
+func _handle_entered(object: Node) -> void:
+	if object is Mergable:
+		(object as Mergable).entered_merge_region(spectrum)
 
 
 ## Handle objects exiting region
 ##
 ## Calls the object's exited_merge_region
 ## @param object: object that exited
-func _handle_exited(object) -> void:
-	if object.has_method("exited_merge_region"):
-		object.exited_merge_region(spectrum)
+func _handle_exited(object: Node) -> void:
+	if object is Mergable:
+		(object as Mergable).exited_merge_region(spectrum)
 
 
 # === Signal Handlers ===

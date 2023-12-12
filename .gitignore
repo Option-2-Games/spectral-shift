@@ -1,10 +1,14 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,godot,macos,linux,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,godot,macos,linux,windows
+# Created by https://www.toptal.com/developers/gitignore/api/macos,linux,windows,godot,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,windows,godot,visualstudiocode
 
 ### Godot ###
+# Godot 4+ specific ignores
+.godot/
+
 # Godot-specific ignores
 .import/
 export.cfg
+export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
@@ -12,6 +16,7 @@ export.cfg
 # Mono-specific ignores
 .mono/
 data_*/
+mono_crash.*.json
 
 ### Linux ###
 *~
@@ -80,12 +85,6 @@ Temporary Items
 .history
 .ionide
 
-# Support for Project snippet scope
-.vscode/*.code-snippets
-
-# Ignore code-workspaces
-*.code-workspace
-
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -112,7 +111,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,godot,macos,linux,windows
+# End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,godot,visualstudiocode
 
 # Assets and addons
 assets/

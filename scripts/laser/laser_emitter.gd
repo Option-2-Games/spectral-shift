@@ -1,9 +1,10 @@
-tool
+@tool
 extends Mergable
 
 # === Components and Properties ===
-export(bool) var is_on setget enable_emitter
-export(PackedScene) var ray_object
+@export var is_on: bool:
+	set = enable_emitter
+@export var ray_object: PackedScene
 
 # === Components ===
 var ray: LaserRay
@@ -38,7 +39,7 @@ func _notification(what: int) -> void:
 ## @effects: creates the initial ray object
 func _create_ray() -> void:
 	# Create a laser ray
-	ray = ray_object.instance()
+	ray = ray_object.instantiate()
 
 	# Set ray spectrum and transform (to emitter head)
 	ray.spectrum = spectrum
@@ -67,7 +68,7 @@ func enable_emitter(new_state: bool) -> void:
 	is_on = new_state
 
 	# Shortcut exit if not in play mode
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 	# Create or destroy ray

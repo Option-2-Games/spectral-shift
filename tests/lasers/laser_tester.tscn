@@ -1,116 +1,110 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://c4xyhu0jrbv4f"]
 
-[ext_resource path="res://objects/lasers/laser_emitter.tscn" type="PackedScene" id=1]
-[ext_resource path="res://shaders/light_only_canvas_item.tres" type="Material" id=2]
-[ext_resource path="res://scripts/mergable.gd" type="Script" id=3]
-[ext_resource path="res://objects/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/spectrum_merge_region.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/lasers/laser_receiver.tscn" type="PackedScene" id=6]
-[ext_resource path="res://objects/mirror.tscn" type="PackedScene" id=7]
+[ext_resource type="PackedScene" uid="uid://gsxbxdxg05i7" path="res://objects/laser/laser_emitter.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/mergable.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://cgla7xvrqq7wy" path="res://objects/player.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bc3vxsludc7lq" path="res://objects/spectrum_merge_region.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://b4eks38ui1ucu" path="res://objects/laser/laser_receiver.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://3m5n5ogdfwma" path="res://objects/mirror.tscn" id="7"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(64, 64)
 
 [node name="LaserTester" type="Node2D"]
 
 [node name="RedDemoBlock" type="Area2D" parent="." groups=["block"]]
 visible = false
-modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
+modulate = Color(0.780392, 0.305882, 0.32549, 1)
 light_mask = 2
-material = ExtResource( 2 )
 use_parent_material = true
-position = Vector2( 754, 163 )
+position = Vector2(754, 163)
 collision_layer = 2
 collision_mask = 8226
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
+script = ExtResource("3")
 spectrum = 1
 
-[node name="Shape" type="Polygon2D" parent="RedDemoBlock"]
+[node name="Shape3D" type="Polygon2D" parent="RedDemoBlock"]
 light_mask = 2
 use_parent_material = true
 antialiased = true
-polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedDemoBlock"]
 light_mask = 2
 use_parent_material = true
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="GreenDemoKinematic" type="KinematicBody2D" parent="." groups=["magic"]]
-modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
+[node name="GreenDemoKinematic" type="CharacterBody2D" parent="." groups=["magic"]]
+modulate = Color(0.32549, 0.780392, 0.305882, 1)
 light_mask = 4
-material = ExtResource( 2 )
 use_parent_material = true
-position = Vector2( 1049, 220 )
+position = Vector2(1049, 220)
 collision_layer = 4
 collision_mask = 16452
-script = ExtResource( 3 )
+script = ExtResource("3")
 spectrum = 2
 
-[node name="Shape" type="Polygon2D" parent="GreenDemoKinematic"]
+[node name="Shape3D" type="Polygon2D" parent="GreenDemoKinematic"]
 light_mask = 4
 use_parent_material = true
 antialiased = true
-polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
+polygon = PackedVector2Array(0, -32, -32, 32, 32, 32)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GreenDemoKinematic"]
 light_mask = 4
 use_parent_material = true
-polygon = PoolVector2Array( 0, -32, -32, 32, 32, 32 )
+polygon = PackedVector2Array(0, -32, -32, 32, 32, 32)
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 917, 670 )
+[node name="Player" parent="." instance=ExtResource("4")]
+position = Vector2(917, 670)
 
-[node name="LaserEmitter" parent="." instance=ExtResource( 1 )]
-modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 588, 398 )
+[node name="LaserEmitter" parent="." instance=ExtResource("1")]
+modulate = Color(0.780392, 0.305882, 0.32549, 1)
+position = Vector2(588, 398)
 collision_layer = 2
 collision_mask = 8226
-spectrum = 1
 is_on = true
+spectrum = 1
 
-[node name="LaserReceiver" parent="." instance=ExtResource( 6 )]
-modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1237, 401 )
+[node name="LaserReceiver" parent="." instance=ExtResource("6")]
+modulate = Color(0.32549, 0.780392, 0.305882, 1)
+position = Vector2(1237, 401)
 rotation = 3.14159
 collision_layer = 4
 collision_mask = 16452
 spectrum = 2
 
-[node name="Mirror" parent="." instance=ExtResource( 7 )]
-modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1075, 405 )
+[node name="Mirror" parent="." instance=ExtResource("7")]
+modulate = Color(0.32549, 0.780392, 0.305882, 1)
+position = Vector2(1075, 405)
 collision_layer = 16384
 collision_mask = 16452
 gravity_scale = 0.0
 spectrum = 2
 
-[node name="Mirror2" parent="." instance=ExtResource( 7 )]
-modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
-position = Vector2( 1079, 51 )
+[node name="Mirror2" parent="." instance=ExtResource("7")]
+modulate = Color(0.305882, 0.32549, 0.780392, 1)
+position = Vector2(1079, 130.61)
 rotation = 0.411898
 collision_layer = 32768
 collision_mask = 32904
 gravity_scale = 0.0
 spectrum = 3
 
-[node name="SpectrumMergeRegion" parent="." instance=ExtResource( 5 )]
-modulate = Color( 0.32549, 0.780392, 0.305882, 1 )
-position = Vector2( 1410, 619 )
+[node name="SpectrumMergeRegion" parent="." instance=ExtResource("5")]
+modulate = Color(0.32549, 0.780392, 0.305882, 1)
+position = Vector2(1401, 628)
 collision_mask = 20565
 spectrum = 2
 
-[node name="SpectrumMergeRegion2" parent="." instance=ExtResource( 5 )]
-modulate = Color( 0.305882, 0.32549, 0.780392, 1 )
-position = Vector2( 1420, -132 )
+[node name="SpectrumMergeRegion2" parent="." instance=ExtResource("5")]
+modulate = Color(0.305882, 0.32549, 0.780392, 1)
+position = Vector2(1420, -132)
 collision_mask = 37017
 spectrum = 3
 
-[node name="SpectrumMergeRegion3" parent="." instance=ExtResource( 5 )]
-modulate = Color( 0.780392, 0.305882, 0.32549, 1 )
-position = Vector2( 1231, -228 )
+[node name="SpectrumMergeRegion3" parent="." instance=ExtResource("5")]
+modulate = Color(0.780392, 0.305882, 0.32549, 1)
+position = Vector2(1236, -198)
 collision_mask = 12339
 spectrum = 1
