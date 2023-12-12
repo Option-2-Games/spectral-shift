@@ -26,14 +26,12 @@ func _ready() -> void:
 
 ## Open this region
 func open() -> void:
-	print("Open")
 	var open_tween: Tween = create_tween().set_trans(Tween.TRANS_BACK)
 	open_tween.tween_property(self, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT)
 
 
 ## Close this region
 func close() -> void:
-	print("Close")
 	var close_tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	close_tween.tween_property(self, "scale", Vector2.ZERO, 0.1).set_ease(Tween.EASE_IN)
 

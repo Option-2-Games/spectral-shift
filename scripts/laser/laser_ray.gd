@@ -1,25 +1,32 @@
+@tool
 class_name LaserRay
 extends RayCast2D
 
 ## Handler for a ray in a laser
 
-#region Nodes
-@export var beam: Line2D
-#endregion
-
-#region Properties
+# === Properties ===
 var next_ray: LaserRay
 var spectrum: Constants.Spectrum
 var _prev_colliding_object: Node = null
-#endregion
 
-#region Godot
+var _light_only_material: Material = preload("res://shaders/light_only_canvas_item.tres")
+
+# === Nodes ===
+@onready var beam: Line2D = $Beam
+
+# === Godot ===
 
 
 ## Initialize a ray in a laser
 ##
 ## Sets the color and layer masks based on the spectrum
 func _ready() -> void:
+	# Disable light_only material in editor, but use it in game
+	if Engine.is_editor_hint():
+		set_material(null)
+	else:
+		set_material(_light_only_material)
+
 	# Set color
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
@@ -74,8 +81,6 @@ func _physics_process(_delta) -> void:
 		_handle_leave_object_collision()
 
 
-#endregion
-
 # === Public Functions ===
 
 
@@ -105,7 +110,6 @@ func _handle_enter_object_collision() -> void:
 		# Is colliding with a laser receiver
 		(collision_object as LaserReceiver).receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
-		print("Hit reflector: " + collision_object.name)
 		next_ray = duplicate(7)
 		next_ray.spectrum = spectrum
 

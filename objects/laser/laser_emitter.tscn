@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://gsxbxdxg05i7"]
 
 [ext_resource type="Texture2D" uid="uid://cfg25djsh1m3h" path="res://assets/laser/laser.webp" id="1"]
-[ext_resource type="PackedScene" uid="uid://crroxg17rip0j" path="res://objects/lasers/laser_ray.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://crroxg17rip0j" path="res://objects/laser/laser_ray.tscn" id="2"]
 [ext_resource type="Script" path="res://scripts/laser/laser_emitter.gd" id="3"]
 
 [node name="LaserEmitter" type="StaticBody2D"]

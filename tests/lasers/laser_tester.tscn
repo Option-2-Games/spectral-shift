@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://c4xyhu0jrbv4f"]
 
-[ext_resource type="PackedScene" uid="uid://gsxbxdxg05i7" path="res://objects/lasers/laser_emitter.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://gsxbxdxg05i7" path="res://objects/laser/laser_emitter.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/mergable.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://cgla7xvrqq7wy" path="res://objects/player.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://bc3vxsludc7lq" path="res://objects/spectrum_merge_region.tscn" id="5"]
-[ext_resource type="PackedScene" uid="uid://b4eks38ui1ucu" path="res://objects/lasers/laser_receiver.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://b4eks38ui1ucu" path="res://objects/laser/laser_receiver.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://3m5n5ogdfwma" path="res://objects/mirror.tscn" id="7"]
 
 [sub_resource type="RectangleShape2D" id="1"]

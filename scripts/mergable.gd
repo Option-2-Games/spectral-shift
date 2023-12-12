@@ -44,7 +44,6 @@ func _ready() -> void:
 ## @modifies: collision layer and masks
 ## @effects: enables the base collision layer and mask of the object's type
 func entered_merge_region(region_spectrum: int) -> void:
-	print(str(name) + " entered region " + str(region_spectrum))
 	# Mark entered a merge region
 	_in_merge_regions.append(region_spectrum)
 
@@ -105,7 +104,7 @@ func exited_merge_region(region_spectrum: int) -> void:
 			set_collision_mask(
 				get_collision_mask() & ~(Constants.PhysicsObjectType.MOB << region_spectrum)
 			)
-	
+
 	# Remove base spectrum if there are no more merges
 	if _in_merge_regions.is_empty():
 		# Disable base layer
