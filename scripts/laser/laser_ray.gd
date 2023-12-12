@@ -21,15 +21,19 @@ var _light_only_material: Material = preload("res://shaders/light_only_canvas_it
 ##
 ## Sets the color and layer masks based on the spectrum
 func _ready() -> void:
-	# Disable light_only material in editor, but use it in game
+	# Disable light_only material in editor, but use it in game.
 	if Engine.is_editor_hint():
 		set_material(null)
 	else:
 		set_material(_light_only_material)
 
-	# Set color
+	# Set color.
 	set_modulate(Constants.STANDARD_COLOR[spectrum])
 
+	# Reset beam extent.
+	beam.set_point_position(1, Vector2.ZERO)
+
+	# Set masks.
 	var spectrum_mask: int = Constants.PhysicsObjectType.INTERACTABLE << spectrum
 	var mob_mask: int = Constants.PhysicsObjectType.MOB << spectrum
 
@@ -107,10 +111,13 @@ func delete() -> void:
 func _handle_enter_object_collision() -> void:
 	var collision_object: Node = get_collider()
 	if collision_object is LaserReceiver:
-		# Is colliding with a laser receiver
+		# Is colliding with a laser receiver? Collide with it.
 		(collision_object as LaserReceiver).receiver_hit(self)
 	if collision_object.is_in_group("mirror_reflector"):
+		# Is colliding with a mirror? Create next ray.
 		next_ray = duplicate(7)
+
+		# Copy over spectrum and reset the beam extent.
 		next_ray.spectrum = spectrum
 
 		_update_next_ray_transform()
