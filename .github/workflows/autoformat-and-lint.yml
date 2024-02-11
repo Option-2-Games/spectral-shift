@@ -25,12 +25,12 @@ jobs:
 
     - name: 🛎🤖 Bot Checkout
       if: github.event.pull_request.user.login == 'dependabot[bot]'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: ${{ github.head_ref }}
 
     - name: 🐍 Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
         cache: 'pip'
