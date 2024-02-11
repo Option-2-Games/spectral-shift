@@ -2,7 +2,7 @@
 
 # Spectral Shift
 
-[![Test](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml)
+<!-- [![Test](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/test.yml) -->
 [![Dependency Review](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/Option-2-Games/Spectral-Shift/actions/workflows/dependency-review.yml)
 [![Autoformat and Lint](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml/badge.svg)](https://github.com/Option-2-Games/spectral-shift/actions/workflows/autoformat-and-lint.yml)
 
