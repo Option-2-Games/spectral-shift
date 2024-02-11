@@ -12,40 +12,35 @@ jobs:
 
   autoformat-and-lint:
     name: Autoformat and Lint
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-
-    - name: 🛎 Checkout
-      if: github.event.pull_request.user.login != 'dependabot[bot]'
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ github.head_ref }}
-        token: ${{ secrets.WORKFLOW_COMMIT }}
-
-    - name: 🛎🤖 Bot Checkout
-      if: github.event.pull_request.user.login == 'dependabot[bot]'
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ github.head_ref }}
-
-    - name: 🐍 Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-        cache: 'pip'
-
-    - name: 📦 Install dependencies
-      run: pip install -r .github/requirements.txt
-
-    - name: 🧼 Format code
-      run: gdformat scripts/ tests/
-
-    - name: ✅ Commit code format changes
-      if: github.event.pull_request.user.login != 'dependabot[bot]'
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "Autoformat scripts"
-
-    - name: 🧹 Lint code
-      run: gdlint scripts/ tests/
+      - name: 🛎 Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.WORKFLOW_COMMIT }}
+  
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+  
+      - name: 📦 Install dependencies
+        run: pip install -r .github/requirements.txt
+  
+      - name: 🧼 Format code
+        run: gdformat scripts/ tests/
+  
+      - name: ✅ Commit code format changes
+        if: github.ref != 'refs/heads/main'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Autoformat scripts"
+  
+      - name: 🧹 Lint code
+        run: gdlint scripts/ tests/
